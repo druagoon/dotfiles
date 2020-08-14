@@ -1,0 +1,178 @@
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git git-prompt)
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# the fuck
+# eval "$(thefuck --alias)"
+
+# Common
+unset MAILCHECK
+
+ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
+
+export LC_ALL=en_US.UTF-8
+export EDITOR="vim"
+export PATH=$HOME/local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
+
+# CURL
+CURL_FORMAT=$ZSH_CUSTOM_ETC/curl-format.txt
+CURL_UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
+CURL_MUA="Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Mobile/15A432 mmbang NetType/WIFI"
+alias fcurl="curl -i -w \"@$CURL_FORMAT\""
+alias fmcurl="curl -i -A \"$CURL_MUA\" -w \"@$CURL_FORMAT\""
+
+# Proxy
+PROXY_HTTP="127.0.0.1:7890"
+PROXY_HTTPS="$PROXY_HTTP"
+PROXY_SOCKS5="$PROXY_HTTP"
+PROXY_X_HTTP="http://$PROXY_HTTP"
+PROXY_X_HTTPS="http://$PROXY_HTTPS"
+PROXY_X_SOCKS5="socks5://$PROXY_SOCKS5"
+PROXY_X_SOCKS5H="socks5h://$PROXY_SOCKS5"
+
+# ClashX
+alias enproxy="export http_proxy=$PROXY_X_HTTP;export https_proxy=$PROXY_X_HTTPS;export all_proxy=$PROXY_X_SOCKS5H"
+alias disproxy="unset http_proxy https_proxy all_proxy"
+alias pproxy="echo http_proxy: \$http_proxy https_proxy: \$https_proxy all_proxy: \$all_proxy"
+
+# Zsh
+alias zshrl="source ~/.zshrc"
+
+# Homebrew
+alias bs="brew search"
+alias bi="brew info"
+alias bci="brew cask info"
+alias bcl="brew cask list"
+alias bcrs="brew cask reinstall"
+alias bcog="brew cask outdated --greedy"
+
+# Git
+alias gmfo="git merge --ff-only"
+
+# SVN
+alias svn-dxi="svn diff -x --ignore-eol-style"
+
+# Golang
+# export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/.go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.io,direct
+export PATH=$GOPATH/bin:$PATH
+
+function gopractice {
+	base=$(echo $1|cut -d "." -f1)
+	dir="$HOME/Code/Local/practice/go-practice/$base"
+	file="$dir/$base.go"
+	if [ ! -d "$dir" ]; then
+		mkdir "$dir"
+	fi
+	touch "$file" && cd "$dir" && code "$file"
+}
+
+# Conda
+CONDA_HOME=/opt/miniconda3
+CONDA_ENV=$HOME/.conda/envs
+export PATH=$CONDA_HOME/bin:$PATH
+
+function setconda() {
+	export PATH=$CONDA_ENV/$1/bin:$PATH
+}
+
+# Java
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+
+function setjdk() {
+    export JAVA_HOME=`/usr/libexec/java_home -v $@`
+}
+setjdk 1.8
+
+# MySQL
+export PATH=/usr/local/opt/mysql@5.7/bin:$PATH
+# export MYSQL_PS1="[\u@\h:\p] (\d)[\c] \R:\m:\s \n> "
+export MYSQL_PS1="[\R:\m:\s] (\u@\h:\p) [\d]#\c\n> "
+
+# ffprobe
+alias jffprobe="ffprobe -v quiet -print_format json -show_streams"
+
+# annie
+alias pannie="annie -s $PROXY_SOCKS5"
+
+# Shell Prompt
+ZSH_CUSTOM_VENV=${ZSH_CUSTOM}/venv
+NEWLINE=$'\n'
+# IPADDRS=`/sbin/ifconfig|grep -v "127.0.0.1"|grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){print "$interf = $face{$interf}  " if ($interf !~ /^lo$/)}'`
+IPADDRS=`${ZSH_CUSTOM_VENV}/bin/python ${ZSH_CUSTOM}/bin/shell-ip-prompt.py`
+
+# PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+# PROMPT='${ret_status}%{$fg_bold[yellow]%}%p ${IPADDRS} ${NEWLINE}${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%} ${NEWLINE}${ret_status} %{$reset_color%}'
