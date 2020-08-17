@@ -119,6 +119,7 @@ alias bcog="brew cask outdated --greedy"
 
 # Git
 alias gmfo="git merge --ff-only"
+alias gdni="git diff --no-index"
 
 # SVN
 alias svn-dxi="svn diff -x --ignore-eol-style"
@@ -141,13 +142,15 @@ function gopractice {
 }
 
 # Conda
-CONDA_HOME=/opt/miniconda3
 CONDA_ENV=$HOME/.conda/envs
-export PATH=$CONDA_HOME/bin:$PATH
+CONDA_MACOS=$HOME/.conda/envs/macOS
 
 function setconda() {
-	export PATH=$CONDA_ENV/$1/bin:$PATH
+	if [ -d "$1" ]; then
+		export PATH=$CONDA_ENV/$1/bin:$PATH
+	fi
 }
+setconda macOS
 
 # Java
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
@@ -169,10 +172,9 @@ alias jffprobe="ffprobe -v quiet -print_format json -show_streams"
 alias pannie="annie -s $PROXY_SOCKS5"
 
 # Shell Prompt
-ZSH_CUSTOM_VENV=${ZSH_CUSTOM}/venv
 NEWLINE=$'\n'
 # IPADDRS=`/sbin/ifconfig|grep -v "127.0.0.1"|grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){print "$interf = $face{$interf}  " if ($interf !~ /^lo$/)}'`
-IPADDRS=`${ZSH_CUSTOM_VENV}/bin/python ${ZSH_CUSTOM}/bin/shell-ip-prompt.py`
+IPADDRS=`${CONDA_MACOS}/bin/python ${ZSH_CUSTOM}/bin/shell-ip-prompt.py`
 
 # PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
 # PROMPT='${ret_status}%{$fg_bold[yellow]%}%p ${IPADDRS} ${NEWLINE}${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%} ${NEWLINE}${ret_status} %{$reset_color%}'
