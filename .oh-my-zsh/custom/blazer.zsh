@@ -146,7 +146,7 @@ CONDA_ENV=$HOME/.conda/envs
 CONDA_MACOS=$HOME/.conda/envs/macOS
 
 function setconda() {
-	if [ -d "$1" ]; then
+	if [ -d "$CONDA_ENV/$1" ]; then
 		export PATH=$CONDA_ENV/$1/bin:$PATH
 	fi
 }
@@ -156,7 +156,7 @@ setconda macOS
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 function setjdk() {
-    export JAVA_HOME=`/usr/libexec/java_home -v $@`
+	export JAVA_HOME=`/usr/libexec/java_home -v $@`
 }
 setjdk 1.8
 
