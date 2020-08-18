@@ -85,6 +85,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ -x direnv ]; then
+if [ -x `which direnv` ]; then
 	eval "$(direnv hook zsh)"
 fi
