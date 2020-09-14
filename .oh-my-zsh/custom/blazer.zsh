@@ -112,10 +112,10 @@ alias zshrl="source ~/.zshrc"
 # Homebrew
 alias bs="brew search"
 alias bi="brew info"
+alias boc="brew outdated --cask"
 alias bci="brew cask info"
 alias bcl="brew cask list"
 alias bcrs="brew cask reinstall"
-alias bcog="brew cask outdated --greedy"
 
 # Git
 alias gmfo="git merge --ff-only"
