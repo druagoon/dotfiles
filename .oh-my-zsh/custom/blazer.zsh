@@ -113,9 +113,8 @@ alias zshrl="source ~/.zshrc"
 alias bs="brew search"
 alias bi="brew info"
 alias boc="brew outdated --cask"
+alias blc="brew list --cask"
 alias bci="brew cask info"
-alias bcl="brew cask list"
-alias bcrs="brew cask reinstall"
 
 # Git
 alias gmfo="git merge --ff-only"
