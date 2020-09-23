@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="blazer"
+ZSH_THEME="dragon"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -52,7 +52,7 @@ ZSH_CUSTOM=$HOME/.env/macOS/.oh-my-zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git blazer-git-prompt django golang docker docker-compose docker-machine kubectl helm)
+plugins=(git dragon-git-prompt golang docker docker-compose kubectl helm)
 
 source $ZSH/oh-my-zsh.sh
 
