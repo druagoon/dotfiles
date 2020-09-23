@@ -112,7 +112,7 @@ alias zshrl="source ~/.zshrc"
 # Homebrew
 alias bs="brew search"
 alias bi="brew info"
-alias boc="brew outdated --cask"
+alias bocg="brew outdated --cask --greedy"
 alias blc="brew list --cask"
 alias bci="brew cask info"
 
