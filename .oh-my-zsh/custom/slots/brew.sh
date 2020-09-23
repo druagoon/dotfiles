@@ -1,0 +1,5 @@
+alias bs="brew search"
+alias bi="brew info"
+alias bocg="brew outdated --cask --greedy"
+alias blc="brew list --cask"
+alias bci="brew cask info"

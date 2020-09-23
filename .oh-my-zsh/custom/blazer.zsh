@@ -71,109 +71,14 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# the fuck
-# eval "$(thefuck --alias)"
-
-# Common
-unset MAILCHECK
-
 ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
+ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
 
-export LC_ALL=en_US.UTF-8
-export EDITOR="vim"
-export PATH=$HOME/local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH
+slots=(common.sh proxy.sh conda.sh)
+for slot in $slots; do
+	. "$ZSH_CUSTOM_SLOTS/$slot"
+done
 
-alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
-
-# CURL
-CURL_FORMAT=$ZSH_CUSTOM_ETC/curl-format.txt
-CURL_UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
-CURL_MUA="Mozilla/5.0 (iPhone; CPU iPhone OS 11_0_3 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Mobile/15A432 mmbang NetType/WIFI"
-alias fcurl="curl -i -w \"@$CURL_FORMAT\""
-alias fmcurl="curl -i -A \"$CURL_MUA\" -w \"@$CURL_FORMAT\""
-
-# Proxy
-PROXY_HTTP="127.0.0.1:7890"
-PROXY_HTTPS="$PROXY_HTTP"
-PROXY_SOCKS5="$PROXY_HTTP"
-PROXY_X_HTTP="http://$PROXY_HTTP"
-PROXY_X_HTTPS="http://$PROXY_HTTPS"
-PROXY_X_SOCKS5="socks5://$PROXY_SOCKS5"
-PROXY_X_SOCKS5H="socks5h://$PROXY_SOCKS5"
-
-# ClashX
-alias enproxy="export http_proxy=$PROXY_X_HTTP;export https_proxy=$PROXY_X_HTTPS;export all_proxy=$PROXY_X_SOCKS5H"
-alias disproxy="unset http_proxy https_proxy all_proxy"
-alias pproxy="echo http_proxy: \$http_proxy https_proxy: \$https_proxy all_proxy: \$all_proxy"
-
-# Zsh
-alias zshrl="source ~/.zshrc"
-
-# Homebrew
-alias bs="brew search"
-alias bi="brew info"
-alias bocg="brew outdated --cask --greedy"
-alias blc="brew list --cask"
-alias bci="brew cask info"
-
-# Git
-alias gmfo="git merge --ff-only"
-alias gdni="git diff --no-index"
-
-# SVN
-alias svn-dxi="svn diff -x --ignore-eol-style"
-
-# Golang
-# export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/.go
-export GO111MODULE=on
-export GOPROXY=https://goproxy.io,direct
-export PATH=$GOPATH/bin:$PATH
-
-function gopractice {
-	base=$(echo $1|cut -d "." -f1)
-	dir="$HOME/Code/Local/practice/go-practice/$base"
-	file="$dir/$base.go"
-	if [ ! -d "$dir" ]; then
-		mkdir "$dir"
-	fi
-	touch "$file" && cd "$dir" && code "$file"
-}
-
-# Conda
-CONDA_ENV=$HOME/.conda/envs
-CONDA_MACOS=$HOME/.conda/envs/macOS
-
-function setconda() {
-	if [ -d "$CONDA_ENV/$1" ]; then
-		export PATH=$CONDA_ENV/$1/bin:$PATH
-	fi
-}
-setconda macOS
-
-# Java
-export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
-
-function setjdk() {
-	export JAVA_HOME=`/usr/libexec/java_home -v $@`
-}
-setjdk 1.8
-
-# MySQL
-export PATH=/usr/local/opt/mysql@5.7/bin:$PATH
-# export MYSQL_PS1="[\u@\h:\p] (\d)[\c] \R:\m:\s \n> "
-export MYSQL_PS1="[\R:\m:\s] (\u@\h:\p) [\d]#\c\n> "
-
-# ffprobe
-alias jffprobe="ffprobe -v quiet -print_format json -show_streams"
-
-# annie
-alias pannie="annie -s $PROXY_SOCKS5"
-
-# Shell Prompt
-NEWLINE=$'\n'
-# IPADDRS=`/sbin/ifconfig|grep -v "127.0.0.1"|grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){print "$interf = $face{$interf}  " if ($interf !~ /^lo$/)}'`
-IPADDRS=`${CONDA_MACOS}/bin/python ${ZSH_CUSTOM}/bin/shell-ip-prompt.py`
-
-# PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
-# PROMPT='${ret_status}%{$fg_bold[yellow]%}%p ${IPADDRS} ${NEWLINE}${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%} ${NEWLINE}${ret_status} %{$reset_color%}'
+for f in ${ZSH_CUSTOM_SLOTS}/*.sh; do
+	. "$f"
+done
