@@ -74,7 +74,7 @@
 ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
 ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
 
-slots=(common.sh proxy.sh conda.sh)
+slots=(common.sh proxy.sh conda.sh go.sh)
 for slot in $slots; do
 	. "$ZSH_CUSTOM_SLOTS/$slot"
 done

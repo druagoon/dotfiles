@@ -1,3 +1,3 @@
-if [ -x `which direnv` ]; then
+if [ -x "$(command -v direnv)" ]; then
 	eval "$(direnv hook zsh)"
 fi
