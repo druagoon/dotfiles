@@ -76,9 +76,19 @@ ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
 
 slots=(common.sh proxy.sh conda.sh go.sh)
 for slot in $slots; do
-	. "$ZSH_CUSTOM_SLOTS/$slot"
+    . "$ZSH_CUSTOM_SLOTS/$slot"
 done
 
 for f in ${ZSH_CUSTOM_SLOTS}/*.sh; do
-	. "$f"
+    loaded=0
+    name=$(basename $f)
+    for s in $slots; do
+        if [ "$s" = "$name" ]; then
+            loaded=1
+            break
+        fi
+    done
+    if [ $loaded = 0 ]; then
+        . "$f"
+    fi
 done
