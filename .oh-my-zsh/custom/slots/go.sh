@@ -5,9 +5,10 @@ export GOPROXY=https://goproxy.io,direct
 export PATH=$GOPATH/bin:$PATH
 
 function gopractice {
-	base=$(echo $1|cut -d "." -f1)
-	dir="$HOME/Code/Local/practice/go-practice/$base"
-	file="$dir/$base.go"
+	# base=$(echo $1|cut -d "." -f1)
+	base="$1"
+	dir="$HOME/Code/Local/practice/go/$base"
+	file="$dir/main.go"
 	if [ ! -d "$dir" ]; then
 		mkdir "$dir"
 	fi
