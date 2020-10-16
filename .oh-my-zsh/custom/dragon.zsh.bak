@@ -131,13 +131,13 @@ export GOPROXY=https://goproxy.io,direct
 export PATH=$GOPATH/bin:$PATH
 
 function gopractice {
-	base=$(echo $1|cut -d "." -f1)
-	dir="$HOME/Code/Local/practice/go-practice/$base"
-	file="$dir/$base.go"
-	if [ ! -d "$dir" ]; then
-		mkdir "$dir"
-	fi
-	touch "$file" && cd "$dir" && code "$file"
+    base=$(echo $1|cut -d "." -f1)
+    dir="$HOME/Code/Local/practice/go-practice/$base"
+    file="$dir/$base.go"
+    if [ ! -d "$dir" ]; then
+        mkdir "$dir"
+    fi
+    touch "$file" && cd "$dir" && code "$file"
 }
 
 # Conda
@@ -145,9 +145,9 @@ CONDA_ENV=$HOME/.conda/envs
 CONDA_MACOS=$HOME/.conda/envs/macOS
 
 function setconda() {
-	if [ -d "$CONDA_ENV/$1" ]; then
-		export PATH=$CONDA_ENV/$1/bin:$PATH
-	fi
+    if [ -d "$CONDA_ENV/$1" ]; then
+        export PATH=$CONDA_ENV/$1/bin:$PATH
+    fi
 }
 setconda macOS
 
@@ -155,7 +155,7 @@ setconda macOS
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 function setjdk() {
-	export JAVA_HOME=`/usr/libexec/java_home -v $@`
+    export JAVA_HOME=`/usr/libexec/java_home -v $@`
 }
 setjdk 1.8
 
