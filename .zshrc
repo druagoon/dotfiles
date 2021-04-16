@@ -52,7 +52,7 @@ ZSH_CUSTOM=$HOME/.env/macOS/.oh-my-zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow dragon-git-prompt golang docker docker-compose kubectl helm)
+plugins=(git git-flow dragon-git-prompt golang rust rustup cargo docker docker-compose kubectl helm)
 
 source $ZSH/oh-my-zsh.sh
 
