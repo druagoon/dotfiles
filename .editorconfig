@@ -10,6 +10,19 @@ max_line_length = 80
 tab_width = 4
 trim_trailing_whitespace = true
 
-[{*.sh,*.zsh}]
-indent_size = 4
+[{*.bash,*.sh,*.zsh}]
 indent_style = space
+
+[*.json]
+indent_style = space
+
+[{*.py,*.pyw,*.pyi}]
+indent_style = space
+max_line_length = 120
+
+[{*.yaml,*.yml}]
+indent_size = 2
+
+[*.md]
+max_line_length = 0
+trim_trailing_whitespace = false

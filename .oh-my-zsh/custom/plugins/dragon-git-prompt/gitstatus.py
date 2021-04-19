@@ -1,84 +1,161 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
+import os
+import subprocess
 import sys
-import re
-import shlex
-from subprocess import Popen, PIPE, check_output
+from dataclasses import dataclass
+from typing import List, Tuple
+
+DEBUG = False
+# change this symbol to whatever you prefer
+PREFIX_HASH = ':'
+HEAD = 'HEAD'
+PREFIX_HEAD_REF = 'refs/heads/'
+PREFIX_REMOTE_REF = 'refs/remotes/'
+LOGFILE = os.path.expanduser('~/gitstatus.debug.log')
+LOG_RESET = False
 
 
-def get_tagname_or_hash():
-    """return tagname if exists else hash"""
-    cmd = 'git log -1 --format="%h%d"'
-    output = check_output(shlex.split(cmd)).decode('utf-8').strip()
-    hash_, tagname = None, None
-    # get hash
-    m = re.search('\(.*\)$', output)
-    if m:
-        hash_ = output[:m.start()-1]
-    # get tagname
-    m = re.search('tag: .*[,\)]', output)
-    if m:
-        tagname = 'tags/' + output[m.start()+len('tag: '): m.end()-1]
-
-    if tagname:
-        return tagname
-    elif hash_:
-        return hash_
-    return None
+@dataclass
+class FileStat:
+    changed: int = 0
+    staged: int = 0
+    conflicts: int = 0
+    untracked: int = 0
 
 
-# `git status --porcelain --branch` can collect all information
-# branch, remote_branch, untracked, staged, changed, conflicts, ahead, behind
-po = Popen(['git', 'status', '--porcelain', '--branch'], stdout=PIPE, stderr=PIPE)
-stdout, sterr = po.communicate()
-if po.returncode != 0:
-    sys.exit(0)  # Not a git repository
+def debug(*args):
+    global LOG_RESET
 
-# collect git status information
-untracked, staged, changed, conflicts = [], [], [], []
-ahead, behind = 0, 0
-status = [(line[0], line[1], line[2:]) for line in stdout.decode('utf-8').splitlines()]
-for st in status:
-    if st[0] == '#' and st[1] == '#':
-        if re.search('Initial commit on', st[2]):
-            branch = st[2].split(' ')[-1]
-        elif re.search('no branch', st[2]):  # detached status
-            branch = get_tagname_or_hash()
-        elif len(st[2].strip().split('...')) == 1:
-            branch = st[2].strip()
-        else:
-            # current and remote branch info
-            branch, rest = st[2].strip().split('...')
-            if len(rest.split(' ')) == 1:
-                # remote_branch = rest.split(' ')[0]
-                pass
+    if not DEBUG:
+        return
+    if not LOG_RESET:
+        open(LOGFILE, 'w').close()
+        LOG_RESET = True
+    with open(LOGFILE, 'a') as fp:
+        fp.write('\n'.join(map(str, args)) + '\n')
+
+
+def run(cmd: str, **kwargs) -> subprocess.CompletedProcess:
+    kwargs.setdefault('shell', True)
+    kwargs.setdefault('capture_output', True)
+    kwargs.setdefault('text', True)
+    debug(cmd)
+    return subprocess.run(cmd, **kwargs)
+
+
+def check_git_repository():
+    cp = run('git rev-parse --is-inside-work-tree')
+    result = cp.stdout.strip().lower()
+    if result != 'true':
+        sys.exit(0)
+
+
+def get_commit_count():
+    cp = run('git rev-list --all --count')
+    return int(cp.stdout.strip())
+
+
+def get_abbrev_ref(ref: str) -> str:
+    return ref[len(PREFIX_HEAD_REF):]
+
+
+def get_remote_ref(ref: str, remote: str = 'origin') -> str:
+    return f'{PREFIX_REMOTE_REF}{remote}/{ref}'
+
+
+def check_head():
+    cp = run(f'git symbolic-ref {HEAD}')
+    out = cp.stdout.strip()
+    return get_abbrev_ref(out)
+
+
+def get_changed_files() -> List[str]:
+    cp = run('git diff --name-status')
+    out = cp.stdout.strip()
+    return [ns[0] for ns in out.splitlines()]
+
+
+def get_staged_files() -> List[str]:
+    cp = run('git diff --name-status --staged')
+    out = cp.stdout.strip()
+    return [ns[0] for ns in out.splitlines()]
+
+
+def get_untracked_files_count() -> int:
+    cp = run('git ls-files --exclude-standard --others|wc -l')
+    return int(cp.stdout.strip())
+
+
+def get_file_stat() -> FileStat:
+    changed_files = get_changed_files()
+    n_changed = len(changed_files) - changed_files.count('U')
+    staged_files = get_staged_files()
+    n_conflicts = staged_files.count('U')
+    n_staged = len(staged_files) - n_conflicts
+    n_untracked = get_untracked_files_count()
+    return FileStat(changed=n_changed, staged=n_staged, conflicts=n_conflicts, untracked=n_untracked)
+
+
+def get_remote_repository_name(branch: str) -> str:
+    cp = run(f'git config branch.{branch}.remote')
+    return cp.stdout.strip()
+
+
+def get_merge_ref(branch: str) -> str:
+    cp = run(f'git config branch.{branch}.merge')
+    return cp.stdout.strip()
+
+
+def get_rev(target: str = HEAD) -> str:
+    cp = run(f'git rev-parse --short {target}')
+    return cp.stdout.strip()
+
+
+def get_rev_list(left: str, right: str = HEAD) -> List[str]:
+    cp = run(f'git rev-list --left-right {left}...{right}')
+    out = cp.stdout.strip()
+    return out.splitlines()
+
+
+def get_ahead_behind(branch: str) -> Tuple[str, int, int]:
+    ahead, behind = 0, 0
+    if branch:
+        remote_name = get_remote_repository_name(branch)
+        if remote_name:
+            merge_ref = get_merge_ref(branch)
+            if remote_name == '.':
+                remote_ref = merge_ref
             else:
-                # ahead or behind
-                divergence = ' '.join(rest.split(' ')[1:])
-                divergence = divergence.lstrip('[').rstrip(']')
-                for div in divergence.split(', '):
-                    if 'ahead' in div:
-                        ahead = int(div[len('ahead '):].strip())
-                    elif 'behind' in div:
-                        behind = int(div[len('behind '):].strip())
-    elif st[0] == '?' and st[1] == '?':
-        untracked.append(st)
+                remote_ref = get_remote_ref(get_abbrev_ref(merge_ref), remote_name)
+            rev_list = get_rev_list(remote_ref)
+            if not rev_list:
+                rev_list = get_rev_list(merge_ref)
+            if rev_list:
+                ahead = len([x for x in rev_list if x[0] == '>'])
+                behind = len(rev_list) - ahead
     else:
-        if st[1] == 'M':
-            changed.append(st)
-        if st[0] == 'U':
-            conflicts.append(st)
-        elif st[0] != ' ':
-            staged.append(st)
+        rev = get_rev()
+        branch = f'{PREFIX_HASH}{rev}'
+    return branch, ahead, behind
 
-out = ' '.join([
-    branch,
-    str(ahead),
-    str(behind),
-    str(len(staged)),
-    str(len(conflicts)),
-    str(len(changed)),
-    str(len(untracked)),
-])
-print(out, end='')
+
+def main():
+    check_git_repository()
+    stat = get_file_stat()
+    branch, ahead, behind = get_ahead_behind(check_head())
+    columns = [
+        branch,
+        ahead,
+        behind,
+        stat.staged,
+        stat.conflicts,
+        stat.changed,
+        stat.untracked
+    ]
+    output = ' '.join(map(str, columns))
+    print(output, end='')
+
+
+main()
