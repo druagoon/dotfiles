@@ -12,14 +12,17 @@ motto:
 reset:
 	$(GIT) reset --hard HEAD
 
+amend:
+	$(GIT) commit --amend --no-edit
+
 push:
 	$(GIT) push origin
 
-forcepush:
+force-push:
 	$(GIT) push origin --force-with-lease
 
 update:
 	$(GIT) pull origin --prune --rebase
 
-forceupdate:
+force-pull:
 	$(GIT) fetch origin && $(GIT) reset --hard origin/`$(GIT) rev-parse --abbrev-ref HEAD`
