@@ -1,0 +1,15 @@
+~/Library
+~/Library/Application\ Support
+~/Library/Application\ Support/CrashReporter
+~/Library/Caches
+~/Library/Containers
+~/Library/LaunchAgents
+~/Library/Preferences
+~/Library/PreferencePanes
+#/Library
+#/Library/Application\ Support
+#/Library/Extensions
+#/Library/LaunchAgents
+#/Library/LaunchDaemons
+#/Library/PreferencePanes
+#/Library/Preferences
