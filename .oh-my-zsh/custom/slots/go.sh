@@ -14,3 +14,9 @@ function gopractice {
     fi
     touch "$file" && cd "$dir" && code "$file"
 }
+
+function gvm_on {
+    [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+}
+
+gvm_on
