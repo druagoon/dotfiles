@@ -1,3 +1,5 @@
+# kb. A minimalist knowledge base manager
+# https://github.com/gnebbia/kb
 alias kbl="kb list"
 alias kbe="kb edit --id"
 alias kba="kb add"
