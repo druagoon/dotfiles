@@ -1,5 +1,4 @@
 # export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/.go
 export GO111MODULE=on
 export GOPROXY=https://goproxy.io,direct
 export PATH=$GOPATH/bin:$PATH
