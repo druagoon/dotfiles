@@ -1,2 +1,91 @@
 # macOS-env
+
 macOS Development Environment
+
+## Command Line Tools
+
+- `annie`: Fast, simple and clean video downloader
+  - Link: <https://github.com/iawia002/annie>
+  - Install: `brew install annie`
+- `certbot`: Tool to obtain certs from Let's Encrypt and autoenable HTTPS
+  - Link: <https://certbot.eff.org/>
+  - Install: `brew install certbot`
+- `clock`: Statistics utility to count lines of code
+  - Link: <https://github.com/AlDanial/cloc/>
+  - Install: `brew install clock`
+- `coreutils`: GNU File, Shell, and Text utilities
+  - Link: <https://www.gnu.org/software/coreutils>
+  - Install: `brew install coreutils`
+- `direnv`: Load/unload environment variables based on $PWD
+  - Link: <https://direnv.net/>
+  - Install: `brew install direnv`
+- `ffmpeg`: Play, record, convert, and stream audio and video
+  - Link: <https://ffmpeg.org/>
+  - Install: `brew install ffmpeg`
+- `git`: Distributed revision control system
+  - Link: <https://git-scm.com/>
+  - Install: `brew install git`
+- `git-flow`: Extensions to follow Vincent Driessen's branching model
+  - Link: <https://github.com/nvie/gitflow>
+  - Install: `brew install git-flow`
+- `go`: Open source programming language to build simple/reliable/efficient software
+  - Link: <https://golang.org/>
+  - Install: `brew install go`
+- `gradle`: Open-source build automation tool based on the Groovy and Kotlin DSL
+  - Link: <https://www.gradle.org/>
+  - Install: `brew install gradle`
+- `helm`: Kubernetes package manager
+  - Link: <https://helm.sh/>
+  - Install: `brew install helm`
+- `htop`: Improved top (interactive process viewer)
+  - Link: <https://htop.dev/>
+  - Install: `brew install htop`
+- `jq`: Lightweight and flexible command-line JSON processor
+  - Link: <https://stedolan.github.io/jq/>
+  - Install: `brew install jq`
+- `kubernetes-cli`: Kubernetes command-line interface
+  - Link: <https://kubernetes.io/>
+  - Install: `brew install kubernetes-cli`
+- `mongodb`: High-performance, schema-free, document-oriented database
+  - Link: <https://www.mongodb.com/>
+  - Install: `brew tap mongodb/brew && brew install mongodb-community`
+- `mtr`: 'traceroute' and 'ping' in a single tool
+  - Link: <https://www.bitwizard.nl/mtr/>
+  - Install: `brew install mtr`
+- `mysql`: Open source relational database management system
+  - Link: <https://dev.mysql.com/doc/refman/5.7/en/>
+  - Install: `brew install mysql@5.7`
+- `nginx`: HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
+  - Link: <https://nginx.org/>
+  - Install: `brew install nginx`
+- `redis`: Persistent key-value database, with built-in net interface
+  - Link: <https://redis.io/>
+  - Install: `brew install redis`
+- `socat`: SOcket CAT: netcat on steroids
+  - Link: <http://www.dest-unreach.org/socat/>
+  - Install: `brew install socat`
+- `tealdeer`: Very fast implementation of tldr in Rust
+  - Link: <https://github.com/dbrgn/tealdeer>
+  - Install: `brew install tealdeer`
+- `telnet`: User interface to the TELNET protocol
+  - Link: <https://opensource.apple.com/>
+  - Install: `brew install telnet`
+- `ag`: Code-search similar to ack
+  - Link: <https://github.com/ggreer/the_silver_searcher>
+  - Install: `brew install the_silver_searcher`
+- `tig`: Text interface for Git repositories
+  - Link: <https://jonas.github.io/tig/>
+  - Install: `brew install tig`
+- `tokei`: Program that allows you to count code, quickly
+  - Link: <https://github.com/XAMPPRocky/tokei>
+  - Install: `brew install tokei`
+- `tokei-pie`: Render `tokei` results to charts
+  - Link: <https://github.com/laixintao/tokei-pie>
+  - Install: `brew install tokei && pip install tokei-pie`
+  - Usage: `$ tokei -o json | tokei-pie`
+- `tree`: Display directories as trees (with optional color/HTML output)
+  - Link: <http://mama.indstate.edu/users/ice/tree/>
+  - Install: `brew install tree`
+- `wget`: Internet file retriever
+  - Link: <https://www.gnu.org/software/wget/>
+  - Install: `brew install wget`
