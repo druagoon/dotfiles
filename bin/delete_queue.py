@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Delete RabbitMQ Queue
+"""Delete rabbitmq queue
 """
 
 from typing import List
@@ -9,7 +9,7 @@ import click
 import pika
 
 
-@click.command(help='Delete RabbitMQ Queue')
+@click.command(help='Delete rabbitmq queue')
 @click.option('-n', '--name', multiple=True, help='queue name')
 def main(name: List[str]):
     params = pika.URLParameters('amqp://mmb:mmb@mq.mmbang.me:15673/mmb')

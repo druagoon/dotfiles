@@ -1,6 +1,8 @@
 netifaces
 clipboard
-kb-manager
+click
 ipython
 jupyter
 requests
+tabulate
+pika
