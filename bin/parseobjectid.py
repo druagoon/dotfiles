@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""MongoDB ObjectID 解析
+"""Parse mongodb object id
 """
 
 import collections
@@ -24,7 +24,7 @@ def parse_object_id(object_id: str) -> collections.OrderedDict:
     return data
 
 
-@click.command(help='MongoDB ObjectID 解析')
+@click.command(help='Parse mongodb object id')
 @click.option('-i', '--id', multiple=True, help='object id')
 def main(id: List[str]):
     indent = ' ' * 4

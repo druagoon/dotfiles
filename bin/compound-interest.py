@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""复利计算(表格形式输出)
+"""复利计算
 
 Usage: compound-interest.py -p 1000000 -i 5 -c 12 -n 30
 """

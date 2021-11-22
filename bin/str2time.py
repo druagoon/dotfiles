@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+"""Parse date string to timestamp
+"""
+
 import datetime
 import sys
 import time

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""URL解析
+"""Parse url for human read
 """
 
 import json

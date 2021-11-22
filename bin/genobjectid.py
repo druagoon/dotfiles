@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""MongoDB ObjectID 生成(日期/时间戳)
+"""Generate mongodb object id by date/datetime/timestamp
 """
 
 import datetime
@@ -36,7 +36,7 @@ def gen_object_id(text: str) -> str:
     return f'ObjectId("{ts_hex}{padding}")'
 
 
-@click.command(help='按照日期时间生成 MongoDB ObjectID')
+@click.command(help='Generate mongodb object id by date/datetime/timestamp')
 @click.option('-t', '--text', default=None, help='datetime or timestamp string')
 def main(text: str):
     if not text:

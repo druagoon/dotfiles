@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Parse timestamp to RFC 3339"""
+
 import datetime
 import time
 import warnings
