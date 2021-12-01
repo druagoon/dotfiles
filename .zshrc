@@ -48,6 +48,8 @@ CASE_SENSITIVE="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
+DISABLE_MAGIC_FUNCTIONS="true"
+
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.env/macOS/.oh-my-zsh/custom
 
