@@ -18,9 +18,9 @@ setopt PROMPT_SUBST
 
 autoload -U add-zsh-hook
 
-add-zsh-hook chpwd chpwd_update_git_vars
-add-zsh-hook preexec preexec_update_git_vars
-add-zsh-hook precmd precmd_update_git_vars
+# add-zsh-hook chpwd chpwd_update_git_vars
+# add-zsh-hook preexec preexec_update_git_vars
+# add-zsh-hook precmd precmd_update_git_vars
 
 ## Function definitions
 function preexec_update_git_vars() {
@@ -64,7 +64,8 @@ function update_current_git_vars() {
 
 
 git_super_status() {
-    precmd_update_git_vars
+    # precmd_update_git_vars
+    update_current_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
         STATUS="%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_PREFIX"
         STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
