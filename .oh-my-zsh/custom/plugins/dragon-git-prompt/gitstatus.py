@@ -1,125 +1,191 @@
-#!/usr/bin/env python
-from __future__ import print_function
+# -*- coding: utf-8 -*-
 
+"""Output git status prompt compatible with Python2.7+
+"""
+
+import datetime
+import functools
 import os
 import subprocess
-import sys
-from dataclasses import dataclass
-from typing import List, Tuple
+import time
 
-DEBUG = False
+from compat import PY3, echo, ensure_text, is_true
+if PY3:
+    try:
+        from typing import List, Tuple
+    except:
+        pass
+
+DEBUG = is_true(os.environ.get('GIT_STATUS_DEBUG', False))
 # change this symbol to whatever you prefer
 PREFIX_HASH = ':'
 HEAD = 'HEAD'
 PREFIX_HEAD_REF = 'refs/heads/'
 PREFIX_REMOTE_REF = 'refs/remotes/'
 LOGFILE = os.path.expanduser('~/gitstatus.debug.log')
-LOG_RESET = False
+LOG_RESET = is_true(os.environ.get('GIT_STATUS_LOG_RESET', False))
 
 
-@dataclass
-class FileStat:
-    changed: int = 0
-    staged: int = 0
-    conflicts: int = 0
-    untracked: int = 0
+class FileStat(object):
+    def __init__(self, changed=0, staged=0, conflicts=0, untracked=0):
+        # type: (int, int, int, int) -> None
+        self.changed = changed
+        self.staged = staged
+        self.conflicts = conflicts
+        self.untracked = untracked
+
+
+def truncate(filepath):
+    # type: (str) -> None
+    with open(filepath, 'w') as fp:
+        pass
 
 
 def debug(*args):
-    global LOG_RESET
-
+    # type: (Tuple) -> None
     if not DEBUG:
         return
-    if not LOG_RESET:
-        open(LOGFILE, 'w').close()
-        LOG_RESET = True
     with open(LOGFILE, 'a') as fp:
         fp.write('\n'.join(map(str, args)) + '\n')
 
 
-def run(cmd: str, **kwargs) -> subprocess.CompletedProcess:
-    kwargs.setdefault('shell', True)
-    kwargs.setdefault('capture_output', True)
-    kwargs.setdefault('text', True)
+def timeit(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        now = datetime.datetime.now()
+        debug(now.isoformat(' '))
+        begin = time.time()
+        rv = func(*args, **kwargs)
+        end = time.time()
+        debug('Total time: {}\n'.format(end - begin))
+        return rv
+
+    return wrapper
+
+
+def run_shell(cmd, strip=True):
+    # type: (str, bool) -> str
     debug(cmd)
-    return subprocess.run(cmd, **kwargs)
+    rv = ''
+    try:
+        rv = subprocess.check_output(cmd, shell=True)
+    except:
+        pass
+    if rv:
+        rv = ensure_text(rv)
+        if strip:
+            rv = rv.strip()
+    return rv
 
 
 def check_git_repository():
-    cp = run('git rev-parse --is-inside-work-tree')
-    result = cp.stdout.strip().lower()
-    if result != 'true':
-        sys.exit(0)
+    # type: () -> bool
+    if os.path.isdir('.git'):
+        return True
+    cmd = 'git rev-parse --is-inside-work-tree'
+    rv = run_shell(cmd)
+    out = rv.lower()
+    return out == 'true'
 
 
 def get_commit_count():
-    cp = run('git rev-list --all --count')
-    return int(cp.stdout.strip())
+    # type: () -> int
+    cmd = 'git rev-list --all --count'
+    rv = run_shell(cmd)
+    return int(rv)
 
 
-def get_abbrev_ref(ref: str) -> str:
+def get_abbrev_ref(ref):
+    # type: (str) -> str
     return ref[len(PREFIX_HEAD_REF):]
 
 
-def get_remote_ref(ref: str, remote: str = 'origin') -> str:
-    return f'{PREFIX_REMOTE_REF}{remote}/{ref}'
+def get_remote_ref(ref, remote='origin'):
+    # type: (str, str) -> str
+    kwargs = {
+        'prefix_remote_ref': PREFIX_REMOTE_REF,
+        'ref': ref,
+        'remote': remote
+    }
+    return '{prefix_remote_ref}{remote}/{ref}'.format(**kwargs)
 
 
 def check_head():
-    cp = run(f'git symbolic-ref {HEAD}')
-    out = cp.stdout.strip()
-    return get_abbrev_ref(out)
+    # type: () -> str
+    kwargs = {'head': HEAD}
+    cmd = 'git symbolic-ref {head}'.format(**kwargs)
+    rv = run_shell(cmd)
+    return get_abbrev_ref(rv)
 
 
-def get_changed_files() -> List[str]:
-    cp = run('git diff --name-status')
-    out = cp.stdout.strip()
-    return [ns[0] for ns in out.splitlines()]
+def get_changed_files():
+    # type: () -> List[str]
+    cmd = 'git diff --name-status'
+    rv = run_shell(cmd)
+    return [ns[0] for ns in rv.splitlines()]
 
 
-def get_staged_files() -> List[str]:
-    cp = run('git diff --name-status --staged')
-    out = cp.stdout.strip()
-    return [ns[0] for ns in out.splitlines()]
+def get_staged_files():
+    # type: () -> List[str]
+    cmd = 'git diff --name-status --staged'
+    rv = run_shell(cmd)
+    return [ns[0] for ns in rv.splitlines()]
 
 
-def get_untracked_files_count() -> int:
-    cp = run('git ls-files --exclude-standard --others|wc -l')
-    return int(cp.stdout.strip())
+def get_untracked_files_count():
+    # type: () -> int
+    cmd = 'git ls-files --exclude-standard --others | wc -l'
+    rv = run_shell(cmd)
+    return int(rv)
 
 
-def get_file_stat() -> FileStat:
+def get_file_stat():
+    # type: () -> FileStat
     changed_files = get_changed_files()
     n_changed = len(changed_files) - changed_files.count('U')
     staged_files = get_staged_files()
     n_conflicts = staged_files.count('U')
     n_staged = len(staged_files) - n_conflicts
     n_untracked = get_untracked_files_count()
-    return FileStat(changed=n_changed, staged=n_staged, conflicts=n_conflicts, untracked=n_untracked)
+    return FileStat(
+        changed=n_changed,
+        staged=n_staged,
+        conflicts=n_conflicts,
+        untracked=n_untracked
+    )
 
 
-def get_remote_repository_name(branch: str) -> str:
-    cp = run(f'git config branch.{branch}.remote')
-    return cp.stdout.strip()
+def get_remote_repository_name(branch):
+    # type: (str) -> str
+    kwargs = {'branch': branch}
+    cmd = 'git config branch.{branch}.remote'.format(**kwargs)
+    return run_shell(cmd)
 
 
-def get_merge_ref(branch: str) -> str:
-    cp = run(f'git config branch.{branch}.merge')
-    return cp.stdout.strip()
+def get_merge_ref(branch):
+    # type: (str) -> str
+    kwargs = {'branch': branch}
+    cmd = 'git config branch.{branch}.merge'.format(**kwargs)
+    return run_shell(cmd)
 
 
-def get_rev(target: str = HEAD) -> str:
-    cp = run(f'git rev-parse --short {target}')
-    return cp.stdout.strip()
+def get_rev(target=HEAD):
+    # type: (str) -> str
+    kwargs = {'target': target}
+    cmd = 'git rev-parse --short {target}'.format(**kwargs)
+    return run_shell(cmd)
 
 
-def get_rev_list(left: str, right: str = HEAD) -> List[str]:
-    cp = run(f'git rev-list --left-right {left}...{right}')
-    out = cp.stdout.strip()
-    return out.splitlines()
+def get_rev_list(left, right=HEAD):
+    # type: (str, str) -> List[str]
+    kwargs = {'left': left, 'right': right}
+    cmd = 'git rev-list --left-right {left}...{right}'.format(**kwargs)
+    rv = run_shell(cmd)
+    return rv.splitlines()
 
 
-def get_ahead_behind(branch: str) -> Tuple[str, int, int]:
+def get_ahead_behind(branch):
+    # type: (str) -> Tuple[str, int, int]
     ahead, behind = 0, 0
     if branch:
         remote_name = get_remote_repository_name(branch)
@@ -137,12 +203,21 @@ def get_ahead_behind(branch: str) -> Tuple[str, int, int]:
                 behind = len(rev_list) - ahead
     else:
         rev = get_rev()
-        branch = f'{PREFIX_HASH}{rev}'
+        kwargs = {'prefix_hash': PREFIX_HASH, 'rev': rev}
+        branch = '{prefix_hash}{rev}'.format(**kwargs)
     return branch, ahead, behind
 
 
+def setup_log():
+    if LOG_RESET:
+        truncate(LOGFILE)
+
+
+@timeit
 def main():
-    check_git_repository()
+    setup_log()
+    if not check_git_repository():
+        return
     stat = get_file_stat()
     branch, ahead, behind = get_ahead_behind(check_head())
     columns = [
@@ -155,7 +230,8 @@ def main():
         stat.untracked
     ]
     output = ' '.join(map(str, columns))
-    print(output, end='')
+    echo(output, end='')
 
 
-main()
+if __name__ == '__main__':
+    main()
