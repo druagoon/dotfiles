@@ -18,21 +18,35 @@ if PY3:
 
 DEBUG = is_true(os.environ.get('GIT_STATUS_DEBUG', False))
 # change this symbol to whatever you prefer
-PREFIX_HASH = ':'
+PREFIX_HASH = os.environ.get('GIT_STATUS_PREFIX_HASH', ':')
 HEAD = 'HEAD'
 PREFIX_HEAD_REF = 'refs/heads/'
 PREFIX_REMOTE_REF = 'refs/remotes/'
 LOGFILE = os.path.expanduser('~/gitstatus.debug.log')
 LOG_RESET = is_true(os.environ.get('GIT_STATUS_LOG_RESET', False))
+INDENT = ' ' * 4
 
 
 class FileStat(object):
-    def __init__(self, changed=0, staged=0, conflicts=0, untracked=0):
-        # type: (int, int, int, int) -> None
+    def __init__(self, changed=0, staged=0, conflicts=0, untracked=0, stashed=0):
+        # type: (int, int, int, int, int) -> None
         self.changed = changed
         self.staged = staged
         self.conflicts = conflicts
         self.untracked = untracked
+        self.stashed = stashed
+        self.clean = 0 if self.total() > 0 else 1
+
+    def total(self):
+        # type () -> int
+        nums = [
+            self.changed,
+            self.staged,
+            self.conflicts,
+            self.untracked,
+            self.staged
+        ]
+        return sum(nums)
 
 
 def truncate(filepath):
@@ -65,27 +79,42 @@ def timeit(func):
 
 def run_shell(cmd, strip=True):
     # type: (str, bool) -> str
-    debug(cmd)
-    rv = ''
+
+    output = ''
     try:
-        rv = subprocess.check_output(cmd, shell=True)
+        output = subprocess.check_output(cmd, shell=True)
     except:
         pass
-    if rv:
-        rv = ensure_text(rv)
-        if strip:
-            rv = rv.strip()
-    return rv
+    output = ensure_text(output)
+    if strip:
+        output = output.strip()
+    kwargs = {
+        'cmd': cmd,
+        'output': output,
+        'indent': INDENT
+    }
+    debug('Cmd:\n{indent}{cmd}\nOutput:\n{indent}{output}'.format(**kwargs))
+    return output
 
 
-def check_git_repository():
+def get_git_dir():
+    # type: () -> str
+    return run_shell('git rev-parse --git-dir 2>/dev/null')
+
+
+def is_git_repository():
     # type: () -> bool
-    if os.path.isdir('.git'):
-        return True
     cmd = 'git rev-parse --is-inside-work-tree'
     rv = run_shell(cmd)
     out = rv.lower()
     return out == 'true'
+
+
+def check_git_repository():
+    # type: () -> bool
+    root = get_git_dir()
+    return bool(root)
+    # return is_git_repository()
 
 
 def get_commit_count():
@@ -139,6 +168,16 @@ def get_untracked_files_count():
     return int(rv)
 
 
+def get_stashed_count():
+    # type: () -> int
+    root = get_git_dir()
+    stash_file = '{}{}'.format(root, '/logs/refs/stash')
+    if not os.path.isfile(stash_file):
+        return 0
+    with open(stash_file) as fp:
+        return len(fp.readlines())
+
+
 def get_file_stat():
     # type: () -> FileStat
     changed_files = get_changed_files()
@@ -147,11 +186,13 @@ def get_file_stat():
     n_conflicts = staged_files.count('U')
     n_staged = len(staged_files) - n_conflicts
     n_untracked = get_untracked_files_count()
+    n_stashed = get_stashed_count()
     return FileStat(
         changed=n_changed,
         staged=n_staged,
         conflicts=n_conflicts,
-        untracked=n_untracked
+        untracked=n_untracked,
+        stashed=n_stashed
     )
 
 
@@ -169,15 +210,19 @@ def get_merge_ref(branch):
     return run_shell(cmd)
 
 
-def get_rev(target=HEAD):
+def get_rev(target=None):
     # type: (str) -> str
+    if not target:
+        target = HEAD
     kwargs = {'target': target}
     cmd = 'git rev-parse --short {target}'.format(**kwargs)
     return run_shell(cmd)
 
 
-def get_rev_list(left, right=HEAD):
+def get_rev_list(left, right=None):
     # type: (str, str) -> List[str]
+    if not right:
+        right = HEAD
     kwargs = {'left': left, 'right': right}
     cmd = 'git rev-list --left-right {left}...{right}'.format(**kwargs)
     rv = run_shell(cmd)
@@ -227,7 +272,9 @@ def main():
         stat.staged,
         stat.conflicts,
         stat.changed,
-        stat.untracked
+        stat.untracked,
+        stat.stashed,
+        stat.clean
     ]
     output = ' '.join(map(str, columns))
     echo(output, end='')
