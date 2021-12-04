@@ -18,11 +18,14 @@ amend:
 push:
 	$(GIT) push origin
 
-fpush:
+push!:
 	$(GIT) push origin --force-with-lease
 
 update:
 	$(GIT) pull origin --prune --rebase
 
-fpull:
+pull:
+	$(GIT) fetch origin --rebase
+
+pull!:
 	$(GIT) fetch origin && $(GIT) reset --hard origin/`$(GIT) rev-parse --abbrev-ref HEAD`
