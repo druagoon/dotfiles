@@ -18,4 +18,4 @@ function gvm_on {
     [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 }
 
-gvm_on
+# gvm_on
