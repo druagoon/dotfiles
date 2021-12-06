@@ -21,11 +21,11 @@ push:
 push!:
 	$(GIT) push origin --force-with-lease
 
-update:
-	$(GIT) pull origin --prune --rebase
+fetch:
+	$(GIT) fetch origin
 
 pull:
-	$(GIT) fetch origin --rebase
+	$(GIT) pull origin --prune --rebase
 
 pull!:
 	$(GIT) fetch origin && $(GIT) reset --hard origin/`$(GIT) rev-parse --abbrev-ref HEAD`
