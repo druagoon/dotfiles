@@ -8,8 +8,10 @@
     chmod 700 ~/.ssh
     ```
 
-- Change `config` and `id_rsa` perm
+- Change `config` | `id_rsa` | `hosts` perm
 
     ```sh
-    chmod 600 ~/.ssh/{config,id_rsa}
+    chmod 600 ~/.ssh/{config,id_rsa} \
+    && chmod 700 ~/.ssh/hosts \
+    && chmod 600 ~/.ssh/hosts/*
     ```
