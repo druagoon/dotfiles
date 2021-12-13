@@ -6,4 +6,5 @@ function setconda() {
         export PATH=$CONDA_ENV/$1/bin:$PATH
     fi
 }
+
 setconda macOS
