@@ -13,7 +13,7 @@ function chpwd_update_git_vars() {
 
 function preexec_update_git_vars() {
     case "$2" in
-        git*|hub*|gh*|stg*)
+        git*|hub*|gh*|stg*|make*)
         __EXECUTED_GIT_COMMAND=1
         ;;
     esac
