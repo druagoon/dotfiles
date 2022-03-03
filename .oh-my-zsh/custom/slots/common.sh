@@ -6,7 +6,7 @@ export EDITOR="vim"
 # export HISTTIMEFORMAT="%F %T "
 export PATH=$HOME/.env/macOS/bin:$PATH
 
-alias zshrl="source ~/.zshrc"
+alias ldzsh="source ~/.zshrc"
 alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
 alias pb64="pbpaste | base64 -D && echo"
 alias pb64j="pbpaste | base64 -D | jq --indent 4 -S . | pbcopy && echo 'ok'"
