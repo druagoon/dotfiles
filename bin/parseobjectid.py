@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Parse mongodb object id
 """
@@ -8,19 +8,21 @@ import datetime
 from typing import List
 
 import click
+from tabulate import tabulate
 
 FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
-def parse_object_id(object_id: str) -> collections.OrderedDict:
-    data = collections.OrderedDict()
-    bits = [('ts', 8), ('machine', 6), ('pid', 4), ('inc', 6)]
+def parse_object_id(object_id: str) -> List:
+    value = collections.OrderedDict()
+    parts = [('ts', 8), ('machine', 6), ('pid', 4), ('inc', 6)]
     i = 0
-    for k, v in bits:
-        data[k] = object_id[i:i + v]
+    for k, v in parts:
+        value[k] = object_id[i:i + v]
         i = v
-    dt = datetime.datetime.fromtimestamp(int(data['ts'], 16))
-    data['f_time'] = dt.strftime(FORMAT)
+    dt = datetime.datetime.fromtimestamp(int(value['ts'], 16))
+    value['time_format'] = dt.strftime(FORMAT)
+    data = [object_id, *value.values()]
     return data
 
 
@@ -28,9 +30,19 @@ def parse_object_id(object_id: str) -> collections.OrderedDict:
 @click.option('-i', '--id', multiple=True, help='object id')
 def main(id: List[str]):
     indent = ' ' * 4
+    headers = ['Oid', 'Timestamp', 'Machine', 'Pid', 'Inc', 'Timeformat']
+    rows = []
     for v in id:
-        result = list(parse_object_id(v).items())
-        print(f'{v}:\n{indent}{result}')
+        rows.append(parse_object_id(v))
+    output = tabulate(
+        rows,
+        headers=headers,
+        tablefmt='grid',
+        floatfmt='.2f',
+        numalign='left',
+        stralign='left'
+    )
+    print(output)
 
 
 if __name__ == '__main__':
