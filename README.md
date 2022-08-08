@@ -1,6 +1,4 @@
-# macOS-env
-
-macOS Development Environment
+# macOS Setup Guide
 
 ## Command Line Tools
 
