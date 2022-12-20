@@ -38,6 +38,9 @@
 - `htop`: Improved top (interactive process viewer)
   - Link: <https://htop.dev/>
   - Install: `brew install htop`
+- `ipinfo-cli`: CLI for the IPinfo.io IP address API
+  - Link: <https://ipinfo.io/>
+  - Install: `brew install ipinfo-cli`
 - `jq`: Lightweight and flexible command-line JSON processor
   - Link: <https://stedolan.github.io/jq/>
   - Install: `brew install jq`
