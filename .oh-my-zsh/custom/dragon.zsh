@@ -74,7 +74,7 @@
 export ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
 export ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
 
-BASIC_SLOTS=(common.sh proxy.sh conda.sh go.sh)
+BASIC_SLOTS=(shell.sh proxy.sh conda.sh go.sh)
 
 is_basic_slot() {
     ret="0"
