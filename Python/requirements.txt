@@ -1,11 +1,7 @@
 netifaces
 clipboard
 click
-autopep8
-black
-yapf
 ipython
-jupyter
 requests
 tabulate
 pika

@@ -2,7 +2,7 @@
 ### SVN template
 .svn/
 
-### macOS template
+### macOS
 # General
 *~
 .DS_Store

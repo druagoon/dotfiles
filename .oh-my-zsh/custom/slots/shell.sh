@@ -4,7 +4,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR="vim"
 # export HISTTIMEFORMAT="%F %T "
-export PATH=$HOME/.env/macOS/bin:$PATH
+export PATH=$HOME/.dotfiles/bin:$PATH
 
 alias reload="exec ${SHELL} -l"
 alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
