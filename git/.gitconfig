@@ -1,0 +1,28 @@
+[user]
+	name = lazyboy
+	email = lazyboy.fan@gmail.com
+[core]
+	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes
+	quotepath = false
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[tag]
+	sort = -version:refname
+[push]
+	# https://git-scm.com/docs/git-config#git-config-pushdefault
+	default = simple
+[pull]
+	rebase = true
+[init]
+	defaultBranch = master
+[merge]
+	ff = no
+[alias]
+	cb = checkout-branch
+[log]
+	date = iso-strict-local

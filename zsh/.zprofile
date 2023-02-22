@@ -3,7 +3,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 ZPROFILED="$HOME/.zprofile.d"
 
 if [ -d "$ZPROFILED" ]; then
-    for f in $ZPROFILED/*.sh; do
+    for f in "$ZPROFILED"/*.zsh; do
         . "$f"
     done
 fi
