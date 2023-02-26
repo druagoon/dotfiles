@@ -1,15 +1,23 @@
-CONDA_ENV="${HOME}/.conda/envs"
-CONDA_DOTFILES="${HOME}/.conda/envs/dotfiles"
-CONDA_DOTFILES_PYTHON="${HOME}/.conda/envs/dotfiles/bin/python"
+CONDA_ENVS_DIR="${HOME}/.conda/envs"
+CONDA_DF_VENV="${CONDA_ENVS_DIR}/${DF_NAME}"
+CONDA_DF_VENV_BIN="${CONDA_DF_VENV}/bin"
+CONDA_DF_VENV_PYTHON="${CONDA_DF_VENV_BIN}/python"
 
-setconda() {
-    if [[ -d "$CONDA_ENV/$1" ]]; then
-        prepend_path "$CONDA_ENV/$1/bin"
+setcondaenv() {
+    if [[ -d "$CONDA_ENVS_DIR/$1" ]]; then
+        prepend_path "$CONDA_ENVS_DIR/$1/bin"
+    fi
+}
+
+_init_conda_dotfiles_env() {
+    if [[ ! -d "${CONDA_DF_VENV}" ]]; then
+        echo "Creating conda python(${CONDA_DF_PYTHON_VERSION}) in: ${CONDA_DF_VENV}"
+        conda create -n "${DF_NAME}" python="${CONDA_DF_PYTHON_VERSION}"
     fi
 }
 
 _init_conda() {
-    setconda "dotfiles"
+    _init_conda_dotfiles_env
 }
 
 _init_conda
