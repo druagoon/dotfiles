@@ -15,6 +15,6 @@ new:
 		mkdir -p $(app)/.oh-my-zsh/custom/{completions,slots}; \
 	fi
 
-.PHONY: startup
-startup:
-	$(SHELL) ./startup.sh
+.PHONY: setup
+setup:
+	$(SHELL) ./setup.sh

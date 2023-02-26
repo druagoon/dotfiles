@@ -20,7 +20,7 @@ add_brew_path() {
 }
 
 install_brew() {
-    if [[ ! -x "$(command -v brew 2> /dev/null)" ]]; then
+    if [[ "$(check_command brew)" == "0" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
