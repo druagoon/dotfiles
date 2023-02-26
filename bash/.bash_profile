@@ -1,4 +1,4 @@
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
+# Load ~/.bashrc
+if [[ -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi

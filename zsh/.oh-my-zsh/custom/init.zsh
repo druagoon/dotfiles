@@ -1,0 +1,34 @@
+export ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
+export ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
+export ZSH_CUSTOM_UTILS=$ZSH_CUSTOM/utils
+export ZSH_CUSTOM_INITD=$ZSH_CUSTOM/init.d
+export ZSH_CUSTOM_COMPLETIONS=$ZSH_CUSTOM/completions
+
+load_utils() {
+    for v in ${ZSH_CUSTOM_UTILS}/*.sh; do
+        . "$v"
+    done
+}
+
+load_slots() {
+    for slot in ${ZSH_CUSTOM_SLOTS}/*.sh; do
+        . "$slot"
+    done
+}
+
+load_preposition() {
+    preposition=(shell.sh proxy.sh conda.sh go.sh)
+    for v in "${preposition[@]}"; do
+        if [[ -f "$ZSH_CUSTOM_INITD/$v" ]]; then
+            . "$ZSH_CUSTOM_INITD/$v"
+        fi
+    done
+}
+
+_init_zsh() {
+    load_utils
+    load_preposition
+    load_slots
+}
+
+_init_zsh

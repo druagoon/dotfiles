@@ -4,7 +4,7 @@ alias bic="brew info --cask"
 alias blc="brew list --cask"
 alias bocg="brew outdated --cask --greedy"
 
-def init_brew() {
+_init_brew() {
     arch="$(uname -m)"
     if [[ "${arch}" == "arm64" ]]; then
         brew_prefix="/opt/homebrew"
@@ -16,4 +16,4 @@ def init_brew() {
     prepend_path "${brew_prefix}/bin"
 }
 
-init_brew
+_init_brew

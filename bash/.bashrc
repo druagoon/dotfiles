@@ -21,7 +21,7 @@ CYAN='\033[0;36m'
 LIGHT_GRAY='\033[0;37m'
 RESET='\033[0m'
 
-function get_branch_name() {
+_get_branch_name() {
     name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [[ -z "${name}" ]]; then
         echo ""
@@ -32,7 +32,7 @@ function get_branch_name() {
 
 alias ldsh="source ~/.bash_profile"
 alias ldpps1="export PS1=\"${RESET}[${RED}\D{%Y/%m/%d} \t ${GREEN}\w${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\\$ \""
-alias ldps1="export PS1=\"${RESET}[${RED}\D{%Y/%m/%d} \t ${GREEN}\w${RESET}\\\$(get_branch_name)${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\\$ \""
+alias ldps1="export PS1=\"${RESET}[${RED}\D{%Y/%m/%d} \t ${GREEN}\w${RESET}\\\$(_get_branch_name)${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\\$ \""
 
 [[ -f "/etc/bash_completion.d/git" ]] && . "/etc/bash_completion.d/git"
 
