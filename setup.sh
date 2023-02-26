@@ -41,8 +41,7 @@ install_zsh() {
 
         brew_zsh="$(which zsh)"
         case $(grep -Fx "${brew_zsh}" /etc/shells >/dev/null; echo $?) in
-            0)
-                ;;
+            0) ;;
             1)
                 echo "add ${brew_zsh} to /etc/shells"
                 echo ${brew_zsh} | sudo tee -a /etc/shells
@@ -67,7 +66,7 @@ install_omz() {
         elif [[ "$(command -v wget)" ]]; then
             /bin/bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
         else
-            echo "`curl` or `wget` not found, please install first."
+            echo "curl or wget not found, please install first."
             exit 1
         fi
     else
@@ -75,7 +74,23 @@ install_omz() {
     fi
 
     if [[ -d "${OMZ_ROOT}/.git" ]]; then
-        mkdir -p ${OMZ_ROOT}/custom/{completions,slots}
+        OMZ_CUSTOM="${OMZ_ROOT}/custom"
+        if [[ ! -f "${OMZ_CUSTOM}/__initialized__" ]]; then
+            echo "list files in: ${OMZ_CUSTOM}"
+            ls "${OMZ_CUSTOM}"
+            read -p "Delete directory: ${OMZ_CUSTOM} [Y/n]?" answer
+            case ${answer} in
+                Y | y)
+                    rm -rf "${OMZ_CUSTOM}"
+                    ;;
+                N | n) ;;
+                *)
+                    echo "error choice program exit."
+                    exit 1
+                    ;;
+            esac
+        fi
+        mkdir -p "${OMZ_CUSTOM}"/{completions,slots}
     fi
 }
 
