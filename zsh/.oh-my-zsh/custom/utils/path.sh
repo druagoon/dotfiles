@@ -1,4 +1,4 @@
-is_path_contains() {
+df_is_path_contains() {
     ret="0"
     if [[ ":${PATH}:" != *":${1}:"* ]]; then
         ret="1"
@@ -6,15 +6,15 @@ is_path_contains() {
     echo "${ret}"
 }
 
-prepend_path() {
-    ret=$(is_path_contains "${1}")
+df_prepend_path() {
+    ret=$(df_is_path_contains "${1}")
     if [[ "${ret}" == "0" ]]; then
         export PATH="${1}:${PATH}"
     fi
 }
 
-append_path() {
-    ret=$(is_path_contains "${1}")
+df_append_path() {
+    ret=$(df_is_path_contains "${1}")
     if [[ "${ret}" == "0" ]]; then
         export PATH="${PATH}:${1}"
     fi

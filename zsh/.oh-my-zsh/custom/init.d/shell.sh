@@ -20,7 +20,7 @@ alias pjson="pbpaste | jq --indent 4 -S . | pbcopy && echo 'ok'"
 _init_shell_path() {
     paths=(/usr/local/sbin /usr/local/bin)
     for v in "${paths[@]}"; do
-        prepend_path "${v}"
+        df_prepend_path "${v}"
     done
 }
 

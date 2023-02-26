@@ -5,7 +5,7 @@ export GO111MODULE=on
 export GOPATH="${HOME}/.go"
 
 _init_go() {
-    prepend_path "${GOPATH}/bin"
+    df_prepend_path "${GOPATH}/bin"
 }
 
 _init_go

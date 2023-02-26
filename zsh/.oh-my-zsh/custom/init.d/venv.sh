@@ -22,7 +22,7 @@ _install_venv_icli() {
 }
 
 _init_venv_path() {
-    prepend_path "${DF_VENV_BIN}"
+    df_prepend_path "${DF_VENV_BIN}"
 }
 
 _init_venv() {

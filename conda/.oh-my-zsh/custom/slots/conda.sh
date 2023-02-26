@@ -5,7 +5,7 @@ CONDA_DF_VENV_PYTHON="${CONDA_DF_VENV_BIN}/python"
 
 setcondaenv() {
     if [[ -d "$CONDA_ENVS_DIR/$1" ]]; then
-        prepend_path "$CONDA_ENVS_DIR/$1/bin"
+        df_prepend_path "$CONDA_ENVS_DIR/$1/bin"
     fi
 }
 
