@@ -40,7 +40,10 @@ install_zsh() {
         brew install zsh
 
         brew_zsh="$(which zsh)"
-        case $(grep -Fx "${brew_zsh}" /etc/shells >/dev/null; echo $?) in
+        case $(
+            grep -Fx "${brew_zsh}" /etc/shells > /dev/null
+            echo $?
+        ) in
             0) ;;
             1)
                 echo "add ${brew_zsh} to /etc/shells"
