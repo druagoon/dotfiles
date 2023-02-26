@@ -27,6 +27,22 @@ install_brew() {
     fi
 }
 
+install_stow() {
+    if [[ "$(check_command stow)" == "0" ]]; then
+        brew install stow
+    else
+        echo "install stow ... skip"
+    fi
+}
+
+install_tree() {
+    if [[ "$(check_command tree)" == "0" ]]; then
+        brew install tree
+    else
+        echo "install tree ... skip"
+    fi
+}
+
 install_git() {
     if [[ "$(check_command git)" == "0" ]]; then
         brew install git
@@ -80,15 +96,14 @@ install_omz() {
         OMZ_CUSTOM="${OMZ_ROOT}/custom"
         if [[ ! -f "${OMZ_CUSTOM}/__initialized__" ]]; then
             echo "list files in: ${OMZ_CUSTOM}"
-            ls "${OMZ_CUSTOM}"
-            read -p "Delete directory: ${OMZ_CUSTOM} [Y/n]?" answer
+            tree "${OMZ_CUSTOM}"
+            read -p "Delete directory: ${OMZ_CUSTOM} [Y/n] " answer
             case ${answer} in
                 Y | y)
                     rm -rf "${OMZ_CUSTOM}"
                     ;;
-                N | n) ;;
                 *)
-                    echo "error choice program exit."
+                    echo "process abort, program exit."
                     exit 1
                     ;;
             esac
@@ -97,20 +112,13 @@ install_omz() {
     fi
 }
 
-install_stow() {
-    if [[ "$(check_command stow)" == "0" ]]; then
-        brew install stow
-    else
-        echo "install stow ... skip"
-    fi
-}
-
 bootstrap() {
     install_brew
+    install_stow
+    install_tree
     install_git
     install_zsh
     install_omz
-    install_stow
 }
 
 bootstrap
