@@ -31,7 +31,7 @@ push!:
 
 .PHONY: pull
 pull:
-	$(GIT) pul --prune --rebase
+	$(GIT) pull --prune --rebase
 
 .PHONY: pull-%
 pull-%:
