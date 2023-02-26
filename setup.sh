@@ -4,6 +4,7 @@ if [[ "${arch}" == "arm64" ]]; then
 else
     BREW_PREFIX="/usr/local"
 fi
+export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 
 check_command() {
     ret="0"
@@ -15,16 +16,10 @@ check_command() {
     echo "${ret}"
 }
 
-add_brew_path() {
-    export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
-}
-
 install_brew() {
     if [[ "$(check_command brew)" == "0" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-
-    add_brew_path
 }
 
 install_git() {
