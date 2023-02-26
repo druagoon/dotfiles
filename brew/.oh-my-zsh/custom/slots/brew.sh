@@ -1,0 +1,19 @@
+alias bs="brew search"
+alias bi="brew info"
+alias bic="brew info --cask"
+alias blc="brew list --cask"
+alias bocg="brew outdated --cask --greedy"
+
+def init_brew() {
+    arch="$(uname -m)"
+    if [[ "${arch}" == "arm64" ]]; then
+        brew_prefix="/opt/homebrew"
+    else
+        brew_prefix="/usr/local"
+    fi
+
+    prepend_path "${brew_prefix}/sbin"
+    prepend_path "${brew_prefix}/bin"
+}
+
+init_brew

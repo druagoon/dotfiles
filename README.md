@@ -1,4 +1,64 @@
-# macOS Setup Guide
+# dotfiles
+
+---
+
+## Installation
+
+### [Enpass](https://www.enpass.io/)
+
+### [ClashX](https://github.com/yichengchen/clashX)
+
+### [iTerm2](https://iterm2.com/)
+
+#### Set Network Proxy
+
+```shell
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+```
+
+### [Homebrew](https://brew.sh/)
+
+#### Install
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### Set Environment
+
+```shell
+source ~/.dotfiles/brew/.oh-my-zsh/custom/slots/brew.sh
+```
+
+### [Git](https://git-scm.com/)(可选)
+
+```shell
+brew install git
+```
+
+### [dotfiles](https://github.com/druagoon/dotfiles)
+
+```shell
+git clone git@github.com:druagoon/dotfiles.git ~/.dotfiles
+```
+
+### [Stow](https://www.gnu.org/software/stow/)
+
+```shell
+brew install stow
+```
+
+### [Miniconda](https://docs.conda.io/en/main/miniconda.html)
+
+```shell
+brew install miniconda
+```
+
+### [Go](https://go.dev/)
+
+```shell
+brew install go
+```
 
 ## Command Line Tools
 

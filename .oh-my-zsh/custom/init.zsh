@@ -1,3 +1,6 @@
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export ZSH_CUSTOM_ETC=$ZSH_CUSTOM/etc
 export ZSH_CUSTOM_SLOTS=$ZSH_CUSTOM/slots
 export ZSH_CUSTOM_COMPLETIONS=$ZSH_CUSTOM/completions
