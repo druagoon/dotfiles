@@ -6,8 +6,8 @@ alias gd="git diff --color"
 alias gb="git branch"
 alias gco="git checkout"
 
-_init_git() {
+__init_git() {
     [[ -f "/etc/bash_completion.d/git" ]] && . "/etc/bash_completion.d/git"
 }
 
-_init_git
+__init_git

@@ -17,15 +17,15 @@ alias pb64="pbpaste | base64 -D && echo"
 alias pb64j="pbpaste | base64 -D | jq --indent 4 -S . | pbcopy && echo 'ok'"
 alias pjson="pbpaste | jq --indent 4 -S . | pbcopy && echo 'ok'"
 
-_init_shell_path() {
+__init_shell_path() {
     paths=(/usr/local/sbin /usr/local/bin)
     for v in "${paths[@]}"; do
         df_prepend_path "${v}"
     done
 }
 
-_init_shell() {
-    _init_shell_path
+__init_shell() {
+    __init_shell_path
 }
 
-_init_shell
+__init_shell

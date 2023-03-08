@@ -20,8 +20,8 @@ showproxy() {
     echo "http_proxy: ${http_proxy} https_proxy: ${https_proxy} all_proxy: ${all_proxy}"
 }
 
-_init_proxy() {
+__init_proxy() {
     setproxy
 }
 
-_init_proxy
+__init_proxy

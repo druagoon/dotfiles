@@ -4,8 +4,8 @@ export GO111MODULE=on
 # export GOPROXY=https://goproxy.cn,direct
 export GOPATH="${HOME}/.go"
 
-_init_go() {
+__init_go() {
     df_prepend_path "${GOPATH}/bin"
 }
 
-_init_go
+__init_go

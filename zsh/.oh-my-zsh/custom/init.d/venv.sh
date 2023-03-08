@@ -21,14 +21,14 @@ _install_venv_icli() {
     "${DF_VENV_PIP}" install git+ssh://git@github.com/druagoon/icli-python.git@master
 }
 
-_init_venv_path() {
+__init_venv_path() {
     df_prepend_path "${DF_VENV_BIN}"
 }
 
-_init_venv() {
+__init_venv() {
     _setup_venv
     _install_venv_icli
-    _init_venv_path
+    __init_venv_path
 }
 
-_init_venv
+__init_venv

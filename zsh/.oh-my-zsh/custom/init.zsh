@@ -9,19 +9,19 @@ export DF_NAME="dotfiles"
 export DF_X_NAME=".dotfiles"
 export DF_ROOT="${HOME}/${DF_X_NAME}"
 
-load_utils() {
+__load_utils() {
     for v in "${ZSH_CUSTOM_UTILS}"/*.sh; do
         . "$v"
     done
 }
 
-load_slots() {
+__load_slots() {
     for slot in "${ZSH_CUSTOM_SLOTS}"/*.sh; do
         . "$slot"
     done
 }
 
-load_preposition() {
+__load_preposition() {
     preposition=(shell.sh proxy.sh brew.sh conda.sh venv.sh go.sh)
     for v in "${preposition[@]}"; do
         if [[ -f "$ZSH_CUSTOM_INITD/$v" ]]; then
@@ -30,10 +30,10 @@ load_preposition() {
     done
 }
 
-_init_zsh() {
-    load_utils
-    load_preposition
-    load_slots
+__init_zsh() {
+    __load_utils
+    __load_preposition
+    __load_slots
 }
 
-_init_zsh
+__init_zsh

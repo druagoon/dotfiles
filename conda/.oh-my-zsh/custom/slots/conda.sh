@@ -9,15 +9,15 @@ setcondaenv() {
     fi
 }
 
-_init_conda_dotfiles_env() {
+__init_conda_dotfiles_env() {
     if [[ ! -d "${CONDA_DF_VENV}" ]]; then
         echo "Creating conda python(${CONDA_DF_PYTHON_VERSION}) in: ${CONDA_DF_VENV}"
         conda create -n "${DF_NAME}" python="${CONDA_DF_PYTHON_VERSION}"
     fi
 }
 
-_init_conda() {
-    _init_conda_dotfiles_env
+__init_conda() {
+    __init_conda_dotfiles_env
 }
 
-_init_conda
+__init_conda

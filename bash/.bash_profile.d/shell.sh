@@ -29,7 +29,7 @@ ldpps1() {
     export PS1="${RESET}[${RED}\D{%Y/%m/%d} \t ${GREEN}\w${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\$ "
 }
 
-_init_shell_path() {
+__init_shell_path() {
     paths=("${HOME}/bin" "${HOME}/.local/bin" /usr/local/sbin /usr/local/bin)
     for v in "${paths[@]}"; do
         if [[ ":${PATH}:" != *":${v}:"* ]]; then
@@ -38,8 +38,8 @@ _init_shell_path() {
     done
 }
 
-_init_shell() {
-    _init_shell_path
+__init_shell() {
+    __init_shell_path
 }
 
-_init_shell
+__init_shell
