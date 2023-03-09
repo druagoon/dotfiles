@@ -1,4 +1,5 @@
 tap "homebrew/bundle"
+tap "homebrew/services"
 tap "mongodb/brew"
 tap "openresty/brew"
 # GNU File, Shell, and Text utilities
@@ -21,8 +22,12 @@ brew "ipinfo-cli"
 brew "jq"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Tools for zmodem/xmodem/ymodem file transfer
+brew "lrzsz"
 # 'traceroute' and 'ping' in a single tool
 brew "mtr"
+# Fast, highly customisable system info script
+brew "neofetch"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Persistent key-value database, with built-in net interface
@@ -43,6 +48,8 @@ brew "wget"
 brew "zsh"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community"
+# High-performance, schema-free, document-oriented database
+brew "mongodb/brew/mongodb-community@4.2"
 # Scalable Web Platform by Extending NGINX with Lua
 brew "openresty/brew/openresty"
 # Minimal installer for conda
