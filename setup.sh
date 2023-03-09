@@ -94,23 +94,25 @@ install_omz() {
         echo "install oh-my-zsh ... skip"
     fi
 
-    if [[ -d "${OMZ_ROOT}/.git" ]]; then
-        if [[ ! -f "${OMZ_CUSTOM}/__initialized__" ]]; then
-            echo "list files in: ${OMZ_CUSTOM}"
-            tree "${OMZ_CUSTOM}"
-            read -p "Delete directory: ${OMZ_CUSTOM} [Y/n] " answer
-            case ${answer} in
-                Y | y)
-                    rm -rf "${OMZ_CUSTOM}"
-                    ;;
-                *)
-                    echo "process abort, program exit."
-                    exit 1
-                    ;;
-            esac
-        fi
-        mkdir -p "${OMZ_CUSTOM}"/{completions,slots}
-    fi
+    # local omz_git=$(git rev-parse --git-dir 2> /dev/null)
+    # if [[ -n "${omz_git}" ]]; then
+    #     local initialized="${OMZ_CUSTOM}/__initialized__"
+    #     if [[ ! -f "${initialized}" ]]; then
+    #         echo "list files in: ${OMZ_CUSTOM}"
+    #         tree "${OMZ_CUSTOM}"
+    #         read -p "Delete directory: ${OMZ_CUSTOM} [Y/n] " answer
+    #         case ${answer} in
+    #             Y | y)
+    #                 rm -rf "${OMZ_CUSTOM}"
+    #                 ;;
+    #             *)
+    #                 echo "process abort, program exit."
+    #                 exit 1
+    #                 ;;
+    #         esac
+    #     fi
+    #     touch "${initialized}"
+    # fi
 }
 
 bootstrap() {
