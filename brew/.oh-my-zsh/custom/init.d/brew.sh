@@ -8,9 +8,9 @@ alias bocg="brew outdated --cask --greedy"
 __init_brew_path() {
     arch="$(uname -m)"
     if [[ "${arch}" == "arm64" ]]; then
-        brew_prefix="/opt/homebrew"
+        local brew_prefix="/opt/homebrew"
     else
-        brew_prefix="/usr/local"
+        local brew_prefix="/usr/local"
     fi
 
     df_prepend_path "${brew_prefix}/sbin"

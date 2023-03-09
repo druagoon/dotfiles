@@ -2,8 +2,8 @@ unsetopt nomatch
 
 ZPROFILED="${HOME}/.zprofile.d"
 
-if [ -d "${ZPROFILED}" ]; then
-    for f in "${ZPROFILED}"/*.sh; do
-        . "${f}"
-    done
-fi
+# if [ -d "${ZPROFILED}" ]; then
+#     for f in "${ZPROFILED}"/*.sh; do
+#         . "${f}"
+#     done
+# fi

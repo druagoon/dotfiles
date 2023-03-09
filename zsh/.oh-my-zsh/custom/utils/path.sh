@@ -1,6 +1,6 @@
 df_is_path_contains() {
     ret="0"
-    if [[ ":${PATH}:" != *":${1}:"* ]]; then
+    if [[ ":${PATH}:" == *":${1}:"* ]]; then
         ret="1"
     fi
     echo "${ret}"

@@ -15,6 +15,18 @@ do_stow() {
     stow -v -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
 }
 
+link_brew() {
+    do_stow brew
+}
+
+link_go() {
+    do_stow go
+}
+
+link_conda() {
+    do_stow conda
+}
+
 link_zsh() {
     local zfiles=(.zprofile .zshenv .zshrc)
     for v in "${zfiles[@]}"; do
@@ -27,8 +39,16 @@ link_zsh() {
     do_stow zsh
 }
 
+link_python() {
+    do_stow python
+}
+
 main() {
+    link_brew
+    link_go
+    link_conda
     link_zsh
+    link_python
 }
 
 main

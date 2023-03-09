@@ -11,22 +11,23 @@ export DF_ROOT="${HOME}/${DF_X_NAME}"
 
 __load_utils() {
     for v in "${ZSH_CUSTOM_UTILS}"/*.sh; do
-        . "$v"
-    done
-}
-
-__load_slots() {
-    for slot in "${ZSH_CUSTOM_SLOTS}"/*.sh; do
-        . "$slot"
+        . "${v}"
     done
 }
 
 __load_preposition() {
     preposition=(shell.sh proxy.sh brew.sh conda.sh venv.sh go.sh)
     for v in "${preposition[@]}"; do
-        if [[ -f "$ZSH_CUSTOM_INITD/$v" ]]; then
-            . "$ZSH_CUSTOM_INITD/$v"
+        local filepath="${ZSH_CUSTOM_INITD}/${v}"
+        if [[ -f "${filepath}" ]]; then
+            . "${filepath}"
         fi
+    done
+}
+
+__load_slots() {
+    for slot in "${ZSH_CUSTOM_SLOTS}"/*.sh; do
+        . "${slot}"
     done
 }
 
