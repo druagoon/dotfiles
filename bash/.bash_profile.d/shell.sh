@@ -55,7 +55,7 @@ ldps1() {
     branch="$(__ps_part "\$(__get_branch_name)")"
     user="$(__ps_part "${PURPLE}\\u")"
     host="$(__ps_part "${CYAN}\\H")"
-    export PS1="[${time} ${ip} ${cwd}${branch}]\n[${user}@${host}]\$ "
+    export PS1="[${time} ${ip} ${cwd} ${branch}]\n[${user}@${host}]\$ "
     # export PS1="${RESET}[${BLUE}\D{%Y/%m/%d} \t ${ORANGE}$(__get_ip) ${GREEN}\w${RESET}\$(__get_branch_name)${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\$ "
 }
 
