@@ -11,8 +11,35 @@ export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 STOW_SRC="${HOME}/.dotfiles"
 STOW_TARGET="${HOME}"
 
+EXCLUDE_SLOTS=(.git .venv .vscode bin)
+EXCLUDE_SLOTS_STRING=$(
+    IFS=:
+    echo "${EXCLUDE_SLOTS[*]}"
+)
+
 do_stow() {
-    stow -v -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
+    stow -vn -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
+}
+
+is_exclude_slot() {
+    local ret="0"
+    if [[ ":${EXCLUDE_SLOTS_STRING}:" == *":${1}:"* ]]; then
+        ret="1"
+    fi
+    echo "${ret}"
+}
+
+link_deps() {
+    link_stow
+    link_brew
+    link_go
+    link_conda
+    link_zsh
+    link_python
+}
+
+link_stow() {
+    do_stow stow
 }
 
 link_brew() {
@@ -43,12 +70,21 @@ link_python() {
     do_stow python
 }
 
+link_slots() {
+    find "${STOW_SRC}" -depth 1 -type d | while read name; do
+        local slot=$(basename "${name}")
+        local ret=$(is_exclude_slot "${slot}")
+        if [[ "${ret}" == 0 ]]; then
+            echo "do_stow ... ${slot}"
+            do_stow "${slot}"
+        fi
+    done
+
+}
+
 main() {
-    link_brew
-    link_go
-    link_conda
-    link_zsh
-    link_python
+    link_deps
+    link_slots
 }
 
 main
