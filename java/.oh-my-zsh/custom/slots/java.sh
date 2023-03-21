@@ -1,7 +1,12 @@
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 setjdk() {
-    export JAVA_HOME=$(/usr/libexec/java_home -v "$@")
+    if [[ -x "/usr/libexec/java_home" ]]; then
+        local ret="$(/usr/libexec/java_home -v "$@" 2> /dev/null)"
+        if [[ -z "${ret}" ]]; then
+            export JAVA_HOME="${ret}"
+        fi
+    fi
 }
 
 __init_java() {
