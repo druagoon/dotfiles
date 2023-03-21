@@ -19,6 +19,7 @@ _setup_venv() {
 
 _install_venv_icli() {
     if [[ ! -x "${DF_VENV_ICLI}" ]]; then
+        echo "Install ... icli"
         "${DF_VENV_PIP}" install git+ssh://git@github.com/druagoon/icli-python.git@master
     fi
 }
