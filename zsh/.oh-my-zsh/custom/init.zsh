@@ -6,8 +6,8 @@ export ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
 
 # Dotfiles root directory
 export DF_NAME="dotfiles"
-export DF_X_NAME=".dotfiles"
-export DF_ROOT="${HOME}/${DF_X_NAME}"
+export DF_DOT_NAME=".dotfiles"
+export DF_ROOT="${HOME}/${DF_DOT_NAME}"
 
 __load_utils() {
     for v in "${ZSH_CUSTOM_UTILS}"/*.sh; do
