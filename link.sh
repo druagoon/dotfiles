@@ -18,7 +18,7 @@ EXCLUDE_SLOTS_STRING=$(
 )
 
 do_stow() {
-    stow -vn -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
+    stow -v --adopt -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
 }
 
 is_exclude_slot() {
