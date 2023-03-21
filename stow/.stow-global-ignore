@@ -6,6 +6,9 @@
 #
 # See 'info stow' section "4 Ignore Lists" for more information
 
+### macOS
+\.DS_Store
+
 RCS
 .+,v
 
