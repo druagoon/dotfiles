@@ -31,10 +31,17 @@ __load_slots() {
     done
 }
 
+__load_completions() {
+    for f in "${ZSH_CUSTOM_COMPLETIONS}"/*.zsh; do
+        . "${f}"
+    done
+}
+
 __init_zsh() {
     __load_utils
     __load_preposition
     __load_slots
+    __load_completions
 }
 
 __init_zsh
