@@ -17,6 +17,10 @@ EXCLUDE_SLOTS_STRING=$(
     echo "${EXCLUDE_SLOTS[*]}"
 )
 
+stow_log() {
+    echo -e "stow ... ${1}"
+}
+
 do_stow() {
     stow -v --adopt -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
 }
@@ -75,7 +79,7 @@ link_slots() {
         local slot=$(basename "${name}")
         local ret=$(is_exclude_slot "${slot}")
         if [[ "${ret}" == 0 ]]; then
-            echo "do_stow ... ${slot}"
+            stow_log "${slot}"
             do_stow "${slot}"
         fi
     done
