@@ -83,7 +83,6 @@ link_slots() {
             do_stow "${slot}"
         fi
     done
-
 }
 
 main() {
