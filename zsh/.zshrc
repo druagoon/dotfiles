@@ -72,7 +72,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow dragon-git-prompt copypath colored-man-pages)
+plugins=(git git-flow dragon-git-prompt cp docker copypath colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 
