@@ -7,13 +7,13 @@ SHELL := /bin/bash
 motto:
 	@if [ -f .motto ]; then cat .motto; fi
 
-# Generate new component
-.PHONY: comp
-comp:
-	@if [ -z $(name) ]; then \
+# Generate new slot
+.PHONY: slot
+slot:
+	@if [[ -z $(name) ]]; then \
 		echo 'Error: missing `name` option'; \
 	else \
-		mkdir -p $(name)/.oh-my-zsh/custom/{completions,slots}; \
+		mkdir -p "$(name)"/.oh-my-zsh/custom/{completions,slots}; \
 	fi
 
 .PHONY: setup
