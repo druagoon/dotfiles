@@ -45,7 +45,7 @@ ldprofile() {
 }
 
 __ps_part() {
-    echo "${RESET}${1}${RESET}"
+    echo "${RESET}$1${RESET}"
 }
 
 ldps1() {

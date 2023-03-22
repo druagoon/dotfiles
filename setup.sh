@@ -14,9 +14,9 @@ OMZ_CUSTOM="${OMZ_ROOT}/custom"
 
 is_brew_formual_cmd() {
     local ret="0"
-    if [[ -x "${BREW_PREFIX}/bin/${1}" ]]; then
+    if [[ -x "${BREW_PREFIX}/bin/$1" ]]; then
         ret="1"
-    elif [[ -x "${BREW_PREFIX}/sbin/${1}" ]]; then
+    elif [[ -x "${BREW_PREFIX}/sbin/$1" ]]; then
         ret="1"
     fi
     echo "${ret}"

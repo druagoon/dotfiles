@@ -18,16 +18,16 @@ EXCLUDE_SLOTS_STRING=$(
 )
 
 stow_log() {
-    echo -e "stow ... ${1}"
+    echo -e "stow ... $1"
 }
 
 do_stow() {
-    stow -v --adopt -d "${STOW_SRC}" -t "${STOW_TARGET}" "${1}"
+    stow -v --adopt -d "${STOW_SRC}" -t "${STOW_TARGET}" "$1"
 }
 
 is_exclude_slot() {
     local ret="0"
-    if [[ ":${EXCLUDE_SLOTS_STRING}:" == *":${1}:"* ]]; then
+    if [[ ":${EXCLUDE_SLOTS_STRING}:" == *":$1:"* ]]; then
         ret="1"
     fi
     echo "${ret}"
