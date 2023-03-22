@@ -2,7 +2,7 @@ export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 setjdk() {
     if [[ -x "/usr/libexec/java_home" ]]; then
-        local ret="$(/usr/libexec/java_home -v "$@" 2> /dev/null)"
+        local ret="$(/usr/libexec/java_home -v "$@" 2>/dev/null)"
         if [[ -z "${ret}" ]]; then
             export JAVA_HOME="${ret}"
         fi

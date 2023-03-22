@@ -17,7 +17,7 @@ indent_style = tab
 shell_variant = auto
 binary_next_line = false
 switch_case_indent = false
-space_redirects = true
+space_redirects = false
 keep_padding = true
 function_next_line = false
 

@@ -32,7 +32,7 @@ __get_ip() {
 }
 
 __get_branch_name() {
-    name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+    name="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     if [[ -z "${name}" ]]; then
         echo ""
     else

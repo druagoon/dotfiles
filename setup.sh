@@ -94,7 +94,7 @@ install_omz() {
         echo "install oh-my-zsh ... skip"
     fi
 
-    # local omz_git=$(git rev-parse --git-dir 2> /dev/null)
+    # local omz_git=$(git rev-parse --git-dir 2>/dev/null)
     # if [[ -n "${omz_git}" ]]; then
     #     local initialized="${OMZ_CUSTOM}/__initialized__"
     #     if [[ ! -f "${initialized}" ]]; then
