@@ -8,6 +8,9 @@
 
 ### macOS
 \.DS_Store
+.*\.old
+.*\.bak
+.*\.orig
 
 RCS
 .+,v
