@@ -80,6 +80,7 @@ plugins=(
     dragon-git-prompt
     git
     git-flow
+    wd
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
