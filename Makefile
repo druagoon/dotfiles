@@ -10,7 +10,7 @@ motto:
 # Generate new slot
 .PHONY: slot
 slot:
-	@if [[ -z $(name) ]]; then \
+	@if [[ -z "$(name)" ]]; then \
 		echo 'Error: missing `name` option'; \
 	else \
 		mkdir -p "$(name)"/.oh-my-zsh/custom/{completions,slots}; \

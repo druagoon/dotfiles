@@ -2,6 +2,7 @@
 export ZSH_CUSTOM_SLOTS="${ZSH_CUSTOM}/slots"
 export ZSH_CUSTOM_UTILS="${ZSH_CUSTOM}/utils"
 export ZSH_CUSTOM_INITD="${ZSH_CUSTOM}/init.d"
+export ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM}/plugins"
 export ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
 
 # Dotfiles root directory

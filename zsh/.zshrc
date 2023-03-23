@@ -65,14 +65,24 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+# ZSH_CUSTOM="${ZSH}/custom"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow dragon-git-prompt cp docker copypath colored-man-pages)
+plugins=(
+    colored-man-pages
+    copypath
+    cp
+    docker
+    dragon-git-prompt
+    git
+    git-flow
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
