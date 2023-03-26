@@ -19,3 +19,12 @@ df_append_path() {
         export PATH="${PATH}:$1"
     fi
 }
+
+
+df_is_directory_empty() {
+    local ret="1"
+    if [[ -d "$1" && -z "$(ls -A "$1")" ]]; then
+        ret="1"
+    fi
+    echo "${ret}"
+}

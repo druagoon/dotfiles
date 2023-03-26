@@ -42,11 +42,9 @@
 ~/Code/github/python-assets/pydantic;https://github.com/pydantic/pydantic.git
 ~/Code/github/python-assets/Python-Guide-CN;https://github.com/Prodesire/Python-Guide-CN.git
 ~/Code/github/python-assets/django;https://github.com/django/django.git
-~/Code/github/books/nndl;https://github.com/nndl/nndl.github.io.git
 ~/Code/github/books/qyuhen-book;https://github.com/qyuhen/book.git
 ~/Code/github/books/ddia;https://github.com/Vonng/ddia.git
 ~/Code/github/books/Writing-a-Interpreter-in-Go-Translation;https://github.com/LixvYang/Writing-a-Interpreter-in-Go-Translation.git
-~/Code/github/books/redis-doc-cn;https://github.com/huangz1990/redis.git
 ~/Code/github/js-assets/UnblockNeteaseMusic;https://github.com/nondanee/UnblockNeteaseMusic.git
 ~/Code/github/js-assets/browser-logos;https://github.com/alrra/browser-logos.git
 ~/Code/github/java-assets/alibaba/p3c;git@github.com:alibaba/p3c.git

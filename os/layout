@@ -1,0 +1,64 @@
+#!/bin/bash
+
+LAYOUTS_DIR="${HOME}/.dotfiles/os/layouts"
+
+layout_git() {
+    local filename="$(basename "$1")"
+    local filepath="${LAYOUTS_DIR}/${filename}"
+
+    # Clear layout file content
+    >"${filepath}"
+
+    find "$1" -name ".git" ! -path '*/.local/*' | while read name; do
+        local target=$(dirname "${name}")
+        local url="$(git -C "${target}" config --get remote.origin.url)"
+        local path="~${target#${HOME}}"
+        echo "${path};${url}" >>"${filepath}"
+    done
+}
+
+layout_sync() {
+    if [[ -z "$1" ]]; then
+        echo "Error: missing layout file name"
+        exit 1
+    fi
+
+    local filepath="${LAYOUTS_DIR}/$1"
+    if [[ ! -f "${filepath}" ]]; then
+        echo "\"${filepath}\" not exists."
+        exit 1
+    fi
+    while read line; do
+        set -f # avoid globbing (expansion of *).
+        local parts=(${line/;/ })
+        local path="${parts[0]/#\~/${HOME}}"
+        local git_url="${parts[1]}"
+        if [[ ! -d "${path}" ]]; then
+            echo "git clone \"${git_url}\" to \"${path}\""
+            git clone "${git_url}" "${path}" && echo
+        fi
+    done <${filepath}
+}
+
+help() {
+    echo "layout [git|sync] TARGET"
+    echo
+    echo -e "git    generate git path layout file"
+    echo -e "sync   sync path layout from file"
+}
+
+main() {
+    case "$1" in
+    git)
+        layout_git "$2"
+        ;;
+    sync)
+        layout_sync "$2"
+        ;;
+    *)
+        help
+        ;;
+    esac
+}
+
+main "$@"
