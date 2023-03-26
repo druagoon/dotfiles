@@ -13,7 +13,7 @@ layout_git() {
         local target=$(dirname "${name}")
         local url="$(git -C "${target}" config --get remote.origin.url)"
         local path="~${target#${HOME}}"
-        echo "${path} ${url}" >>"${filepath}"
+        echo "${path};${url}" >>"${filepath}"
     done
 }
 
