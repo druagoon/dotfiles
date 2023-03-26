@@ -65,7 +65,19 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM="${ZSH}/custom"
+ZSH_CUSTOM="${ZSH}/custom"
+
+# Zsh components directory
+ZSH_CUSTOM_UTILS="${ZSH_CUSTOM}/utils"
+ZSH_CUSTOM_INITD="${ZSH_CUSTOM}/init.d"
+ZSH_CUSTOM_SLOTS="${ZSH_CUSTOM}/slots"
+ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM}/plugins"
+ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
+
+# Dotfiles root directory
+DOTFILES_NAME="dotfiles"
+DOTFILES_DOT_NAME=".dotfiles"
+DOTFILES_ROOT="${HOME}/${DOTFILES_DOT_NAME}"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -77,13 +89,26 @@ plugins=(
     copypath
     cp
     docker
-    dragon-git-prompt
     git
     git-flow
     wd
-    zsh-autosuggestions
-    zsh-syntax-highlighting
 )
+
+# Load custom plugins if exists.
+__zsh_load_custom_plugins() {
+    local custom_plugins=(
+        dragon-git-prompt
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+    )
+    for plg in "${custom_plugins[@]}"; do
+        if [[ -d "${ZSH_CUSTOM_PLUGINS}/${plg}" ]]; then
+            plugins+=("${plg}")
+        fi
+    done
+}
+
+__zsh_load_custom_plugins
 
 source $ZSH/oh-my-zsh.sh
 

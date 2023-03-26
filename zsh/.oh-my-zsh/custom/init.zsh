@@ -1,15 +1,3 @@
-# Zsh custom directory
-export ZSH_CUSTOM_SLOTS="${ZSH_CUSTOM}/slots"
-export ZSH_CUSTOM_UTILS="${ZSH_CUSTOM}/utils"
-export ZSH_CUSTOM_INITD="${ZSH_CUSTOM}/init.d"
-export ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM}/plugins"
-export ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
-
-# Dotfiles root directory
-export DF_NAME="dotfiles"
-export DF_DOT_NAME=".dotfiles"
-export DF_ROOT="${HOME}/${DF_DOT_NAME}"
-
 __load_utils() {
     for v in "${ZSH_CUSTOM_UTILS}"/*.sh; do
         . "${v}"
@@ -17,7 +5,7 @@ __load_utils() {
 }
 
 __load_preposition() {
-    preposition=(shell.sh proxy.sh brew.sh conda.sh venv.sh go.sh)
+    local preposition=(shell.sh proxy.sh brew.sh conda.sh venv.sh go.sh)
     for v in "${preposition[@]}"; do
         local filepath="${ZSH_CUSTOM_INITD}/${v}"
         if [[ -f "${filepath}" ]]; then
