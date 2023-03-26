@@ -26,6 +26,8 @@ brew "kubernetes-cli"
 brew "lrzsz"
 # 'traceroute' and 'ping' in a single tool
 brew "mtr"
+# Tool for querying IP geographic information and CDN provider
+brew "nali"
 # Fast, highly customisable system info script
 brew "neofetch"
 # OpenBSD freely-licensed SSH connectivity tools
