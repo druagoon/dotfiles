@@ -6,7 +6,7 @@
 #
 # See 'info stow' section "4 Ignore Lists" for more information
 
-### macOS
+# macOS
 \.DS_Store
 .*\.old
 .*\.bak
