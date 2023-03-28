@@ -9,7 +9,7 @@ insert_final_newline = true
 tab_width = 4
 trim_trailing_whitespace = true
 
-[{GNUmakefile,[Mm]akefile}]
+[{GNUmakefile,[Mm]akefile,*.mk}]
 indent_style = tab
 
 [*.{sh,zsh}]
