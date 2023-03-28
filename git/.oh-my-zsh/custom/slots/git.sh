@@ -19,9 +19,9 @@ __go_install_repo() {
     fi
 
     if [[ -n "$3" ]]; then
-        local cmd_alias="${gobin}/$3"
-        if [[ ! -f "${cmd_alias}" ]]; then
-            ln -sv "${cmd}" "${cmd_alias}"
+        local target="${gobin}/$3"
+        if [[ ! -f "${target}" ]]; then
+            (cd "${gobin}" && ln -sv "./$1" "$3")
         fi
     fi
 }
