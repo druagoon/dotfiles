@@ -30,6 +30,7 @@ __install_git_checkout_branch() {
     local args=(
         git-checkout-branch
         github.com/royeo/git-checkout-branch@latest
+        git-cb
     )
     __go_install_repo ${args[*]}
 }

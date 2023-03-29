@@ -22,7 +22,5 @@
 	defaultBranch = master
 [merge]
 	ff = no
-[alias]
-	cb = checkout-branch
 [log]
 	date = iso-strict-local
