@@ -14,7 +14,7 @@ else
 fi
 
 if [ -f "$old" ]; then
-	mv "$old" "$new" && echo "Ok" && ls -l "$HEALTH_MONITOR_DIR"
+    mv "$old" "$new" && echo "Ok" && ls -l "$HEALTH_MONITOR_DIR"
 else
     echo "exec file not found."
 fi

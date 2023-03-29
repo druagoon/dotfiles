@@ -1,6 +1,9 @@
 #!/bin/bash
 
-CURRENT_DIR=$(cd "$(dirname "$0")"; pwd)
+CURRENT_DIR=$(
+    cd "$(dirname "$0")"
+    pwd
+)
 FOLDERS="$CURRENT_DIR/scanmac-folders"
 
 while read -r line; do
@@ -9,4 +12,4 @@ while read -r line; do
         echo "[$path]"
         ls -l "$path" | grep -i "$1" || echo '...'
     fi
-done < "$FOLDERS"
+done <"$FOLDERS"
