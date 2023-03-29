@@ -22,6 +22,11 @@ is_brew_formual_cmd() {
     echo "${ret}"
 }
 
+init_os() {
+    mkdir -p "${HOME}"/.local/{bin,sbin}
+    echo -e "init os ... done"
+}
+
 install_brew() {
     if [[ "$(is_brew_formual_cmd brew)" == "0" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -60,7 +65,7 @@ install_zsh() {
 
         local brew_zsh="$(which zsh)"
         case $(
-            grep -Fx "${brew_zsh}" /etc/shells > /dev/null
+            grep -Fx "${brew_zsh}" /etc/shells >/dev/null
             echo $?
         ) in
             0) ;;
@@ -115,7 +120,8 @@ install_omz() {
     # fi
 }
 
-bootstrap() {
+setup() {
+    init_os
     install_brew
     install_stow
     install_tree
@@ -124,4 +130,4 @@ bootstrap() {
     install_omz
 }
 
-bootstrap
+setup
