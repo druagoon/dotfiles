@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 .PHONY: motto
 motto:
-	@if [ -f .motto ]; then cat .motto; fi
+	@if [[ -f .motto ]]; then cat .motto; fi
 
 .PHONY: slot
 slot:
@@ -17,3 +17,7 @@ slot:
 .PHONY: brewfile
 brewfile:
 	brew bundle dump --describe --force
+
+.PHONY: shellfmt
+shellfmt:
+	shfmt -ln=auto -i 4 -ci -bn -w .

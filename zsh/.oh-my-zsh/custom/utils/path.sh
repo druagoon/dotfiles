@@ -20,7 +20,6 @@ df_append_path() {
     fi
 }
 
-
 df_is_directory_empty() {
     local ret="1"
     if [[ -d "$1" && -z "$(ls -A "$1")" ]]; then

@@ -4,7 +4,6 @@ alias bic="brew info --cask"
 alias blc="brew list --cask"
 alias bocg="brew outdated --cask --greedy"
 
-
 __init_brew_path() {
     arch="$(uname -m)"
     if [[ "${arch}" == "arm64" ]]; then

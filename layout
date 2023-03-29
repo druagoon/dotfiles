@@ -49,15 +49,15 @@ help() {
 
 main() {
     case "$1" in
-    git)
-        layout_git "$2"
-        ;;
-    sync)
-        layout_sync "$2"
-        ;;
-    *)
-        help
-        ;;
+        git)
+            layout_git "$2"
+            ;;
+        sync)
+            layout_sync "$2"
+            ;;
+        *)
+            help
+            ;;
     esac
 }
 
