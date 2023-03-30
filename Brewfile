@@ -10,6 +10,8 @@ brew "direnv"
 brew "ffmpeg"
 # Distributed revision control system
 brew "git"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Kubernetes package manager
@@ -32,6 +34,8 @@ brew "nali"
 brew "neofetch"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
+# Python version management
+brew "pyenv"
 # Persistent key-value database, with built-in net interface
 brew "redis"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
