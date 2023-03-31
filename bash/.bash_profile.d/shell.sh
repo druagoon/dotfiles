@@ -1,5 +1,9 @@
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 
+alias la='ls -lAh --color=auto'
+alias ll='ls -lh --color=auto'
+alias lsa='ls -lah --color=auto'
+
 BLACK="\033[0;30m"
 RED="\033[0;31m"
 RED_B="\033[1;31m"
