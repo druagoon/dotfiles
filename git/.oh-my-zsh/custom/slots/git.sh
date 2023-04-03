@@ -32,7 +32,7 @@ __install_git_checkout_branch() {
         github.com/royeo/git-checkout-branch@latest
         git-cb
     )
-    __go_install_repo ${args[*]}
+    __go_install_repo ${args[@]}
 }
 
 __install_git_commitizen() {
@@ -41,7 +41,7 @@ __install_git_commitizen() {
         github.com/lintingzhen/commitizen-go@latest
         git-cz
     )
-    __go_install_repo ${args[*]}
+    __go_install_repo ${args[@]}
 }
 
 __init_git() {
