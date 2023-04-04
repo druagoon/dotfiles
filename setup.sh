@@ -12,7 +12,7 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 OMZ_ROOT="${HOME}/.oh-my-zsh"
 OMZ_CUSTOM="${OMZ_ROOT}/custom"
 
-is_brew_formual_cmd() {
+is_cmd_with_brew() {
     local ret="0"
     if [[ -x "${BREW_PREFIX}/bin/$1" ]]; then
         ret="1"
@@ -28,7 +28,7 @@ init_os() {
 }
 
 install_brew() {
-    if [[ "$(is_brew_formual_cmd brew)" == "0" ]]; then
+    if [[ "$(is_cmd_with_brew brew)" == "0" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "install brew ... skip"
@@ -36,7 +36,7 @@ install_brew() {
 }
 
 install_stow() {
-    if [[ "$(is_brew_formual_cmd stow)" == "0" ]]; then
+    if [[ "$(is_cmd_with_brew stow)" == "0" ]]; then
         brew install stow
     else
         echo "install stow ... skip"
@@ -44,7 +44,7 @@ install_stow() {
 }
 
 install_tree() {
-    if [[ "$(is_brew_formual_cmd tree)" == "0" ]]; then
+    if [[ "$(is_cmd_with_brew tree)" == "0" ]]; then
         brew install tree
     else
         echo "install tree ... skip"
@@ -52,7 +52,7 @@ install_tree() {
 }
 
 install_git() {
-    if [[ "$(is_brew_formual_cmd git)" == "0" ]]; then
+    if [[ "$(is_cmd_with_brew git)" == "0" ]]; then
         brew install git
     else
         echo "install git ... skip"
@@ -60,7 +60,7 @@ install_git() {
 }
 
 install_zsh() {
-    if [[ "$(is_brew_formual_cmd zsh)" == "0" ]]; then
+    if [[ "$(is_cmd_with_brew zsh)" == "0" ]]; then
         brew install zsh
 
         local brew_zsh="$(which zsh)"
@@ -120,6 +120,28 @@ install_omz() {
     # fi
 }
 
+install_go() {
+    if [[ "$(is_cmd_with_brew go)" == "0" ]]; then
+        brew install go
+    else
+        echo "install go ... skip"
+    fi
+}
+
+install_rust() {
+    local root="${HOME}/.cargo"
+    local config="${root}/config.toml"
+    local rustup="${root}/bin/rustup"
+    if [[ ! -f "${rustup}" ]]; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        if [[ -f "${config}" ]]; then
+            mv "${config}" "${config}.bak"
+        fi
+    else
+        echo "install rust ... skip"
+    fi
+}
+
 setup() {
     init_os
     install_brew
@@ -128,6 +150,8 @@ setup() {
     install_git
     install_zsh
     install_omz
+    install_go
+    install_rust
 }
 
 setup

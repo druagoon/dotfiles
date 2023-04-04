@@ -5,7 +5,15 @@ __load_utils() {
 }
 
 __load_preposition() {
-    local preposition=(shell.sh proxy.sh brew.sh conda.sh venv.sh go.sh)
+    local preposition=(
+        shell.sh
+        proxy.sh
+        brew.sh
+        conda.sh
+        venv.sh
+        go.sh
+        rust.sh
+    )
     for v in "${preposition[@]}"; do
         local filepath="${ZSH_CUSTOM_INITD}/${v}"
         if [[ -f "${filepath}" ]]; then
