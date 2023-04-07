@@ -32,4 +32,3 @@ _icli_completion() {
 }
 
 compdef _icli_completion icli;
-
