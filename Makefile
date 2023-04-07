@@ -11,6 +11,7 @@ slot:
 	@if [[ -z "$(name)" ]]; then \
 		echo 'Error: missing `name` option'; \
 	else \
+		mkdir -p "$(name)"/{.zfunc,.zcomp}; \
 		mkdir -p "$(name)"/.oh-my-zsh/custom/{completions,slots}; \
 	fi
 

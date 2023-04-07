@@ -23,6 +23,7 @@ is_cmd_with_brew() {
 }
 
 init_os() {
+    mkdir -p "${HOME}"/{.zcomp,.zfunc}
     mkdir -p "${HOME}"/.local/{bin,sbin}
     echo -e "init os ... done"
 }

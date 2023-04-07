@@ -1,16 +1,16 @@
-[source.crates-io]
-registry = "https://github.com/rust-lang/crates.io-index"
-replace-with = 'rsproxy'
+# [source.crates-io]
+# registry = "https://github.com/rust-lang/crates.io-index"
+# replace-with = 'rsproxy'
 
-# 字节跳动
-[source.rsproxy]
-registry = "https://rsproxy.cn/crates.io-index"
+# # 字节跳动
+# [source.rsproxy]
+# registry = "https://rsproxy.cn/crates.io-index"
 
-[source.rsproxy-sparse]
-registry = "sparse+https://rsproxy.cn/index/"
+# [source.rsproxy-sparse]
+# registry = "sparse+https://rsproxy.cn/index/"
 
-[registries.rsproxy]
-index = "https://rsproxy.cn/crates.io-index"
+# [registries.rsproxy]
+# index = "https://rsproxy.cn/crates.io-index"
 
-[net]
-git-fetch-with-cli = true
+# [net]
+# git-fetch-with-cli = true
