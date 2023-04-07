@@ -1,5 +1,5 @@
 __init_pyenv_completion() {
-    local ret="$(df_is_cmd_exec pyenv)"
+    local ret="$(df::cmd::is_exists pyenv)"
     if [[ "${ret}" == "1" ]]; then
         local pyenv_prefix="$(brew --prefix pyenv 2>/dev/null)"
         if [[ -n "${pyenv_prefix}" ]]; then

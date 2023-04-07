@@ -12,8 +12,8 @@ __init_brew_path() {
         local brew_prefix="/usr/local"
     fi
 
-    df_prepend_path "${brew_prefix}/sbin"
-    df_prepend_path "${brew_prefix}/bin"
+    df::cmd::path::prepend "${brew_prefix}/sbin"
+    df::cmd::path::prepend "${brew_prefix}/bin"
 }
 
 __init_brew() {

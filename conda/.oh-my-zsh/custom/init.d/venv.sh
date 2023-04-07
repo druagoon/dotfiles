@@ -25,7 +25,7 @@ _install_venv_icli() {
 }
 
 __init_venv_path() {
-    df_prepend_path "${DF_VENV_BIN}"
+    df::cmd::path::prepend "${DF_VENV_BIN}"
 }
 
 __init_venv() {

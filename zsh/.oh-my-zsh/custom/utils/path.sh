@@ -1,29 +1,7 @@
-df_is_path_contains() {
-    local ret="0"
-    if [[ ":${PATH}:" == *":$1:"* ]]; then
-        ret="1"
-    fi
-    echo "${ret}"
-}
-
-df_prepend_path() {
-    local ret=$(df_is_path_contains "$1")
-    if [[ "${ret}" == "0" ]]; then
-        export PATH="$1:${PATH}"
-    fi
-}
-
-df_append_path() {
-    local ret=$(df_is_path_contains "$1")
-    if [[ "${ret}" == "0" ]]; then
-        export PATH="${PATH}:$1"
-    fi
-}
-
-df_is_directory_empty() {
+df::path::directory::is_empty() {
     local ret="1"
-    if [[ -d "$1" && -z "$(ls -A "$1")" ]]; then
-        ret="1"
+    if [[ -d "$1" && -n "$(ls -A "$1")" ]]; then
+        ret="0"
     fi
     echo "${ret}"
 }
