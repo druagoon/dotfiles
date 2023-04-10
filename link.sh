@@ -11,14 +11,14 @@ export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 STOW_SRC="${HOME}/.dotfiles"
 STOW_TARGET="${HOME}"
 
-EXCLUDE_SLOTS=(.git .venv .vscode bin)
+EXCLUDE_SLOTS=(.git .venv .vscode)
 EXCLUDE_SLOTS_STRING=$(
     IFS=:
     echo "${EXCLUDE_SLOTS[*]}"
 )
 
 stow_log() {
-    echo -e "stow ... $1"
+    printf "stow %-12s ... done\n" "$1"
 }
 
 do_stow() {

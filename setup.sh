@@ -22,17 +22,29 @@ is_cmd_with_brew() {
     echo "${ret}"
 }
 
-init_os() {
+say() {
+    printf "%-7s %-4s ... %s\n" "$1" "$2" "$3"
+}
+
+say_install_skip() {
+    say install "$1" skip
+}
+
+say_install_done() {
+    say install "$1" done
+}
+
+install_os() {
     mkdir -p "${HOME}"/{.zcomp,.zfunc}
     mkdir -p "${HOME}"/.local/{bin,sbin}
-    echo -e "init os ... done"
+    say_install_done os
 }
 
 install_brew() {
     if [[ "$(is_cmd_with_brew brew)" == "0" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
-        echo "install brew ... skip"
+        say_install_skip brew
     fi
 }
 
@@ -40,7 +52,7 @@ install_stow() {
     if [[ "$(is_cmd_with_brew stow)" == "0" ]]; then
         brew install stow
     else
-        echo "install stow ... skip"
+        say_install_skip stow
     fi
 }
 
@@ -48,7 +60,7 @@ install_tree() {
     if [[ "$(is_cmd_with_brew tree)" == "0" ]]; then
         brew install tree
     else
-        echo "install tree ... skip"
+        say_install_skip tree
     fi
 }
 
@@ -56,7 +68,7 @@ install_git() {
     if [[ "$(is_cmd_with_brew git)" == "0" ]]; then
         brew install git
     else
-        echo "install git ... skip"
+        say_install_skip git
     fi
 }
 
@@ -82,7 +94,7 @@ install_zsh() {
         echo "change shell to: ${brew_zsh}"
         chsh -s ${brew_zsh}
     else
-        echo "install zsh ... skip"
+        say_install_skip zsh
     fi
 }
 
@@ -97,7 +109,7 @@ install_omz() {
             exit 1
         fi
     else
-        echo "install oh-my-zsh ... skip"
+        say_install_skip omz
     fi
 
     # local omz_git=$(git rev-parse --git-dir 2>/dev/null)
@@ -125,7 +137,7 @@ install_go() {
     if [[ "$(is_cmd_with_brew go)" == "0" ]]; then
         brew install go
     else
-        echo "install go ... skip"
+        say_install_skip go
     fi
 }
 
@@ -139,12 +151,12 @@ install_rust() {
             mv "${config}" "${config}.bak"
         fi
     else
-        echo "install rust ... skip"
+        say_install_skip rust
     fi
 }
 
 setup() {
-    init_os
+    install_os
     install_brew
     install_stow
     install_tree
