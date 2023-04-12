@@ -94,6 +94,7 @@ plugins=(
     copypath
     cp
     docker
+    golang
     git
     git-flow
     wd
