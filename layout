@@ -1,6 +1,8 @@
 #!/bin/bash
 
-LAYOUTS_DIR="${HOME}/.dotfiles/os/layouts"
+DOTFILES_ROOT="${HOME}/.dotfiles"
+PKG_DIR="${DOTFILES_ROOT}/packages"
+LAYOUTS_DIR="${PKG_DIR}/os/layouts"
 
 layout_git() {
     local filename="$(basename "$1")"

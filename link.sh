@@ -8,7 +8,8 @@ else
 fi
 export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 
-STOW_SRC="${HOME}/.dotfiles"
+DOTFILES_ROOT="${HOME}/.dotfiles"
+STOW_SRC="${DOTFILES_ROOT}/packages"
 STOW_TARGET="${HOME}"
 
 EXCLUDE_SLOTS=(.git .venv .vscode)

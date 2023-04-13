@@ -2,7 +2,7 @@
 
 ### 删除 CleanMyMac 健康监控 ###
 
-HEALTH_MONITOR_DIR="/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac-X Menu.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/"
+HEALTH_MONITOR_DIR="/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/"
 old="CleanMyMac X HealthMonitor"
 new="CleanMyMac X HealthMonitor.old"
 
