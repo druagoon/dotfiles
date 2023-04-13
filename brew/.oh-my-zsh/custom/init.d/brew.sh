@@ -12,6 +12,7 @@ __init_brew_path() {
         local brew_prefix="/usr/local"
     fi
 
+    eval "$("${brew_prefix}"/bin/brew shellenv)"
     df::cmd::path::prepend "${brew_prefix}/sbin"
     df::cmd::path::prepend "${brew_prefix}/bin"
 }
