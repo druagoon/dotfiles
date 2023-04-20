@@ -24,3 +24,5 @@
 	ff = no
 [log]
 	date = iso-strict-local
+# [credential]
+# 	helper = store
