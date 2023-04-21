@@ -1,21 +1,13 @@
 #!/bin/bash
 
-arch="$(uname -m)"
-if [[ "${arch}" == "arm64" ]]; then
-    BREW_PREFIX="/opt/homebrew"
-else
-    BREW_PREFIX="/usr/local"
-fi
-export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
-
 DOTFILES_ROOT="${HOME}/.dotfiles"
 STOW_SRC="${DOTFILES_ROOT}/packages"
 STOW_TARGET="${HOME}"
 
-EXCLUDE_SLOTS=(.git .venv .vscode)
-EXCLUDE_SLOTS_STRING=$(
+EXCLUDE_PACKAGES=(.git .venv .vscode)
+EXCLUDE_PACKAGES_STRING=$(
     IFS=:
-    echo "${EXCLUDE_SLOTS[*]}"
+    echo "${EXCLUDE_PACKAGES[*]}"
 )
 
 stow_log() {
@@ -27,11 +19,10 @@ do_stow() {
 }
 
 is_exclude_pkg() {
-    local ret="0"
-    if [[ ":${EXCLUDE_SLOTS_STRING}:" == *":$1:"* ]]; then
-        ret="1"
+    if [[ ":${EXCLUDE_PACKAGES_STRING}:" == *":$1:"* ]]; then
+        return
     fi
-    echo "${ret}"
+    false
 }
 
 link_deps() {
@@ -60,14 +51,14 @@ link_conda() {
 }
 
 link_zsh() {
-    local zfiles=(.zprofile .zshenv .zshrc)
-    for v in "${zfiles[@]}"; do
-        local filepath="${HOME}/${v}"
-        if [[ ! -L "${filepath}" ]]; then
-            rm -f "${filepath}"
-            echo "Delete ${filepath}"
-        fi
-    done
+    # local zfiles=(.zprofile .zshenv .zshrc)
+    # for v in "${zfiles[@]}"; do
+    #     local filepath="${HOME}/${v}"
+    #     if [[ ! -L "${filepath}" ]]; then
+    #         rm -f "${filepath}"
+    #         echo "Delete ${filepath}"
+    #     fi
+    # done
     do_stow zsh
 }
 
@@ -76,17 +67,39 @@ link_python() {
 }
 
 link_packages() {
-    find "${STOW_SRC}" -depth 1 -type d | while read name; do
+    find "${STOW_SRC}" -maxdepth 1 -mindepth 1 -type d | while read name; do
         local pkg=$(basename "${name}")
-        local ret=$(is_exclude_pkg "${pkg}")
-        if [[ "${ret}" == 0 ]]; then
-            stow_log "${pkg}"
+        if ! is_exclude_pkg "${pkg}"; then
             do_stow "${pkg}"
+            stow_log "${pkg}"
         fi
     done
 }
 
+get_brew_prefix() {
+    local prefix=""
+    arch="$(uname -m)"
+    if [[ "${arch}" == "arm64" ]]; then
+        prefix="/opt/homebrew"
+    else
+        prefix="/usr/local"
+    fi
+    echo "${prefix}"
+}
+
+init_brew_env() {
+    local brew_prefix="$(get_brew_prefix)"
+    if [[ -n "${brew_prefix}" ]]; then
+        eval "$("${brew_prefix}"/bin/brew shellenv)" || exit 1
+    fi
+}
+
+init() {
+    init_brew_env
+}
+
 main() {
+    init
     link_deps
     link_packages
 }
