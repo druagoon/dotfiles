@@ -26,7 +26,7 @@ do_stow() {
     stow -v --adopt -d "${STOW_SRC}" -t "${STOW_TARGET}" "$1"
 }
 
-is_exclude_slot() {
+is_exclude_pkg() {
     local ret="0"
     if [[ ":${EXCLUDE_SLOTS_STRING}:" == *":$1:"* ]]; then
         ret="1"
@@ -75,20 +75,20 @@ link_python() {
     do_stow python
 }
 
-link_slots() {
+link_packages() {
     find "${STOW_SRC}" -depth 1 -type d | while read name; do
-        local slot=$(basename "${name}")
-        local ret=$(is_exclude_slot "${slot}")
+        local pkg=$(basename "${name}")
+        local ret=$(is_exclude_pkg "${pkg}")
         if [[ "${ret}" == 0 ]]; then
-            stow_log "${slot}"
-            do_stow "${slot}"
+            stow_log "${pkg}"
+            do_stow "${pkg}"
         fi
     done
 }
 
 main() {
     link_deps
-    link_slots
+    link_packages
 }
 
 main
