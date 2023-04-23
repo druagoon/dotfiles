@@ -1,0 +1,5 @@
+__ruby_root="$(brew --prefix ruby)"
+__ruby_bin="${__ruby_root}/bin"
+alias rruby="${__ruby_bin}/ruby"
+alias rgem="${__ruby_bin}/gem"
+alias rbundle="${__ruby_bin}/bundle"
