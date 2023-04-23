@@ -2,6 +2,8 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "mongodb/brew"
 tap "openresty/brew"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Load/unload environment variables based on $PWD
@@ -38,6 +40,10 @@ brew "openssh"
 brew "pyenv"
 # Persistent key-value database, with built-in net interface
 brew "redis"
+# Powerful, clean, object-oriented scripting language
+brew "ruby"
+# SMART hard drive monitoring
+brew "smartmontools"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Very fast implementation of tldr in Rust

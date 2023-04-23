@@ -67,7 +67,7 @@ link_python() {
 }
 
 link_packages() {
-    find "${STOW_SRC}" -maxdepth 1 -mindepth 1 -type d | while read name; do
+    find "${STOW_SRC}" -maxdepth 1 -mindepth 1 -type d | sort | while read name; do
         local pkg=$(basename "${name}")
         if ! is_exclude_pkg "${pkg}"; then
             do_stow "${pkg}"

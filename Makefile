@@ -19,7 +19,7 @@ pkg:
 
 .PHONY: brewfile
 brewfile:
-	brew bundle dump --describe --force
+	cd "$(PKG_DIR)/brew" && brew bundle dump --describe --force
 
 .PHONY: shellfmt
 shellfmt:
