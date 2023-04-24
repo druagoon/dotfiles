@@ -8,6 +8,13 @@ PKG_DIR=packages
 motto:
 	@if [[ -f .motto ]]; then cat .motto; fi
 
+.PHONY: init
+init:
+	brew list ruby &>/dev/null || brew install ruby
+	$(eval ruby_root := $(shell brew --prefix ruby))
+	@echo "Ruby bundle install ..."
+	@$(ruby_root)/bin/bundle install
+
 .PHONY: pkg
 pkg:
 	@if [[ -z "$(name)" ]]; then \
