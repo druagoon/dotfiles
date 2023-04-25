@@ -27,7 +27,11 @@ showcolor() {
     echo -e "${LIGHT_GRAY} LIGHT_GRAY ${RESET}"
 }
 
-__get_ip() {
+__get_ps1_ip_ifconfig() {
+    echo "$(/sbin/ifconfig | grep -v '127.0.0.1' | grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){$itf=substr($interf,0,-1); print "$itf=$face{$interf} " if ($interf !~ /^lo$/)}')"
+}
+
+__get_ps1_ip() {
     ip=""
     if [[ -x "$(command -v ip)" ]]; then
         ip=$(ip -o -4 addr list | grep -v "127.0.0.1" | awk '{ip=$2"="$4; print ip}' | cut -d/ -f1 | xargs)
@@ -35,7 +39,7 @@ __get_ip() {
     echo "$ip"
 }
 
-__get_branch_name() {
+__get_ps1_git_status() {
     name="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     if [[ -z "${name}" ]]; then
         echo ""
@@ -44,23 +48,23 @@ __get_branch_name() {
     fi
 }
 
-ldprofile() {
-    source ~/.bash_profile
-}
-
-__ps_part() {
+__ps1_part() {
     echo "${RESET}$1${RESET}"
 }
 
 ldps1() {
-    time="$(__ps_part "${BLUE}\\D{%Y/%m/%d} \\t")"
-    ip="$(__ps_part "${ORANGE}$(__get_ip)")"
-    cwd="$(__ps_part "${LIGHT_GRAY_I}\\w")"
-    branch="$(__ps_part "\$(__get_branch_name)")"
-    user="$(__ps_part "${PURPLE}\\u")"
-    host="$(__ps_part "${CYAN}\\H")"
-    export PS1="[${time} ${ip} ${cwd} ${branch}]\n[${user}@${host}]\$ "
-    # export PS1="${RESET}[${BLUE}\D{%Y/%m/%d} \t ${ORANGE}$(__get_ip) ${GREEN}\w${RESET}\$(__get_branch_name)${RESET}]\n[${PURPLE}\u${BLUE}@${CYAN}\H${RESET}]\$ "
+    prefix="$(__ps1_part "\\$ ")"
+    time="$(__ps1_part "${CYAN}\\D{%Y/%m/%d} \\t")"
+    ip="$(__ps1_part "${ORANGE}$(__get_ps1_ip)")"
+    cwd="$(__ps1_part "${BLUE}\\w")"
+    git_status="$(__ps1_part "\$(__get_ps1_git_status)")"
+    user="$(__ps1_part "${PURPLE}\\u")"
+    host="$(__ps1_part "${RED}\\H")"
+    export PS1="${prefix}${user}@${host} ${ip} ${time}\n${prefix}${cwd} ${git_status}\n${prefix}"
+}
+
+ldprofile() {
+    source ~/.bash_profile
 }
 
 __init_shell_path() {
