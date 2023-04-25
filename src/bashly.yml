@@ -1,0 +1,53 @@
+name: dotf
+help: dotfiles cli
+version: 0.1.0
+
+commands:
+  - name: layout
+    help: sync or export layout of the directory
+    examples:
+      - dotf layout git ~/Code/github --layout github
+      - dotf layout sync --layout github
+
+    commands:
+      - name: git
+        help: Export the layout of git repository to a file
+        filename: layout/git.sh
+        args:
+          - name: path
+            help: Path of the git repository
+            required: true
+        flags:
+          - long: --output
+            short: -o
+            arg: output
+            help: Write layouts to file
+            conflicts: [--layout]
+          - long: --layout
+            arg: layout
+            help: Write layouts to file in ${DOTF_LAYOUT_DIR} directory
+            conflicts: [--output]
+          - long: --max-depth
+            arg: max_depth
+            help: Maximum depth to locate git repository in the path
+            default: "4"
+          - long: --dry-run
+            short: -n
+            help: Show what layouts will be export (not actually run)
+
+      - name: sync
+        help: Sync the layout from a file
+        filename: layout/sync.sh
+        flags:
+          - long: --source
+            short: -s
+            arg: source
+            help: Read layouts from the file
+            conflicts: [--layout]
+          - long: --layout
+            arg: layout
+            help: Read layouts from ${DOTF_LAYOUT_DIR} directory
+            conflicts: [--file]
+          - long: --dry-run
+            short: -n
+            help: Show what layouts will be sync (not actually run)
