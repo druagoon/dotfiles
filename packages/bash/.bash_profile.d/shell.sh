@@ -7,24 +7,39 @@ alias lsa='ls -lah --color=auto'
 BLACK="\033[0;30m"
 RED="\033[0;31m"
 RED_B="\033[1;31m"
+RED_I="\033[3;31m"
 GREEN="\033[0;32m"
 ORANGE="\033[0;33m"
 BLUE="\033[0;34m"
 PURPLE="\033[0;35m"
 CYAN="\033[0;36m"
 LIGHT_GRAY="\033[0;37m"
-LIGHT_GRAY_I="\033[3;37m"
 RESET="\033[0m"
 
-showcolor() {
-    echo -e "${BLACK} BLACK ${RESET}"
-    echo -e "${RED} RED ${RESET}"
-    echo -e "${GREEN} GREEN ${RESET}"
-    echo -e "${ORANGE} ORANGE ${RESET}"
-    echo -e "${BLUE} BLUE ${RESET}"
-    echo -e "${PURPLE} PURPLE ${RESET}"
-    echo -e "${CYAN} CYAN ${RESET}"
-    echo -e "${LIGHT_GRAY} LIGHT_GRAY ${RESET}"
+colortest() {
+    for x in {0..8}; do
+        for i in {30..37}; do
+            echo -ne "\e[${x};${i}m\\\e[${x};${i}m\e[0;37m "
+        done
+        echo
+    done
+    echo ""
+}
+
+bgcolortest() {
+    for x in {0..8}; do
+        for i in {30..37}; do
+            for a in {40..47}; do
+                echo -ne "\e[${x};${i};${a}m\\\e[${x};${i};${a}m\e[0;37;40m "
+            done
+            echo
+        done
+    done
+    echo ""
+}
+
+__ps1_part() {
+    echo "${RESET}$1${RESET}"
 }
 
 __get_ps1_ip_ifconfig() {
@@ -48,19 +63,20 @@ __get_ps1_git_status() {
     fi
 }
 
-__ps1_part() {
-    echo "${RESET}$1${RESET}"
+__get_ps1() {
+    prefix="$(__ps1_part "\\$ ")"
+    user="$(__ps1_part "${PURPLE}\\u")"
+    hostname="$(__ps1_part "${RED}\\H")"
+    host="${user}@${hostname}"
+    ip="$(__ps1_part "${ORANGE}$(__get_ps1_ip)")"
+    datetime="$(__ps1_part "${CYAN}\\D{%Y/%m/%d %H:%M:%S}")"
+    cwd="$(__ps1_part "${BLUE}\\w")"
+    git_status="$(__ps1_part "\$(__get_ps1_git_status)")"
+    echo "${prefix}${host} ${ip} ${datetime}\n${prefix}${cwd} ${git_status}\n${prefix}"
 }
 
 ldps1() {
-    prefix="$(__ps1_part "\\$ ")"
-    time="$(__ps1_part "${CYAN}\\D{%Y/%m/%d} \\t")"
-    ip="$(__ps1_part "${ORANGE}$(__get_ps1_ip)")"
-    cwd="$(__ps1_part "${BLUE}\\w")"
-    git_status="$(__ps1_part "\$(__get_ps1_git_status)")"
-    user="$(__ps1_part "${PURPLE}\\u")"
-    host="$(__ps1_part "${RED}\\H")"
-    export PS1="${prefix}${user}@${host} ${ip} ${time}\n${prefix}${cwd} ${git_status}\n${prefix}"
+    export PS1="$(__get_ps1)"
 }
 
 ldprofile() {
