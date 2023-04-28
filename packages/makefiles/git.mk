@@ -26,10 +26,12 @@ push:
 
 .PHONY: push-%
 push-%:
-	$(GIT) push $(GIT_REMOTE) $(subst push-,,$@)
+	$(eval name := $(subst push-,,$@))
+	$(eval br := $(subst @,/,$(name)))
+	$(GIT) push $(GIT_REMOTE) $(br)
 
-.PHONY: push!
-push!:
+.PHONY: pushf
+pushf:
 	$(GIT) push $(GIT_REMOTE) --force-with-lease
 
 .PHONY: pull
@@ -39,10 +41,11 @@ pull:
 .PHONY: pull-%
 pull-%:
 	$(eval name := $(subst pull-,,$@))
-	$(GIT) checkout $(name) && $(MAKE) pull
+	$(eval br := $(subst @,/,$(name)))
+	$(GIT) checkout $(br) && $(MAKE) pull
 
-.PHONY: pull!
-pull!:
+.PHONY: pullf
+pullf:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
 	$(GIT) fetch && \
 	$(GIT) reset --hard $(GIT_REMOTE)/$(cb)
@@ -50,17 +53,19 @@ pull!:
 .PHONY: rebase-%
 rebase-%:
 	$(eval name := $(subst rebase-,,$@))
+	$(eval br := $(subst @,/,$(name)))
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) checkout $(name) && \
+	$(GIT) checkout $(br) && \
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase && \
 	$(GIT) checkout $(cb) && \
-	$(GIT) rebase $(name)
+	$(GIT) rebase $(br)
 
 .PHONY: merge-%
 merge-%:
 	$(eval name := $(subst merge-,,$@))
+	$(eval br := $(subst @,/,$(name)))
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) checkout $(name) && \
+	$(GIT) checkout $(br) && \
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase && \
 	$(GIT) checkout $(cb) && \
-	$(GIT) merge --no-edit --no-ff $(name)
+	$(GIT) merge --no-edit --no-ff $(br)
