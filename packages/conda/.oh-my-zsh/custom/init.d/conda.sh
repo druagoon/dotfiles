@@ -1,20 +1,20 @@
 CONDA_ENVS_DIR="${HOME}/.conda/envs"
-CONDA_DF_VENV="${CONDA_ENVS_DIR}/${DOTFILES_NAME}"
-CONDA_DF_VENV_BIN="${CONDA_DF_VENV}/bin"
-CONDA_DF_VENV_PYTHON_VERSION="3.10"
+CONDA_DOTF_VENV="${CONDA_ENVS_DIR}/${DOTFILES_NAME}"
+CONDA_DOTF_VENV_BIN="${CONDA_DOTF_VENV}/bin"
+CONDA_DOTF_VENV_PYTHON_VERSION="3.10"
 # Dotfiles external python interpreter
-DF_VENV_EXTERNAL_PYTHON="${CONDA_DF_VENV_BIN}/python"
+DOTF_VENV_EXTERNAL_PYTHON="${CONDA_DOTF_VENV_BIN}/python"
 
 setcondaenv() {
     if [[ -d "$CONDA_ENVS_DIR/$1" ]]; then
-        df::cmd::path::prepend "$CONDA_ENVS_DIR/$1/bin"
+        dotf::cmd::path::prepend "$CONDA_ENVS_DIR/$1/bin"
     fi
 }
 
 __init_conda_dotfiles_env() {
-    if [[ ! -d "${CONDA_DF_VENV}" ]]; then
-        echo "Creating conda python(${CONDA_DF_VENV_PYTHON_VERSION}) in: ${CONDA_DF_VENV}"
-        conda create -n "${DOTFILES_NAME}" python="${CONDA_DF_VENV_PYTHON_VERSION}"
+    if [[ ! -d "${CONDA_DOTF_VENV}" ]]; then
+        echo "Creating conda python(${CONDA_DOTF_VENV_PYTHON_VERSION}) in: ${CONDA_DOTF_VENV}"
+        conda create -n "${DOTFILES_NAME}" python="${CONDA_DOTF_VENV_PYTHON_VERSION}"
     fi
 }
 

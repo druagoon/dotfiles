@@ -1,32 +1,32 @@
-DF_VENV_NAME=".venv"
-DF_VENV="${DOTFILES_ROOT}/${DF_VENV_NAME}"
-DF_VENV_BIN="${DF_VENV}/bin"
-DF_VENV_PYTHON="${DF_VENV_BIN}/python"
-DF_VENV_PIP="${DF_VENV_BIN}/pip"
-DF_VENV_ICLI="${DF_VENV_BIN}/icli"
+DOTF_VENV_NAME=".venv"
+DOTF_VENV="${DOTFILES_ROOT}/${DOTF_VENV_NAME}"
+DOTF_VENV_BIN="${DOTF_VENV}/bin"
+DOTF_VENV_PYTHON="${DOTF_VENV_BIN}/python"
+DOTF_VENV_PIP="${DOTF_VENV_BIN}/pip"
+DOTF_VENV_ICLI="${DOTF_VENV_BIN}/icli"
 
 _setup_venv() {
-    if [[ ! -d "${DF_VENV}" ]]; then
-        if [[ -f "${DF_VENV_EXTERNAL_PYTHON}" ]]; then
-            echo "Creating venv in: ${DF_VENV}"
-            "${DF_VENV_EXTERNAL_PYTHON}" -m venv --copies "${DF_VENV}"
+    if [[ ! -d "${DOTF_VENV}" ]]; then
+        if [[ -f "${DOTF_VENV_EXTERNAL_PYTHON}" ]]; then
+            echo "Creating venv in: ${DOTF_VENV}"
+            "${DOTF_VENV_EXTERNAL_PYTHON}" -m venv --copies "${DOTF_VENV}"
         else
-            echo "${DF_VENV_EXTERNAL_PYTHON} not found."
+            echo "${DOTF_VENV_EXTERNAL_PYTHON} not found."
             exit 1
         fi
     fi
 }
 
 _install_venv_icli() {
-    if [[ ! -x "${DF_VENV_ICLI}" ]]; then
+    if [[ ! -x "${DOTF_VENV_ICLI}" ]]; then
         local repo="git+ssh://git@github.com/druagoon/icli-python.git@master"
         echo "Install \"icli\" from ${repo}"
-        "${DF_VENV_PIP}" install "${repo}"
+        "${DOTF_VENV_PIP}" install "${repo}"
     fi
 }
 
 __init_venv_path() {
-    df::cmd::path::prepend "${DF_VENV_BIN}"
+    dotf::cmd::path::prepend "${DOTF_VENV_BIN}"
 }
 
 __init_venv() {

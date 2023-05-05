@@ -1,7 +1,7 @@
 ORBSTACK_ROOT="${HOME}/.orbstack"
 
 __init_orbstack_path() {
-    df::cmd::path::prepend "${ORBSTACK_ROOT}/bin"
+    dotf::cmd::path::prepend "${ORBSTACK_ROOT}/bin"
 }
 
 __init_orbstack() {
