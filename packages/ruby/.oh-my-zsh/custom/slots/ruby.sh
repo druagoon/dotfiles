@@ -11,7 +11,7 @@ alias rbundle="${__ruby_bundle}"
 __init_ruby_env() {
     local user_gemhome="$("${__ruby_gem}" environment user_gemhome 2>/dev/null)"
     if [[ -n "${user_gemhome}" ]]; then
-        dotf::cmd::path::prepend "${user_gemhome}/bin"
+        _dotf::cmd::path::prepend "${user_gemhome}/bin"
     fi
 }
 

@@ -26,7 +26,7 @@ _install_venv_icli() {
 }
 
 __init_venv_path() {
-    dotf::cmd::path::prepend "${DOTF_VENV_BIN}"
+    _dotf::cmd::path::prepend "${DOTF_VENV_BIN}"
 }
 
 __init_venv() {

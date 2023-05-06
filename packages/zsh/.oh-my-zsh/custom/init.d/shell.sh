@@ -28,8 +28,8 @@ ppath() {
 __init_shell_path() {
     paths=(/usr/local "${HOME}/.local")
     for v in "${paths[@]}"; do
-        dotf::cmd::path::prepend "${v}/sbin"
-        dotf::cmd::path::prepend "${v}/bin"
+        _dotf::cmd::path::prepend "${v}/sbin"
+        _dotf::cmd::path::prepend "${v}/bin"
     done
 }
 

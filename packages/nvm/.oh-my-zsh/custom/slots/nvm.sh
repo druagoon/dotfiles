@@ -1,7 +1,7 @@
 export NVM_DIR="${HOME}/.nvm"
 
 __load_nvm() {
-    if [[ "$(dotf::cmd::is_exists nvm)" ]]; then
+    if [[ "$(_dotf::cmd::is_exists nvm)" ]]; then
         if [[ ! -d "${NVM_DIR}" ]]; then
             mkdir -p "${NVM_DIR}"
         fi

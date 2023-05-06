@@ -19,8 +19,8 @@ __init_brew_path() {
     local brew_prefix="$(__get_brew_prefix)"
     if [[ -n "${brew_prefix}" ]]; then
         eval "$("${brew_prefix}"/bin/brew shellenv)"
-        dotf::cmd::path::prepend "${brew_prefix}/sbin"
-        dotf::cmd::path::prepend "${brew_prefix}/bin"
+        _dotf::cmd::path::prepend "${brew_prefix}/sbin"
+        _dotf::cmd::path::prepend "${brew_prefix}/bin"
     fi
 }
 

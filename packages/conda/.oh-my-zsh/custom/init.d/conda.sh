@@ -7,7 +7,7 @@ DOTF_VENV_EXTERNAL_PYTHON="${CONDA_DOTF_VENV_BIN}/python"
 
 setcondaenv() {
     if [[ -d "$CONDA_ENVS_DIR/$1" ]]; then
-        dotf::cmd::path::prepend "$CONDA_ENVS_DIR/$1/bin"
+        _dotf::cmd::path::prepend "$CONDA_ENVS_DIR/$1/bin"
     fi
 }
 
