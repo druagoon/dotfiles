@@ -116,6 +116,12 @@ __zsh_load_custom_plugins() {
 
 __zsh_load_custom_plugins
 
+__init_bashcompinit() {
+    autoload -U +X bashcompinit && bashcompinit
+}
+
+__init_bashcompinit
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

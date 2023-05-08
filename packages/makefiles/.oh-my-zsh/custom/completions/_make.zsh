@@ -1,5 +1,3 @@
-autoload -U +X bashcompinit && bashcompinit
-
 # Branch: pull-bugfix/typo ==> pull-bugfix@typo
 __get_git_branch_words() {
     local prefix="$1"
