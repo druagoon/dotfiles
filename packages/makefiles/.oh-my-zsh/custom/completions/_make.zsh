@@ -1,30 +1,31 @@
-# Branch: pull-bugfix/typo ==> pull-bugfix@typo
 __get_git_branch_words() {
     local prefix="$1"
     local pattern="$2"
     if [[ -n "${pattern}" ]]; then
-        git branch --list "${pattern}" --format="${prefix}%(refname:short)" | sed -e 's#/#@#g'
+        git branch --list "${pattern}" --format="${prefix}%(refname:short)"
     else
-        git branch --format="${prefix}%(refname:short)" | sed -e 's#/#@#g'
+        git branch --format="${prefix}%(refname:short)"
     fi
 }
 
 __get_git_branch_action_words() {
     local word="$1"
-    local actions=(pull- push- rebase- merge-)
-    for act in "${actions[@]}"; do
-        if [[ "${word}" == "${act}"* ]]; then
-            local suffix="${word#${act}}"
-            if [[ -n "${suffix}" ]]; then
-                # Pattern: bugfix@ ==> bugfix/
-                local pattern="${suffix//@//}*"
-            else
-                local pattern=""
-            fi
-            __get_git_branch_words "${act}" "${pattern}"
-            return
+    local prefix="branch="
+
+    if [[ -z "${word}" ]]; then
+        __get_git_branch_words "${prefix}"
+        return
+    fi
+
+    if [[ "$word" == "${prefix}"* ]]; then
+        local pattern=""
+        local suffix="${word#${prefix}}"
+        if [[ -n "${suffix}" ]]; then
+            local pattern="${suffix}*"
         fi
-    done
+        __get_git_branch_words "${prefix}" "${pattern}"
+        return
+    fi
 }
 
 __get_make_words() {
@@ -40,19 +41,18 @@ __get_make_words() {
 
 __make_completion() {
     # local IFS=$'\n'
-    COMPREPLY=""
-    local word="$2"
-    case "${word}" in
-        pull-* | push-* | rebase-* | merge-*)
-            COMPREPLY="$(__get_git_branch_action_words "${word}")"
-            ;;
-        *)
-            if [[ "${word}" == "--" && $COMP_CWORD -eq 1 ]]; then
-                word=""
-            fi
-            COMPREPLY="$(__get_make_words "${word}")"
-            ;;
-    esac
+    COMPREPLY=()
+    local word="${COMP_WORDS[COMP_CWORD]}"
+    if [[ $COMP_CWORD -eq 1 ]]; then
+        COMPREPLY="$(__get_make_words "${word}")"
+    elif [[ $COMP_CWORD -eq 2 ]]; then
+        local prev="${COMP_WORDS[$COMP_CWORD - 1]}"
+        case "${prev}" in
+            pull | push | rebase | merge)
+                COMPREPLY="$(__get_git_branch_action_words "${word}")"
+                ;;
+        esac
+    fi
 }
 
 complete -o bashdefault -F __make_completion make

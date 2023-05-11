@@ -15,8 +15,8 @@ amend:
 reuse:
 	$(GIT) commit --reuse-message=HEAD
 
-.PHONY: nb
-nb:
+.PHONY: rbr
+rbr:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
 	$(GIT) push $(GIT_REMOTE) --set-upstream $(cb)
 
@@ -24,48 +24,32 @@ nb:
 push:
 	$(GIT) push $(GIT_REMOTE)
 
-.PHONY: push-%
-push-%:
-	$(eval name := $(subst push-,,$@))
-	$(eval br := $(subst @,/,$(name)))
-	$(GIT) push $(GIT_REMOTE) $(br)
-
 .PHONY: pushf
 pushf:
 	$(GIT) push $(GIT_REMOTE) --force-with-lease
 
 .PHONY: pull
 pull:
+	if [[ -n "$(branch)" ]]; then $(GIT) checkout "$(branch)"; fi
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase
-
-.PHONY: pull-%
-pull-%:
-	$(eval name := $(subst pull-,,$@))
-	$(eval br := $(subst @,/,$(name)))
-	$(GIT) checkout $(br) && $(MAKE) pull
 
 .PHONY: pullf
 pullf:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) fetch && \
-	$(GIT) reset --hard $(GIT_REMOTE)/$(cb)
+	$(GIT) fetch && $(GIT) reset --hard $(GIT_REMOTE)/$(cb)
 
-.PHONY: rebase-%
-rebase-%:
-	$(eval name := $(subst rebase-,,$@))
-	$(eval br := $(subst @,/,$(name)))
+.PHONY: rebase
+rebase:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) checkout $(br) && \
+	$(GIT) checkout $(brance) && \
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase && \
 	$(GIT) checkout $(cb) && \
-	$(GIT) rebase $(br)
+	$(GIT) rebase $(brance)
 
-.PHONY: merge-%
-merge-%:
-	$(eval name := $(subst merge-,,$@))
-	$(eval br := $(subst @,/,$(name)))
+.PHONY: merge
+merge:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) checkout $(br) && \
+	$(GIT) checkout $(branch) && \
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase && \
 	$(GIT) checkout $(cb) && \
-	$(GIT) merge --no-edit --no-ff $(br)
+	$(GIT) merge --no-edit --no-ff $(branch)
