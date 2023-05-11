@@ -6,20 +6,22 @@ if [[ "${arch}" == "arm64" ]]; then
 else
     BREW_PREFIX="/usr/local"
 fi
-export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+BREW_BIN="${BREW_PREFIX}/bin"
+BREW_SBIN="${BREW_PREFIX}/sbin"
+BREW="${BREW_BIN}/brew"
+
+export PATH="${BREW_BIN}/bin:${BREW_SBIN}/sbin:${PATH}"
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 
 OMZ_ROOT="${HOME}/.oh-my-zsh"
 OMZ_CUSTOM="${OMZ_ROOT}/custom"
 
-is_cmd_with_brew() {
-    local ret="0"
-    if [[ -x "${BREW_PREFIX}/bin/$1" ]]; then
-        ret="1"
-    elif [[ -x "${BREW_PREFIX}/sbin/$1" ]]; then
-        ret="1"
-    fi
-    echo "${ret}"
+check_brew_formual_cmd() {
+    [[ -x "${BREW_BIN}/${1}" || -x "${BREW_SBIN}/${1}" ]]
+}
+
+check_cmd() {
+    command -v "$1" > /dev/null 2>&1
 }
 
 say() {
@@ -34,6 +36,10 @@ say_install_done() {
     say install "$1" done
 }
 
+brew_install() {
+    "${BREW}" install "$1"
+}
+
 install_os() {
     mkdir -p "${HOME}"/{.zcomp,.zfunc}
     mkdir -p "${HOME}"/.local/{bin,sbin}
@@ -41,7 +47,7 @@ install_os() {
 }
 
 install_brew() {
-    if [[ "$(is_cmd_with_brew brew)" == "0" ]]; then
+    if [[ ! -f "${BREW}" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         say_install_skip brew
@@ -49,34 +55,34 @@ install_brew() {
 }
 
 install_stow() {
-    if [[ "$(is_cmd_with_brew stow)" == "0" ]]; then
-        brew install stow
+    if ! check_brew_formual_cmd stow; then
+        brew_install stow
     else
         say_install_skip stow
     fi
 }
 
 install_tree() {
-    if [[ "$(is_cmd_with_brew tree)" == "0" ]]; then
-        brew install tree
+    if ! check_brew_formual_cmd tree; then
+        brew_install tree
     else
         say_install_skip tree
     fi
 }
 
 install_git() {
-    if [[ "$(is_cmd_with_brew git)" == "0" ]]; then
-        brew install git
+    if ! check_brew_formual_cmd git; then
+        brew_install git
     else
         say_install_skip git
     fi
 }
 
 install_zsh() {
-    if [[ "$(is_cmd_with_brew zsh)" == "0" ]]; then
-        brew install zsh
+    if ! check_brew_formual_cmd zsh; then
+        brew_install zsh
 
-        local brew_zsh="$(which zsh)"
+        local brew_zsh="${BREW_BIN}/zsh"
         case $(
             grep -Fx "${brew_zsh}" /etc/shells >/dev/null
             echo $?
@@ -100,9 +106,9 @@ install_zsh() {
 
 install_omz() {
     if [[ ! -d "${OMZ_ROOT}" ]]; then
-        if [[ "$(command -v curl)" ]]; then
+        if check_cmd curl; then
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        elif [[ "$(command -v wget)" ]]; then
+        elif check_cmd wget; then
             /bin/bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
         else
             echo "curl or wget not found, please install first."
@@ -134,8 +140,8 @@ install_omz() {
 }
 
 install_go() {
-    if [[ "$(is_cmd_with_brew go)" == "0" ]]; then
-        brew install go
+    if ! check_brew_formual_cmd go; then
+        brew_install go
     else
         say_install_skip go
     fi
