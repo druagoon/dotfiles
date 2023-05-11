@@ -1,14 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-arch="$(uname -m)"
-if [[ "${arch}" == "arm64" ]]; then
-    BREW_PREFIX="/opt/homebrew"
-else
-    BREW_PREFIX="/usr/local"
-fi
+is_arm64() {
+    local arch="$(uname -m)"
+    [[ "${arch}" == "arm64" || "${arch}" == "aarch64" ]]
+}
+
+get_brew_prefix() {
+    local prefix=""
+    if is_arm64; then
+        prefix="/opt/homebrew"
+    else
+        prefix="/usr/local"
+    fi
+    echo "${prefix}"
+}
+
+BREW_PREFIX="$(get_brew_prefix)"
 BREW_BIN="${BREW_PREFIX}/bin"
 BREW_SBIN="${BREW_PREFIX}/sbin"
-BREW="${BREW_BIN}/brew"
+BREW_EXEC="${BREW_BIN}/brew"
 
 export PATH="${BREW_BIN}/bin:${BREW_SBIN}/sbin:${PATH}"
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
@@ -33,11 +43,11 @@ say_install_skip() {
 }
 
 say_install_done() {
-    say install "$1" done
+    say install "$1" ok
 }
 
 brew_install() {
-    "${BREW}" install "$1"
+    "${BREW_EXEC}" install "$1"
 }
 
 install_os() {
@@ -47,7 +57,7 @@ install_os() {
 }
 
 install_brew() {
-    if [[ ! -f "${BREW}" ]]; then
+    if [[ ! -f "${BREW_EXEC}" ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         say_install_skip brew

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DOTFILES_ROOT="${HOME}/.dotfiles"
 STOW_SRC="${DOTFILES_ROOT}/packages"
@@ -11,7 +11,7 @@ EXCLUDE_PACKAGES_STRING=$(
 )
 
 stow_log() {
-    printf "stow %-12s ... done\n" "$1"
+    printf "stow %-12s ... ok\n" "$1"
 }
 
 do_stow() {
@@ -19,10 +19,7 @@ do_stow() {
 }
 
 is_exclude_pkg() {
-    if [[ ":${EXCLUDE_PACKAGES_STRING}:" == *":$1:"* ]]; then
-        return
-    fi
-    false
+    [[ ":${EXCLUDE_PACKAGES_STRING}:" == *":$1:"* ]]
 }
 
 link_deps() {
@@ -76,10 +73,14 @@ link_packages() {
     done
 }
 
+is_arm64() {
+    local arch="$(uname -m)"
+    [[ "${arch}" == "arm64" || "${arch}" == "aarch64" ]]
+}
+
 get_brew_prefix() {
     local prefix=""
-    arch="$(uname -m)"
-    if [[ "${arch}" == "arm64" ]]; then
+    if is_arm64; then
         prefix="/opt/homebrew"
     else
         prefix="/usr/local"
@@ -89,8 +90,9 @@ get_brew_prefix() {
 
 init_brew_env() {
     local brew_prefix="$(get_brew_prefix)"
-    if [[ -n "${brew_prefix}" ]]; then
-        eval "$("${brew_prefix}"/bin/brew shellenv)" || exit 1
+    local brew_exec="${brew_prefix}/bin/brew"
+    if [[ -f "${brew_exec}" ]]; then
+        eval "$("${brew_exec}" shellenv)" || exit 1
     fi
 }
 
