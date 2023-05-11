@@ -36,10 +36,12 @@ brew "nali"
 brew "neofetch"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 # Python version management
 brew "pyenv"
 # Persistent key-value database, with built-in net interface
-brew "redis"
+brew "redis", restart_service: true
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
 # SMART hard drive monitoring
