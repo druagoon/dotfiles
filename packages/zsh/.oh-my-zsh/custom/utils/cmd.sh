@@ -1,9 +1,5 @@
-_dotf::cmd::is_exists() {
-    local ret="0"
-    if [[ -x "$(command -v $1 2>/dev/null)" ]]; then
-        ret="1"
-    fi
-    echo "${ret}"
+_dotf::cmd::check() {
+    command -v "$1" &>/dev/null
 }
 
 _dotf::cmd::path::is_contains() {

@@ -25,6 +25,12 @@ ppath() {
     printf -- '\n'
 }
 
+__init_terminal_tabstop() {
+    if _dotf::cmd::check tabs; then
+        tabs -4
+    fi
+}
+
 __init_shell_path() {
     paths=(/usr/local "${HOME}/.local")
     for v in "${paths[@]}"; do
@@ -35,6 +41,7 @@ __init_shell_path() {
 
 __init_shell() {
     __init_shell_path
+    __init_terminal_tabstop
 }
 
 __init_shell

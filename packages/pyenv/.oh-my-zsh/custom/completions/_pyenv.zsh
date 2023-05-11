@@ -1,6 +1,5 @@
 __init_pyenv_completion() {
-    local ret="$(_dotf::cmd::is_exists pyenv)"
-    if [[ "${ret}" == "1" ]]; then
+    if _dotf::cmd::check pyenv; then
         local pyenv_prefix="$(brew --prefix pyenv 2>/dev/null)"
         if [[ -n "${pyenv_prefix}" ]]; then
             . "${pyenv_prefix}/completions/pyenv.zsh"
