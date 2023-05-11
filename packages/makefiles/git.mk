@@ -41,10 +41,10 @@ pullf:
 .PHONY: rebase
 rebase:
 	$(eval cb := $(shell $(GIT) rev-parse --abbrev-ref HEAD))
-	$(GIT) checkout $(brance) && \
+	$(GIT) checkout $(branch) && \
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase && \
 	$(GIT) checkout $(cb) && \
-	$(GIT) rebase $(brance)
+	$(GIT) rebase $(branch)
 
 .PHONY: merge
 merge:
