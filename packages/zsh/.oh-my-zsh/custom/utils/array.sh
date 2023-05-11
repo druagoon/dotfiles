@@ -8,6 +8,6 @@ _dotf::array::is_exists() {
             return
         fi
     done
+
     false
-    return
 }

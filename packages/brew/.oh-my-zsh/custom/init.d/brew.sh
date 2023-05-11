@@ -6,8 +6,7 @@ alias bocg="brew outdated --cask --greedy"
 
 __get_brew_prefix() {
     local prefix=""
-    arch="$(uname -m)"
-    if [[ "${arch}" == "arm64" ]]; then
+    if _dotf::os::platform::is_arm64; then
         prefix="/opt/homebrew"
     else
         prefix="/usr/local"
@@ -17,8 +16,9 @@ __get_brew_prefix() {
 
 __init_brew_path() {
     local brew_prefix="$(__get_brew_prefix)"
-    if [[ -n "${brew_prefix}" ]]; then
-        eval "$("${brew_prefix}"/bin/brew shellenv)"
+    local brew_exec="${brew_prefix}/bin/brew"
+    if [[ -f "${brew_exec}" ]]; then
+        eval "$("${brew_exec}" shellenv)"
         _dotf::cmd::path::prepend "${brew_prefix}/sbin"
         _dotf::cmd::path::prepend "${brew_prefix}/bin"
     fi

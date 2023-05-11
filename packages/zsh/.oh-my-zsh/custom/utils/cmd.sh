@@ -3,23 +3,17 @@ _dotf::cmd::check() {
 }
 
 _dotf::cmd::path::is_contains() {
-    local ret="0"
-    if [[ ":${PATH}:" == *":$1:"* ]]; then
-        ret="1"
-    fi
-    echo "${ret}"
+    [[ ":${PATH}:" == *":$1:"* ]]
 }
 
 _dotf::cmd::path::prepend() {
-    local ret=$(_dotf::cmd::path::is_contains "$1")
-    if [[ "${ret}" == "0" ]]; then
+    if ! _dotf::cmd::path::is_contains "$1"; then
         export PATH="$1:${PATH}"
     fi
 }
 
 _dotf::cmd::path::append() {
-    local ret=$(_dotf::cmd::path::is_contains "$1")
-    if [[ "${ret}" == "0" ]]; then
+    if ! _dotf::cmd::path::is_contains "$1"; then
         export PATH="${PATH}:$1"
     fi
 }
