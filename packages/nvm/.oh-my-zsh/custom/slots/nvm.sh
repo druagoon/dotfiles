@@ -1,21 +1,17 @@
 export NVM_DIR="${HOME}/.nvm"
 
 __load_nvm() {
-    if _dotf::cmd::check nvm; then
-        if [[ ! -d "${NVM_DIR}" ]]; then
-            mkdir -p "${NVM_DIR}"
-        fi
+    # Load nvm
+    local prefix="$(brew --prefix nvm)"
+    local nvm_sh="${prefix}/nvm.sh"
+    if [[ -s "${nvm_sh}" ]]; then
+        . "${nvm_sh}"
+    fi
 
-        # Load nvm
-        local prefix="$(brew --prefix nvm)"
-        if [[ -s "${prefix}/nvm.sh" ]]; then
-            . "${prefix}/nvm.sh"
-        fi
-
-        # Load nvm completion
-        if [[ -s "${prefix}/etc/bash_completion.d/nvm" ]]; then
-            . "${prefix}/etc/bash_completion.d/nvm"
-        fi
+    # Load nvm completion
+    local nvm_completion="${prefix}/etc/bash_completion.d/nvm"
+    if [[ -s "${nvm_completion}" ]]; then
+        . "${nvm_completion}"
     fi
 }
 
