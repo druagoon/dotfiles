@@ -2,16 +2,16 @@
 
 ---
 
-## git-checkout-branch
+## Plugins
 
-### Setup
+### [git-checkout-branch](https://github.com/royeo/git-checkout-branch)
 
-```sh
-go get -u github.com/royeo/git-checkout-branch
-```
+> The git-checkout-branch tool is a command-line tool for improving the efficiency of switching git branches. It is an extended git command.
 
-### Set git global alias
+- Alias: git-cb
 
-```shell
-git config --global alias.cb checkout-branch
-```
+### [commitizen-go](https://github.com/lintingzhen/commitizen-go)
+
+> Command line utility to standardize git commit messages, golang version.
+
+- Alias: git-cz

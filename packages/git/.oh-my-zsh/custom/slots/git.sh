@@ -8,20 +8,22 @@ __go_install_repo() {
         local gobin="${gopath}/bin"
     fi
 
+    local name="$1"
     local repo="$2"
-    local cmd="$gobin/$1"
+    local alias_="$3"
+    local cmd="$gobin/${name}"
     if [[ ! -f "${cmd}" ]]; then
         echo "go install \"${repo}\""
         go install "${repo}"
     fi
-    if [[ -x "${cmd}" ]]; then
+    if [[ ! -x "${cmd}" ]]; then
         chmod +x "${cmd}"
     fi
 
-    if [[ -n "$3" ]]; then
-        local target="${gobin}/$3"
+    if [[ -n "${alias_}" ]]; then
+        local target="${gobin}/${alias_}"
         if [[ ! -f "${target}" ]]; then
-            (cd "${gobin}" && ln -sv "./$1" "$3")
+            (cd "${gobin}" && ln -sv "./${name}" "${alias_}")
         fi
     fi
 }
@@ -32,7 +34,7 @@ __install_git_checkout_branch() {
         github.com/royeo/git-checkout-branch@latest
         git-cb
     )
-    __go_install_repo ${args[@]}
+    __go_install_repo "${args[@]}"
 }
 
 __install_git_commitizen() {
@@ -41,7 +43,7 @@ __install_git_commitizen() {
         github.com/lintingzhen/commitizen-go@latest
         git-cz
     )
-    __go_install_repo ${args[@]}
+    __go_install_repo "${args[@]}"
 }
 
 __init_git() {

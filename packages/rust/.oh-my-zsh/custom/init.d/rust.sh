@@ -1,5 +1,6 @@
 __init_cargo() {
-    [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+    local cargo_env="${HOME}/.cargo/env"
+    [[ -f "${cargo_env}" ]] && . "${cargo_env}"
 }
 
 __init_rust() {

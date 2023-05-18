@@ -40,7 +40,7 @@ fmtall: fmt fmtpkg
 
 .PHONY: fmtpkg
 fmtpkg:
-	$(SHFMT) $(PKG_DIR)
+	$(SHFMT) $(PKG_DIR) link.sh setup.sh
 
 .PHONY: fmt
 fmt:
