@@ -31,11 +31,11 @@ __get_git_branch_action_words() {
 __get_make_words() {
     # echo "$(make -qp | sed -n -E 's/^([^.#\s][^:=]*)(:$|:\s+.*$)/\1/p' | grep -E -v "@|/|%|GNUmakefile|Makefile" | sort -u)"
     local word="$1"
-    local ret="$(make -qp | grep -E -x '^[a-zA-Z0-9_\-]+:(\s+[a-zA-Z0-9_\-]+)*$' | awk -F ':' '{print $1}' | grep -E -v '[Mm]akefile' | sort -u)"
+    local targets="$(make -qp 2>/dev/null | grep -E -x '^[a-zA-Z0-9_\-]+:(\s+[a-zA-Z0-9_\-]+)*$' | awk -F ':' '{print $1}' | grep -E -v '[Mm]akefile' | sort -u)"
     if [[ -n "${word}" ]]; then
-        echo "${ret}" | grep -E "^${word}"
+        echo "${targets}" | grep -E "^${word}"
     else
-        echo "${ret}"
+        echo "${targets}"
     fi
 }
 
