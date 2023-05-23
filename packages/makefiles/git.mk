@@ -30,7 +30,7 @@ pushf:
 
 .PHONY: pull
 pull:
-	if [[ -n "$(branch)" ]]; then $(GIT) checkout "$(branch)"; fi
+	@if [[ -n "$(branch)" ]]; then $(GIT) checkout "$(branch)"; fi
 	$(GIT) pull $(GIT_REMOTE) --prune --rebase
 
 .PHONY: pullf
