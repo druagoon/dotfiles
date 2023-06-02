@@ -2,4 +2,4 @@
 
 source "https://rubygems.org"
 
-gem "bashly"
+gem "bashly", "~> 1.0"

@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bashly (1.0.3)
+    bashly (1.0.4)
       colsole (>= 0.8.1, < 2)
       completely (~> 0.5)
       filewatcher (~> 2.0)
@@ -28,7 +28,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  bashly
+  bashly (~> 1.0)
 
 BUNDLED WITH
    2.4.10
