@@ -40,8 +40,12 @@ _dotf_completions() {
             while read -r; do COMPREPLY+=("$REPLY"); done < <(compgen -W "$(_dotf_completions_filter "--help -h git sync")" -- "$cur")
             ;;
 
+        'link'*)
+            while read -r; do COMPREPLY+=("$REPLY"); done < <(compgen -W "$(_dotf_completions_filter "--adopt --delete --help --restow --simulate --verbose -D -R -h -n -v")" -- "$cur")
+            ;;
+
         *)
-            while read -r; do COMPREPLY+=("$REPLY"); done < <(compgen -W "$(_dotf_completions_filter "--help --version -h -v layout")" -- "$cur")
+            while read -r; do COMPREPLY+=("$REPLY"); done < <(compgen -W "$(_dotf_completions_filter "--help --version -h -v layout link")" -- "$cur")
             ;;
 
     esac

@@ -3,6 +3,31 @@ help: dotfiles cli
 version: 0.1.0
 
 commands:
+  - name: link
+    help: Make symbol link for packages
+    filename: cmd/link.sh
+    examples:
+      - dotf link -v
+      - dotf link -v -n
+      - dotf link -v -n --adopt
+
+    flags:
+      - long: --delete
+        short: -D
+        help: Unstow the package names that follow this option
+      - long: --restow
+        short: -R
+        help: Restow (like stow -D followed by stow -S)
+      - long: --adopt
+        help: (Use with care!)  Import existing files into stow package from target. Please read stow docs before using.
+      - long: --simulate
+        short: -n
+        help: Do not actually make any filesystem changes
+      - long: --verbose
+        short: -v
+        help: Verbose output
+
+
   - name: layout
     help: sync or export layout of the directory
     examples:
@@ -12,7 +37,7 @@ commands:
     commands:
       - name: git
         help: Export the layout of git repository to a file
-        filename: layout/git.sh
+        filename: cmd/layout/git.sh
         args:
           - name: path
             help: Path of the git repository
@@ -37,7 +62,7 @@ commands:
 
       - name: sync
         help: Sync the layout from a file
-        filename: layout/sync.sh
+        filename: cmd/layout/sync.sh
         flags:
           - long: --source
             short: -s
