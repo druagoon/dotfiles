@@ -66,16 +66,29 @@ __get_ps1_git_status() {
     fi
 }
 
+__get_ps1_os() {
+    local ret="$(uname -sm)"
+    if __check_cmd lsb_release; then
+        local distrib="$(lsb_release -sir 2>/dev/null)"
+        if [[ -n "${distrib}" ]]; then
+            ret+=" ${distrib}"
+        fi
+    fi
+    echo "(${ret})"
+}
+
 __get_ps1() {
     local prefix='\$'
     local user="$(magenta '\\u')"
     local hostname="$(red '\\H')"
-    local host="${user}@${hostname}"
+    local at="$(blue '@')"
+    local host="${user}${at}${hostname}"
+    local os="$(__get_ps1_os)"
     local ip="$(__get_ps1_ip)"
-    local datetime="$(cyan '\\D{%Y/%m/%d %H:%M:%S}')"
+    local now="$(cyan '\\D{%Y/%m/%d %H:%M:%S}')"
     local cwd="$(blue '\\w')"
     local git_status='$(__get_ps1_git_status)'
-    echo -e "${prefix} ${host}${ip} ${datetime}\n${prefix} ${cwd}${git_status}\n${prefix} "
+    echo -e "${prefix} ${now}${ip} ${host} ${os}\n${prefix} ${cwd}${git_status}\n${prefix} "
 }
 
 ldps1() {
