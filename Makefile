@@ -29,6 +29,10 @@ pkg:
 brewfile:
 	cd "$(PKG_DIR)/brew" && brew bundle dump --describe --force
 
+.PHONY: fmt
+fmt:
+	$(SHFMT) ./install
+
 .PHONY: fmtpkg
 fmtpkg:
 	$(SHFMT) $(PKG_DIR)

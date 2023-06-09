@@ -1,5 +1,50 @@
 #!/usr/bin/env bash
 
+set -e
+
+## Color functions [@bashly-upgrade colors]
+## This file is a part of Bashly standard library
+##
+## Usage:
+## Use any of the functions below to color or format a portion of a string.
+##
+##   echo "before $(red this is red) after"
+##   echo "before $(green_bold this is green_bold) after"
+##
+## Color output will be disabled if `NO_COLOR` environment variable is set
+## in compliance with https://no-color.org/
+##
+print_in_color() {
+    local color="$1"
+    shift
+    if [[ -z ${NO_COLOR+x} ]]; then
+        printf "$color%b\e[0m\n" "$*"
+    else
+        printf "%b\n" "$*"
+    fi
+}
+
+red() { print_in_color "\e[31m" "$*"; }
+green() { print_in_color "\e[32m" "$*"; }
+yellow() { print_in_color "\e[33m" "$*"; }
+blue() { print_in_color "\e[34m" "$*"; }
+magenta() { print_in_color "\e[35m" "$*"; }
+cyan() { print_in_color "\e[36m" "$*"; }
+bold() { print_in_color "\e[1m" "$*"; }
+underlined() { print_in_color "\e[4m" "$*"; }
+red_bold() { print_in_color "\e[1;31m" "$*"; }
+green_bold() { print_in_color "\e[1;32m" "$*"; }
+yellow_bold() { print_in_color "\e[1;33m" "$*"; }
+blue_bold() { print_in_color "\e[1;34m" "$*"; }
+magenta_bold() { print_in_color "\e[1;35m" "$*"; }
+cyan_bold() { print_in_color "\e[1;36m" "$*"; }
+red_underlined() { print_in_color "\e[4;31m" "$*"; }
+green_underlined() { print_in_color "\e[4;32m" "$*"; }
+yellow_underlined() { print_in_color "\e[4;33m" "$*"; }
+blue_underlined() { print_in_color "\e[4;34m" "$*"; }
+magenta_underlined() { print_in_color "\e[4;35m" "$*"; }
+cyan_underlined() { print_in_color "\e[4;36m" "$*"; }
+
 is_arm64() {
     local arch="$(uname -m)"
     [[ "${arch}" == "arm64" || "${arch}" == "aarch64" ]]
@@ -20,11 +65,20 @@ BREW_BIN="${BREW_PREFIX}/bin"
 BREW_SBIN="${BREW_PREFIX}/sbin"
 BREW_EXEC="${BREW_BIN}/brew"
 
+OMZ_ROOT="${HOME}/.oh-my-zsh"
+OMZ_CUSTOM="${OMZ_ROOT}/custom"
+
 export PATH="${BREW_BIN}/bin:${BREW_SBIN}/sbin:${PATH}"
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 
-OMZ_ROOT="${HOME}/.oh-my-zsh"
-OMZ_CUSTOM="${OMZ_ROOT}/custom"
+write_log() {
+    if [[ $? -eq 0 ]]; then
+        local result="$(green_bold OK)"
+    else
+        local result="$(red_bold ERROR)"
+    fi
+    printf "Install %-8s [ %s ]\n" "$1" "${result}"
+}
 
 check_brew_formual_cmd() {
     [[ -x "${BREW_BIN}/${1}" || -x "${BREW_SBIN}/${1}" ]]
@@ -34,18 +88,6 @@ check_cmd() {
     command -v "$1" >/dev/null 2>&1
 }
 
-say() {
-    printf "%-7s %-4s ... %s\n" "$1" "$2" "$3"
-}
-
-say_install_skip() {
-    say install "$1" skip
-}
-
-say_install_done() {
-    say install "$1" ok
-}
-
 brew_install() {
     "${BREW_EXEC}" install "$1"
 }
@@ -53,39 +95,28 @@ brew_install() {
 install_os() {
     mkdir -p "${HOME}"/{.zcomp,.zfunc}
     mkdir -p "${HOME}"/.local/{bin,sbin}
-    say_install_done os
+    write_log os
 }
 
 install_brew() {
     if [[ ! -f "${BREW_EXEC}" ]]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    else
-        say_install_skip brew
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
+    write_log brew
 }
 
 install_stow() {
     if ! check_brew_formual_cmd stow; then
         brew_install stow
-    else
-        say_install_skip stow
     fi
-}
-
-install_tree() {
-    if ! check_brew_formual_cmd tree; then
-        brew_install tree
-    else
-        say_install_skip tree
-    fi
+    write_log stow
 }
 
 install_git() {
     if ! check_brew_formual_cmd git; then
         brew_install git
-    else
-        say_install_skip git
     fi
+    write_log git
 }
 
 install_zsh() {
@@ -109,55 +140,32 @@ install_zsh() {
         esac
         echo "change shell to: ${brew_zsh}"
         chsh -s ${brew_zsh}
-    else
-        say_install_skip zsh
     fi
+    write_log zsh
 }
 
 install_omz() {
     if [[ ! -d "${OMZ_ROOT}" ]]; then
         if check_cmd curl; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         elif check_cmd wget; then
-            /bin/bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+            bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
         else
             echo "curl or wget not found, please install first."
             exit 1
         fi
-    else
-        say_install_skip omz
     fi
-
-    # local omz_git=$(git rev-parse --git-dir 2>/dev/null)
-    # if [[ -n "${omz_git}" ]]; then
-    #     local initialized="${OMZ_CUSTOM}/__initialized__"
-    #     if [[ ! -f "${initialized}" ]]; then
-    #         echo "list files in: ${OMZ_CUSTOM}"
-    #         tree "${OMZ_CUSTOM}"
-    #         read -p "Delete directory: ${OMZ_CUSTOM} [Y/n] " answer
-    #         case ${answer} in
-    #             Y | y)
-    #                 rm -rf "${OMZ_CUSTOM}"
-    #                 ;;
-    #             *)
-    #                 echo "process abort, program exit."
-    #                 exit 1
-    #                 ;;
-    #         esac
-    #     fi
-    #     touch "${initialized}"
-    # fi
+    write_log omz
 }
 
 install_go() {
     if ! check_brew_formual_cmd go; then
         brew_install go
-    else
-        say_install_skip go
     fi
+    write_log go
 }
 
-install_rust() {
+install_cargo() {
     local root="${HOME}/.cargo"
     local config="${root}/config.toml"
     local rustup="${root}/bin/rustup"
@@ -166,21 +174,19 @@ install_rust() {
         if [[ -f "${config}" ]]; then
             mv "${config}" "${config}.bak"
         fi
-    else
-        say_install_skip rust
     fi
+    write_log cargo
 }
 
-setup() {
+main() {
     install_os
     install_brew
     install_stow
-    install_tree
     install_git
     install_zsh
     install_omz
     install_go
-    install_rust
+    install_cargo
 }
 
-setup
+main
