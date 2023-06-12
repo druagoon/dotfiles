@@ -105,20 +105,6 @@ install_brew() {
     write_log brew
 }
 
-install_stow() {
-    if ! check_brew_formual_cmd stow; then
-        brew_install stow
-    fi
-    write_log stow
-}
-
-install_git() {
-    if ! check_brew_formual_cmd git; then
-        brew_install git
-    fi
-    write_log git
-}
-
 install_zsh() {
     if ! check_brew_formual_cmd zsh; then
         brew_install zsh
@@ -158,13 +144,6 @@ install_omz() {
     write_log omz
 }
 
-install_go() {
-    if ! check_brew_formual_cmd go; then
-        brew_install go
-    fi
-    write_log go
-}
-
 install_cargo() {
     local root="${HOME}/.cargo"
     local config="${root}/config.toml"
@@ -178,15 +157,23 @@ install_cargo() {
     write_log cargo
 }
 
+install_deps() {
+    local deps=(stow git go pyenv rbenv)
+    for key in "${deps[@]}"; do
+        if ! check_brew_formual_cmd "${key}"; then
+            brew_install "${key}"
+        fi
+        write_log "${key}"
+    done
+}
+
 main() {
     install_os
     install_brew
-    install_stow
-    install_git
     install_zsh
     install_omz
-    install_go
     install_cargo
+    install_deps
 }
 
 main
