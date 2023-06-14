@@ -1,15 +1,18 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "mongodb/brew"
-tap "openresty/brew"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Cross-platform make
+brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # Distributed revision control system
 brew "git"
 # GNU implementation of the famous stream editor
@@ -34,24 +37,32 @@ brew "mtr"
 brew "nali"
 # Fast, highly customisable system info script
 brew "neofetch"
+# Manage multiple Node.js versions
+brew "nvm"
+# Optimized BLAS library
+brew "openblas"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
 # Python version management
 brew "pyenv"
+# Ruby version manager
+brew "rbenv"
 # Persistent key-value database, with built-in net interface
-brew "redis", restart_service: true
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
+brew "redis"
 # SMART hard drive monitoring
 brew "smartmontools"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# TCP connect to the given IP/port combo
+brew "tcping"
 # Very fast implementation of tldr in Rust
 brew "tealdeer"
 # User interface to the TELNET protocol
 brew "telnet"
+# Code-search similar to ack
+brew "the_silver_searcher"
 # Program that allows you to count code, quickly
 brew "tokei"
 # Display directories as trees (with optional color/HTML output)
@@ -62,8 +73,6 @@ brew "wget"
 brew "zsh"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community"
-# High-performance, schema-free, document-oriented database
-brew "mongodb/brew/mongodb-community@4.2"
 # Scalable Web Platform by Extending NGINX with Lua
 brew "openresty/brew/openresty"
 # Minimal installer for conda
