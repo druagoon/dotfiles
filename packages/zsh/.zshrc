@@ -114,13 +114,36 @@ __zsh_load_custom_plugins() {
     done
 }
 
-__zsh_load_custom_plugins
-
-__init_bashcompinit() {
+__zsh_init_bashcompinit() {
     autoload -U +X bashcompinit && bashcompinit
 }
 
-__init_bashcompinit
+__zsh_init_env_paths() {
+    local names=(sbin bin)
+    local paths=(
+        /usr/local
+        "${HOME}/.local"
+    )
+    for v in "${paths[@]}"; do
+        if [[ ! -d "${v}" ]]; then
+            continue
+        fi
+        for b in "${names[@]}"; do
+            local d="${v}/${b}"
+            if [[ ! ":${PATH}:" == *":${d}:"* ]]; then
+                export PATH="${d}:${PATH}"
+            fi
+        done
+    done
+}
+
+__omz_pre_load() {
+    __zsh_init_env_paths
+    __zsh_init_bashcompinit
+    __zsh_load_custom_plugins
+}
+
+__omz_pre_load
 
 source $ZSH/oh-my-zsh.sh
 
