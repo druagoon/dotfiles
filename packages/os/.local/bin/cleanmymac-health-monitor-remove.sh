@@ -1,20 +1,22 @@
 #!/bin/bash
 
 ### 删除 CleanMyMac 健康监控 ###
+FILES=(
+    "/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/CleanMyMac X HealthMonitor"
+    "/Applications/CleanMyMac-X.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/CleanMyMac X HealthMonitor"
+)
 
-HEALTH_MONITOR_DIR="/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/"
-old="CleanMyMac X HealthMonitor"
-new="CleanMyMac X HealthMonitor.old"
+main() {
+    for f in "${FILES[@]}"; do
+        if [[ -f "$f" ]]; then
+            local backup="${f}.bak"
+            local dname="$(dirname "$f")"
+            mv "$f" "${backup}" && echo "Ok" && ls -lA "${dname}" && exit 0
+        fi
+    done
 
-if [ -d "$HEALTH_MONITOR_DIR" ]; then
-    cd "$HEALTH_MONITOR_DIR"
-else
-    echo "HealthMonitor directory not found."
-    exit
-fi
-
-if [ -f "$old" ]; then
-    mv "$old" "$new" && echo "Ok" && ls -l "$HEALTH_MONITOR_DIR"
-else
     echo "exec file not found."
-fi
+    exit 1
+}
+
+main
