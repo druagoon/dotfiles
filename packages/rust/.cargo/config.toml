@@ -1,8 +1,6 @@
 # [source.crates-io]
-# registry = "https://github.com/rust-lang/crates.io-index"
-# replace-with = 'rsproxy'
+# replace-with = 'rsproxy-sparse'
 
-# # 字节跳动
 # [source.rsproxy]
 # registry = "https://rsproxy.cn/crates.io-index"
 
