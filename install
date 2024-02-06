@@ -158,7 +158,7 @@ install_cargo() {
 }
 
 install_deps() {
-    local deps=(stow git go pyenv rbenv)
+    local deps=(bash stow git go pyenv rbenv)
     for key in "${deps[@]}"; do
         if ! check_brew_formual_cmd "${key}"; then
             brew_install "${key}"
