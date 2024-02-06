@@ -8,7 +8,7 @@
 
 > Password and credentials mananger
 
-### [ClashX](https://github.com/yichengchen/clashX)
+### [ClashX](https://github.com/yichengchen/clashX) / [ClashX Pro](https://install.appcenter.ms/users/clashx/apps/clashx-pro/distribution_groups/public)
 
 > Rule-based custom proxy with GUI based on clash
 
@@ -20,11 +20,21 @@
 
 ```shell
 git clone git@github.com:druagoon/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles && ./setup.sh
+cd ~/.dotfiles && ./install && make dotf
 ```
 
 ## Initialization
 
+### Simulation
+
 ```shell
-cd ~/.dotfiles && ./link.sh
+cd ~/.dotfiles
+dotf link -v -n
+```
+
+### Link
+
+```shell
+cd ~/.dotfiles
+dotf link -v
 ```
