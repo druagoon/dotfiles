@@ -17,10 +17,23 @@ alias pb64="pbpaste | base64 -D && echo"
 alias pb64j="pbpaste | base64 -D | jq --indent 4 -S . | pbcopy && echo 'ok'"
 alias pjson="pbpaste | jq --indent 4 -S . | pbcopy && echo 'ok'"
 
+pfpath() {
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+    for v in "${fpath[@]}"; do
+        printf "%s\n" "${v/#"${HOME}"/~}"
+    done
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+}
+
 ppath() {
     printf -- '-%.0s' {1..100}
     printf -- '\n'
-    echo ${PATH//:/'\n'}
+    local paths=(${path//:/ })
+    for v in "${paths[@]}"; do
+        printf "%s\n" "${v/#"${HOME}"/~}"
+    done
     printf -- '-%.0s' {1..100}
     printf -- '\n'
 }
