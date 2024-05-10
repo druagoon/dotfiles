@@ -1,28 +1,50 @@
 [user]
 	name = lazyboy
 	email = lazyboy.fan@gmail.com
+
 [core]
 	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
 	quotepath = false
+
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
 	path = -ro
+
 [mergetool "sourcetree"]
 	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
 	trustExitCode = true
+
 [tag]
 	sort = -version:refname
+
 [push]
 	# https://git-scm.com/docs/git-config#git-config-pushdefault
 	default = simple
+
 [pull]
 	rebase = true
+
 [init]
 	defaultBranch = master
+
 [merge]
 	ff = no
+
 [log]
 	date = iso-strict-local
+
 # [credential]
 # 	helper = store
+
+[alias]
+	# git change-commits GIT_COMMITTER_NAME "old name" "new name"
+	# https://stackoverflow.com/questions/2919878/git-rewrite-previous-commit-usernames-and-emails
+	# https://github.com/brauliobo/gitconfig/blob/master/configs/.gitconfig#L275
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+	change-commits-username = change-commits GIT_AUTHOR_NAME
+	change-commits-email = change-commits GIT_AUTHOR_EMAIL
+	ccu = change-commits-username
+	cce = change-commits-email
+
+	alias = config --get-regexp ^alias\\.
