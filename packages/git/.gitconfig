@@ -6,6 +6,7 @@
 	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
 	quotepath = false
+	ignorecase = false
 
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
