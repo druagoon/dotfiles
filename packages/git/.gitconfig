@@ -39,6 +39,15 @@
 # 	helper = store
 
 [alias]
+	# 丢弃本地的修改
+	discard = reset --hard HEAD
+	# 删除最近一次提交(保留文件修改)
+	undo = reset --soft HEAD^
+	# 删除最近一次提交(不保留文件修改)
+	cancel = reset --hard HEAD^
+	# 修正最近一次提交
+	amend = commit --amend --no-edit
+
 	# git change-commits GIT_COMMITTER_NAME "old name" "new name"
 	# https://stackoverflow.com/questions/2919878/git-rewrite-previous-commit-usernames-and-emails
 	# https://github.com/brauliobo/gitconfig/blob/master/configs/.gitconfig#L275
