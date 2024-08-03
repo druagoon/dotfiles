@@ -6,7 +6,7 @@ __ps1_part() {
 }
 
 __get_ps1_ip() {
-    echo "$(${DOTF_VENV_ICLI} ip shell 2>/dev/null)"
+    echo "$(icli ip ps1 2>/dev/null)"
 }
 
 __get_ps1() {

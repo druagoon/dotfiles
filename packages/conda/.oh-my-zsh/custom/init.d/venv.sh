@@ -20,7 +20,7 @@ _setup_venv() {
 _install_venv_icli() {
     if [[ ! -x "${DOTF_VENV_ICLI}" ]]; then
         local repo="git+ssh://git@github.com/druagoon/icli-python.git@master"
-        echo "Install \"icli\" from ${repo}"
+        echo "Pip install \"icli\" from: ${repo}"
         "${DOTF_VENV_PIP}" install "${repo}"
     fi
 }
@@ -31,7 +31,7 @@ __init_venv_path() {
 
 __init_venv() {
     _setup_venv
-    _install_venv_icli
+    # _install_venv_icli
     __init_venv_path
 }
 

@@ -1,34 +1,509 @@
 #compdef icli
 
-_icli_completion() {
-    local -a completions
-    local -a completions_with_descriptions
-    local -a response
-    (( ! $+commands[icli] )) && return 1
+autoload -U is-at-least
 
-    response=("${(@f)$(env COMP_WORDS="${words[*]}" COMP_CWORD=$((CURRENT-1)) _ICLI_COMPLETE=zsh_complete icli)}")
+_icli() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
 
-    for type key descr in ${response}; do
-        if [[ "$type" == "plain" ]]; then
-            if [[ "$descr" == "_" ]]; then
-                completions+=("$key")
-            else
-                completions_with_descriptions+=("$key":"$descr")
-            fi
-        elif [[ "$type" == "dir" ]]; then
-            _path_files -/
-        elif [[ "$type" == "file" ]]; then
-            _path_files -f
-        fi
-    done
-
-    if [ -n "$completions_with_descriptions" ]; then
-        _describe -V unsorted completions_with_descriptions -U
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
     fi
 
-    if [ -n "$completions" ]; then
-        compadd -U -V unsorted -a completions
-    fi
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_icli_commands" \
+"*::: :->icli" \
+&& ret=0
+    case $state in
+    (icli)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-command-$line[1]:"
+        case $line[1] in
+            (ip)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_icli__ip_commands" \
+"*::: :->ip" \
+&& ret=0
+
+    case $state in
+    (ip)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-ip-command-$line[1]:"
+        case $line[1] in
+            (ps1)
+_arguments "${_arguments_options[@]}" : \
+'--no-name[Don'\''t show the network interface name]' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__ip__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-ip-help-command-$line[1]:"
+        case $line[1] in
+            (ps1)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(makefile)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_icli__makefile_commands" \
+"*::: :->makefile" \
+&& ret=0
+
+    case $state in
+    (makefile)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-makefile-command-$line[1]:"
+        case $line[1] in
+            (add-help)
+_arguments "${_arguments_options[@]}" : \
+'--shell-dir=[Where the help target shell is placed, relative to the current directory]:SHELL_DIR: ' \
+'--description=[Help target description]:DESCRIPTION: ' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__makefile__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-makefile-help-command-$line[1]:"
+        case $line[1] in
+            (add-help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(vpn)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_icli__vpn_commands" \
+"*::: :->vpn" \
+&& ret=0
+
+    case $state in
+    (vpn)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-vpn-command-$line[1]:"
+        case $line[1] in
+            (makeconfig)
+_arguments "${_arguments_options[@]}" : \
+'--app=[VPN client app]:APP:((clashx\:"ClashX"
+clash.verge\:"Clash.Verge"
+quantumultx\:"QuantumultX"))' \
+'--output-dir=[Write QuantumultX.conf to DIR]:DIR:_files' \
+'--download-rules[Download clash provider rules to local]' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__vpn__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-vpn-help-command-$line[1]:"
+        case $line[1] in
+            (makeconfig)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(completion)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell:(bash elvish fish powershell zsh)' \
+&& ret=0
+;;
+(new)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- Use slash to separate multi-level subcommands:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-command-$line[1]:"
+        case $line[1] in
+            (ip)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help__ip_commands" \
+"*::: :->ip" \
+&& ret=0
+
+    case $state in
+    (ip)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-ip-command-$line[1]:"
+        case $line[1] in
+            (ps1)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(makefile)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help__makefile_commands" \
+"*::: :->makefile" \
+&& ret=0
+
+    case $state in
+    (makefile)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-makefile-command-$line[1]:"
+        case $line[1] in
+            (add-help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(vpn)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help__vpn_commands" \
+"*::: :->vpn" \
+&& ret=0
+
+    case $state in
+    (vpn)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-vpn-command-$line[1]:"
+        case $line[1] in
+            (makeconfig)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(completion)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(new)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
 }
 
-compdef _icli_completion icli;
+(( $+functions[_icli_commands] )) ||
+_icli_commands() {
+    local commands; commands=(
+'ip:Ip utilities' \
+'makefile:Makefile utilities' \
+'vpn:VPN utilities' \
+'completion:Generate tab-completion scripts for terminal shell' \
+'new:Crate a new command and generate the layout files' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli commands' commands "$@"
+}
+(( $+functions[_icli__completion_commands] )) ||
+_icli__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli completion commands' commands "$@"
+}
+(( $+functions[_icli__help_commands] )) ||
+_icli__help_commands() {
+    local commands; commands=(
+'ip:Ip utilities' \
+'makefile:Makefile utilities' \
+'vpn:VPN utilities' \
+'completion:Generate tab-completion scripts for terminal shell' \
+'new:Crate a new command and generate the layout files' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli help commands' commands "$@"
+}
+(( $+functions[_icli__help__completion_commands] )) ||
+_icli__help__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help completion commands' commands "$@"
+}
+(( $+functions[_icli__help__help_commands] )) ||
+_icli__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help help commands' commands "$@"
+}
+(( $+functions[_icli__help__ip_commands] )) ||
+_icli__help__ip_commands() {
+    local commands; commands=(
+'ps1:Print network interface and ip part of the terminal shell'\''s \`\$PS1\`' \
+    )
+    _describe -t commands 'icli help ip commands' commands "$@"
+}
+(( $+functions[_icli__help__ip__ps1_commands] )) ||
+_icli__help__ip__ps1_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help ip ps1 commands' commands "$@"
+}
+(( $+functions[_icli__help__makefile_commands] )) ||
+_icli__help__makefile_commands() {
+    local commands; commands=(
+'add-help:Generate the help target for Makefile' \
+    )
+    _describe -t commands 'icli help makefile commands' commands "$@"
+}
+(( $+functions[_icli__help__makefile__add-help_commands] )) ||
+_icli__help__makefile__add-help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help makefile add-help commands' commands "$@"
+}
+(( $+functions[_icli__help__new_commands] )) ||
+_icli__help__new_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help new commands' commands "$@"
+}
+(( $+functions[_icli__help__vpn_commands] )) ||
+_icli__help__vpn_commands() {
+    local commands; commands=(
+'makeconfig:Make config for VPN app' \
+    )
+    _describe -t commands 'icli help vpn commands' commands "$@"
+}
+(( $+functions[_icli__help__vpn__makeconfig_commands] )) ||
+_icli__help__vpn__makeconfig_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help vpn makeconfig commands' commands "$@"
+}
+(( $+functions[_icli__ip_commands] )) ||
+_icli__ip_commands() {
+    local commands; commands=(
+'ps1:Print network interface and ip part of the terminal shell'\''s \`\$PS1\`' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli ip commands' commands "$@"
+}
+(( $+functions[_icli__ip__help_commands] )) ||
+_icli__ip__help_commands() {
+    local commands; commands=(
+'ps1:Print network interface and ip part of the terminal shell'\''s \`\$PS1\`' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli ip help commands' commands "$@"
+}
+(( $+functions[_icli__ip__help__help_commands] )) ||
+_icli__ip__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli ip help help commands' commands "$@"
+}
+(( $+functions[_icli__ip__help__ps1_commands] )) ||
+_icli__ip__help__ps1_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli ip help ps1 commands' commands "$@"
+}
+(( $+functions[_icli__ip__ps1_commands] )) ||
+_icli__ip__ps1_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli ip ps1 commands' commands "$@"
+}
+(( $+functions[_icli__makefile_commands] )) ||
+_icli__makefile_commands() {
+    local commands; commands=(
+'add-help:Generate the help target for Makefile' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli makefile commands' commands "$@"
+}
+(( $+functions[_icli__makefile__add-help_commands] )) ||
+_icli__makefile__add-help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli makefile add-help commands' commands "$@"
+}
+(( $+functions[_icli__makefile__help_commands] )) ||
+_icli__makefile__help_commands() {
+    local commands; commands=(
+'add-help:Generate the help target for Makefile' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli makefile help commands' commands "$@"
+}
+(( $+functions[_icli__makefile__help__add-help_commands] )) ||
+_icli__makefile__help__add-help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli makefile help add-help commands' commands "$@"
+}
+(( $+functions[_icli__makefile__help__help_commands] )) ||
+_icli__makefile__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli makefile help help commands' commands "$@"
+}
+(( $+functions[_icli__new_commands] )) ||
+_icli__new_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli new commands' commands "$@"
+}
+(( $+functions[_icli__vpn_commands] )) ||
+_icli__vpn_commands() {
+    local commands; commands=(
+'makeconfig:Make config for VPN app' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli vpn commands' commands "$@"
+}
+(( $+functions[_icli__vpn__help_commands] )) ||
+_icli__vpn__help_commands() {
+    local commands; commands=(
+'makeconfig:Make config for VPN app' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli vpn help commands' commands "$@"
+}
+(( $+functions[_icli__vpn__help__help_commands] )) ||
+_icli__vpn__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli vpn help help commands' commands "$@"
+}
+(( $+functions[_icli__vpn__help__makeconfig_commands] )) ||
+_icli__vpn__help__makeconfig_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli vpn help makeconfig commands' commands "$@"
+}
+(( $+functions[_icli__vpn__makeconfig_commands] )) ||
+_icli__vpn__makeconfig_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli vpn makeconfig commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_icli" ]; then
+    _icli "$@"
+else
+    compdef _icli icli
+fi
