@@ -20,7 +20,7 @@
 
 ```shell
 git clone git@github.com:druagoon/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles && ./install && make dotf
+cd ~/.dotfiles && ./install.sh && make dotf
 ```
 
 ## Initialization

@@ -1,8 +1,7 @@
-SHELL := bash
-
 .DEFAULT_GOAL := motto
 
-SHFMT := shfmt -ln=auto -i 4 -ci -bn -w
+SHELL := bash
+SHFMT := shfmt -l -w -ln=auto -i 4 -ci -bn
 
 BASE_DIR := $(shell cd `dirname "$0"`; pwd)
 PKG_DIR := packages
@@ -29,13 +28,9 @@ pkg:
 brewfile:
 	cd "$(PKG_DIR)/brew" && brew bundle dump --describe --force
 
-.PHONY: fmt
-fmt:
-	$(SHFMT) ./install
-
-.PHONY: fmtpkg
-fmtpkg:
-	$(SHFMT) $(PKG_DIR)
+.PHONY: fmt-shell
+fmt-shell:
+	$(SHFMT) .
 
 .PHONY: dotf
 dotf:

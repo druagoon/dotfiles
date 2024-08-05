@@ -14,8 +14,7 @@ indent_style = tab
 
 [*.{sh,zsh}]
 # shfmt
-shell_variant = auto
-binary_next_line = false
+binary_next_line = true
 switch_case_indent = true
 space_redirects = false
 keep_padding = true
