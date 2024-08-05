@@ -1,18 +1,27 @@
+tap "homebrew/aliases"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "mongodb/brew"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# GNU awk utility
+brew "gawk"
 # Distributed revision control system
 brew "git"
 # GNU implementation of the famous stream editor
@@ -23,6 +32,8 @@ brew "go"
 brew "helm"
 # Improved top (interactive process viewer)
 brew "htop"
+# Update of iperf: measures TCP, UDP, and SCTP bandwidth
+brew "iperf3"
 # Official CLI for the IPinfo IP Address API
 brew "ipinfo-cli"
 # Lightweight and flexible command-line JSON processor
@@ -51,6 +62,10 @@ brew "pyenv"
 brew "rbenv"
 # Persistent key-value database, with built-in net interface
 brew "redis"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Autoformat shell script source code
+brew "shfmt"
 # SMART hard drive monitoring
 brew "smartmontools"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
@@ -61,19 +76,21 @@ brew "tcping"
 brew "tealdeer"
 # User interface to the TELNET protocol
 brew "telnet"
-# Code-search similar to ack
-brew "the_silver_searcher"
 # Program that allows you to count code, quickly
 brew "tokei"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Internet file retriever
 brew "wget"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
 # UNIX shell (command interpreter)
 brew "zsh"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community"
-# Scalable Web Platform by Extending NGINX with Lua
-brew "openresty/brew/openresty"
+# Utility to hide menu bar items
+cask "hiddenbar"
+# Tool for multi-language users
+cask "input-source-pro"
 # Minimal installer for conda
 cask "miniconda"
