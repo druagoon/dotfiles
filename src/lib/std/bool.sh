@@ -1,6 +1,6 @@
-dotf::utils::boolean::is_true() {
+std::bool::is_true() {
     case "$1" in
-        true | yes | 1 | "1")
+        true | yes | [Yy] | on | 1)
             true
             return
             ;;
@@ -11,9 +11,9 @@ dotf::utils::boolean::is_true() {
     esac
 }
 
-dotf::utils::boolean::is_false() {
+std::bool::is_false() {
     case "$1" in
-        false | no | 0 | "0")
+        false | no | [Nn] | off | 0 | "")
             true
             return
             ;;

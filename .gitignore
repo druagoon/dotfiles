@@ -82,13 +82,9 @@ venv.bak/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-# Ruby
-/.bundle/
-vendor/
-
 ### Makefile
 GNUmakefile
 
-### Local
-/.local
-/test
+### Project
+/.local/
+/target/
