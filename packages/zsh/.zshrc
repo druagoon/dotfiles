@@ -120,26 +120,32 @@ __zsh_init_bashcompinit() {
 }
 
 __zsh_init_env_paths() {
-    local names=(sbin bin)
-    local paths=(
-        /usr/local
-        "${HOME}/.local"
-    )
-    for v in "${paths[@]}"; do
-        if [[ ! -d "${v}" ]]; then
-            continue
+    for p in "$@"; do
+        if [[ ! ":${PATH}:" == *":${p}:"* ]]; then
+            export PATH="${p}:${PATH}"
         fi
-        for b in "${names[@]}"; do
-            local d="${v}/${b}"
-            if [[ ! ":${PATH}:" == *":${d}:"* ]]; then
-                export PATH="${d}:${PATH}"
-            fi
-        done
     done
 }
 
+__zsh_init_sys_env_paths() {
+    local paths=(
+        /usr/local/sbin
+        /usr/local/bin
+    )
+    __zsh_init_env_paths "${paths[@]}"
+}
+
+__zsh_init_user_env_paths() {
+    local paths=(
+        "${HOME}/.local/sbin"
+        "${HOME}/.local/bin"
+    )
+    __zsh_init_env_paths "${paths[@]}"
+}
+
 __omz_pre_load() {
-    __zsh_init_env_paths
+    __zsh_init_sys_env_paths
+    __zsh_init_user_env_paths
     __zsh_init_bashcompinit
     __zsh_load_custom_plugins
 }
