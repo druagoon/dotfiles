@@ -32,7 +32,97 @@ _icli() {
         (( CURRENT += 1 ))
         curcontext="${curcontext%:*:*}:icli-command-$line[1]:"
         case $line[1] in
-            (ip)
+            (config)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_icli__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-config-command-$line[1]:"
+        case $line[1] in
+            (generate)
+_arguments "${_arguments_options[@]}" : \
+'--force[Force overwrite even if the configuration file already exists]' \
+'--local[Generate configuration file in the current directory]' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'--exists[Only list the existing configuration files]' \
+'--with-content[Print configuration files content]' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+'--json[JSON output]' \
+'--yaml[YAML output]' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__config__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-config-help-command-$line[1]:"
+        case $line[1] in
+            (generate)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(ip)
 _arguments "${_arguments_options[@]}" : \
 '*-v[Increase logging verbosity]' \
 '*--verbose[Increase logging verbosity]' \
@@ -107,7 +197,7 @@ _arguments "${_arguments_options[@]}" : \
         (( CURRENT += 1 ))
         curcontext="${curcontext%:*:*}:icli-makefile-command-$line[1]:"
         case $line[1] in
-            (add-help)
+            (genhelp)
 _arguments "${_arguments_options[@]}" : \
 '--shell-dir=[Where the help target shell is placed, relative to the current directory]:SHELL_DIR: ' \
 '--description=[Help target description]:DESCRIPTION: ' \
@@ -131,7 +221,7 @@ _arguments "${_arguments_options[@]}" : \
         (( CURRENT += 1 ))
         curcontext="${curcontext%:*:*}:icli-makefile-help-command-$line[1]:"
         case $line[1] in
-            (add-help)
+            (genhelp)
 _arguments "${_arguments_options[@]}" : \
 && ret=0
 ;;
@@ -170,7 +260,9 @@ _arguments "${_arguments_options[@]}" : \
 '--app=[VPN client app]:APP:((clashx\:"ClashX"
 clash.verge\:"Clash.Verge"
 quantumultx\:"QuantumultX"))' \
-'--output-dir=[Write QuantumultX.conf to DIR]:DIR:_files' \
+'-t+[Path to the template file for generating config files]:TEMPLATE: ' \
+'--template=[Path to the template file for generating config files]:TEMPLATE: ' \
+'--output-dir=[Write QuantumultX.conf to DIR]:DIR: ' \
 '--download-rules[Download clash provider rules to local]' \
 '*-v[Increase logging verbosity]' \
 '*--verbose[Increase logging verbosity]' \
@@ -242,7 +334,35 @@ _arguments "${_arguments_options[@]}" : \
         (( CURRENT += 1 ))
         curcontext="${curcontext%:*:*}:icli-help-command-$line[1]:"
         case $line[1] in
-            (ip)
+            (config)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-config-command-$line[1]:"
+        case $line[1] in
+            (generate)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(ip)
 _arguments "${_arguments_options[@]}" : \
 ":: :_icli__help__ip_commands" \
 "*::: :->ip" \
@@ -274,7 +394,7 @@ _arguments "${_arguments_options[@]}" : \
         (( CURRENT += 1 ))
         curcontext="${curcontext%:*:*}:icli-help-makefile-command-$line[1]:"
         case $line[1] in
-            (add-help)
+            (genhelp)
 _arguments "${_arguments_options[@]}" : \
 && ret=0
 ;;
@@ -326,6 +446,7 @@ esac
 (( $+functions[_icli_commands] )) ||
 _icli_commands() {
     local commands; commands=(
+'config:Manage local and global configuration' \
 'ip:Ip utilities' \
 'makefile:Makefile utilities' \
 'vpn:VPN utilities' \
@@ -340,9 +461,65 @@ _icli__completion_commands() {
     local commands; commands=()
     _describe -t commands 'icli completion commands' commands "$@"
 }
+(( $+functions[_icli__config_commands] )) ||
+_icli__config_commands() {
+    local commands; commands=(
+'generate:Generate the configuration files' \
+'list:List the configuration files' \
+'show:Show the active configuration' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli config commands' commands "$@"
+}
+(( $+functions[_icli__config__generate_commands] )) ||
+_icli__config__generate_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config generate commands' commands "$@"
+}
+(( $+functions[_icli__config__help_commands] )) ||
+_icli__config__help_commands() {
+    local commands; commands=(
+'generate:Generate the configuration files' \
+'list:List the configuration files' \
+'show:Show the active configuration' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli config help commands' commands "$@"
+}
+(( $+functions[_icli__config__help__generate_commands] )) ||
+_icli__config__help__generate_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config help generate commands' commands "$@"
+}
+(( $+functions[_icli__config__help__help_commands] )) ||
+_icli__config__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config help help commands' commands "$@"
+}
+(( $+functions[_icli__config__help__list_commands] )) ||
+_icli__config__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config help list commands' commands "$@"
+}
+(( $+functions[_icli__config__help__show_commands] )) ||
+_icli__config__help__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config help show commands' commands "$@"
+}
+(( $+functions[_icli__config__list_commands] )) ||
+_icli__config__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config list commands' commands "$@"
+}
+(( $+functions[_icli__config__show_commands] )) ||
+_icli__config__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli config show commands' commands "$@"
+}
 (( $+functions[_icli__help_commands] )) ||
 _icli__help_commands() {
     local commands; commands=(
+'config:Manage local and global configuration' \
 'ip:Ip utilities' \
 'makefile:Makefile utilities' \
 'vpn:VPN utilities' \
@@ -356,6 +533,30 @@ _icli__help_commands() {
 _icli__help__completion_commands() {
     local commands; commands=()
     _describe -t commands 'icli help completion commands' commands "$@"
+}
+(( $+functions[_icli__help__config_commands] )) ||
+_icli__help__config_commands() {
+    local commands; commands=(
+'generate:Generate the configuration files' \
+'list:List the configuration files' \
+'show:Show the active configuration' \
+    )
+    _describe -t commands 'icli help config commands' commands "$@"
+}
+(( $+functions[_icli__help__config__generate_commands] )) ||
+_icli__help__config__generate_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help config generate commands' commands "$@"
+}
+(( $+functions[_icli__help__config__list_commands] )) ||
+_icli__help__config__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help config list commands' commands "$@"
+}
+(( $+functions[_icli__help__config__show_commands] )) ||
+_icli__help__config__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help config show commands' commands "$@"
 }
 (( $+functions[_icli__help__help_commands] )) ||
 _icli__help__help_commands() {
@@ -377,14 +578,14 @@ _icli__help__ip__ps1_commands() {
 (( $+functions[_icli__help__makefile_commands] )) ||
 _icli__help__makefile_commands() {
     local commands; commands=(
-'add-help:Generate the help target for Makefile' \
+'genhelp:Generate the help target for Makefile' \
     )
     _describe -t commands 'icli help makefile commands' commands "$@"
 }
-(( $+functions[_icli__help__makefile__add-help_commands] )) ||
-_icli__help__makefile__add-help_commands() {
+(( $+functions[_icli__help__makefile__genhelp_commands] )) ||
+_icli__help__makefile__genhelp_commands() {
     local commands; commands=()
-    _describe -t commands 'icli help makefile add-help commands' commands "$@"
+    _describe -t commands 'icli help makefile genhelp commands' commands "$@"
 }
 (( $+functions[_icli__help__new_commands] )) ||
 _icli__help__new_commands() {
@@ -437,28 +638,28 @@ _icli__ip__ps1_commands() {
 (( $+functions[_icli__makefile_commands] )) ||
 _icli__makefile_commands() {
     local commands; commands=(
-'add-help:Generate the help target for Makefile' \
+'genhelp:Generate the help target for Makefile' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
     _describe -t commands 'icli makefile commands' commands "$@"
 }
-(( $+functions[_icli__makefile__add-help_commands] )) ||
-_icli__makefile__add-help_commands() {
+(( $+functions[_icli__makefile__genhelp_commands] )) ||
+_icli__makefile__genhelp_commands() {
     local commands; commands=()
-    _describe -t commands 'icli makefile add-help commands' commands "$@"
+    _describe -t commands 'icli makefile genhelp commands' commands "$@"
 }
 (( $+functions[_icli__makefile__help_commands] )) ||
 _icli__makefile__help_commands() {
     local commands; commands=(
-'add-help:Generate the help target for Makefile' \
+'genhelp:Generate the help target for Makefile' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
     _describe -t commands 'icli makefile help commands' commands "$@"
 }
-(( $+functions[_icli__makefile__help__add-help_commands] )) ||
-_icli__makefile__help__add-help_commands() {
+(( $+functions[_icli__makefile__help__genhelp_commands] )) ||
+_icli__makefile__help__genhelp_commands() {
     local commands; commands=()
-    _describe -t commands 'icli makefile help add-help commands' commands "$@"
+    _describe -t commands 'icli makefile help genhelp commands' commands "$@"
 }
 (( $+functions[_icli__makefile__help__help_commands] )) ||
 _icli__makefile__help__help_commands() {
