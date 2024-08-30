@@ -237,6 +237,92 @@ esac
     ;;
 esac
 ;;
+(shinc)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_icli__shinc_commands" \
+"*::: :->shinc" \
+&& ret=0
+
+    case $state in
+    (shinc)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-shinc-command-$line[1]:"
+        case $line[1] in
+            (build)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" : \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell:(bash elvish fish powershell zsh)' \
+&& ret=0
+;;
+(man)
+_arguments "${_arguments_options[@]}" : \
+'--output-dir=[Write man pages to DIR]:DIR:_files' \
+'*-v[Increase logging verbosity]' \
+'*--verbose[Increase logging verbosity]' \
+'(-v --verbose)*-q[Decrease logging verbosity]' \
+'(-v --verbose)*--quiet[Decrease logging verbosity]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__shinc__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-shinc-help-command-$line[1]:"
+        case $line[1] in
+            (build)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(man)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
 (vpn)
 _arguments "${_arguments_options[@]}" : \
 '*-v[Increase logging verbosity]' \
@@ -402,6 +488,34 @@ _arguments "${_arguments_options[@]}" : \
     ;;
 esac
 ;;
+(shinc)
+_arguments "${_arguments_options[@]}" : \
+":: :_icli__help__shinc_commands" \
+"*::: :->shinc" \
+&& ret=0
+
+    case $state in
+    (shinc)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:icli-help-shinc-command-$line[1]:"
+        case $line[1] in
+            (build)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(man)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
 (vpn)
 _arguments "${_arguments_options[@]}" : \
 ":: :_icli__help__vpn_commands" \
@@ -449,6 +563,7 @@ _icli_commands() {
 'config:Manage local and global configuration' \
 'ip:Ip utilities' \
 'makefile:Makefile utilities' \
+'shinc:Bash cli project manager using \`argc\`' \
 'vpn:VPN utilities' \
 'completion:Generate tab-completion scripts for terminal shell' \
 'new:Crate a new command and generate the layout files' \
@@ -522,6 +637,7 @@ _icli__help_commands() {
 'config:Manage local and global configuration' \
 'ip:Ip utilities' \
 'makefile:Makefile utilities' \
+'shinc:Bash cli project manager using \`argc\`' \
 'vpn:VPN utilities' \
 'completion:Generate tab-completion scripts for terminal shell' \
 'new:Crate a new command and generate the layout files' \
@@ -591,6 +707,30 @@ _icli__help__makefile__genhelp_commands() {
 _icli__help__new_commands() {
     local commands; commands=()
     _describe -t commands 'icli help new commands' commands "$@"
+}
+(( $+functions[_icli__help__shinc_commands] )) ||
+_icli__help__shinc_commands() {
+    local commands; commands=(
+'build:Generate and build project shell script' \
+'completion:Generate an auto-completion script for the project' \
+'man:Generate man-pages for the project' \
+    )
+    _describe -t commands 'icli help shinc commands' commands "$@"
+}
+(( $+functions[_icli__help__shinc__build_commands] )) ||
+_icli__help__shinc__build_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help shinc build commands' commands "$@"
+}
+(( $+functions[_icli__help__shinc__completion_commands] )) ||
+_icli__help__shinc__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help shinc completion commands' commands "$@"
+}
+(( $+functions[_icli__help__shinc__man_commands] )) ||
+_icli__help__shinc__man_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli help shinc man commands' commands "$@"
 }
 (( $+functions[_icli__help__vpn_commands] )) ||
 _icli__help__vpn_commands() {
@@ -670,6 +810,61 @@ _icli__makefile__help__help_commands() {
 _icli__new_commands() {
     local commands; commands=()
     _describe -t commands 'icli new commands' commands "$@"
+}
+(( $+functions[_icli__shinc_commands] )) ||
+_icli__shinc_commands() {
+    local commands; commands=(
+'build:Generate and build project shell script' \
+'completion:Generate an auto-completion script for the project' \
+'man:Generate man-pages for the project' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli shinc commands' commands "$@"
+}
+(( $+functions[_icli__shinc__build_commands] )) ||
+_icli__shinc__build_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc build commands' commands "$@"
+}
+(( $+functions[_icli__shinc__completion_commands] )) ||
+_icli__shinc__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc completion commands' commands "$@"
+}
+(( $+functions[_icli__shinc__help_commands] )) ||
+_icli__shinc__help_commands() {
+    local commands; commands=(
+'build:Generate and build project shell script' \
+'completion:Generate an auto-completion script for the project' \
+'man:Generate man-pages for the project' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'icli shinc help commands' commands "$@"
+}
+(( $+functions[_icli__shinc__help__build_commands] )) ||
+_icli__shinc__help__build_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc help build commands' commands "$@"
+}
+(( $+functions[_icli__shinc__help__completion_commands] )) ||
+_icli__shinc__help__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc help completion commands' commands "$@"
+}
+(( $+functions[_icli__shinc__help__help_commands] )) ||
+_icli__shinc__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc help help commands' commands "$@"
+}
+(( $+functions[_icli__shinc__help__man_commands] )) ||
+_icli__shinc__help__man_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc help man commands' commands "$@"
+}
+(( $+functions[_icli__shinc__man_commands] )) ||
+_icli__shinc__man_commands() {
+    local commands; commands=()
+    _describe -t commands 'icli shinc man commands' commands "$@"
 }
 (( $+functions[_icli__vpn_commands] )) ||
 _icli__vpn_commands() {
