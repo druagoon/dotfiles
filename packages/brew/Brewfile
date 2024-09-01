@@ -2,6 +2,8 @@ tap "homebrew/aliases"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "mongodb/brew"
+# Easily create and use cli based on bash script
+brew "argc"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -24,6 +26,8 @@ brew "fzf"
 brew "gawk"
 # Distributed revision control system
 brew "git"
+# Highly customizable changelog generator
+brew "git-cliff"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # Open source programming language to build simple/reliable/efficient software
@@ -70,6 +74,8 @@ brew "shfmt"
 brew "smartmontools"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# TOML toolkit written in Rust
+brew "taplo"
 # TCP connect to the given IP/port combo
 brew "tcping"
 # Very fast implementation of tldr in Rust
