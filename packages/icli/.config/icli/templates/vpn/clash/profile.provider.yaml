@@ -56,6 +56,14 @@ proxy-groups:
     use:
       *proxy-providers-ref
 
+  - name: eBay
+    type: select
+    proxies:
+      - Proxy
+      - DIRECT
+    use:
+      *proxy-providers-ref
+
   - name: PayPal
     type: select
     proxies:
@@ -179,6 +187,13 @@ rule-providers:
     behavior: classical
     path: ./custom/providers/rules/x/OpenAI/OpenAI.yaml
     url: https://raw.githubusercontent.com/druagoon/h451/master/Clash/providers/rules/x/OpenAI/OpenAI.yaml
+    interval: 172800
+
+  eBay:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/r/eBay/eBay.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/eBay/eBay.yaml
     interval: 172800
 
   PayPal:
@@ -326,6 +341,7 @@ rules:
   - RULE-SET,OpenAIX,OpenAI
   - RULE-SET,OpenAI,OpenAI
   - RULE-SET,PayPal,PayPal
+  - RULE-SET,eBay,eBay
   - RULE-SET,Telegram,Telegram
   # - RULE-SET,Reddit,Reddit
   - RULE-SET,JetbrainsX,Jetbrains
