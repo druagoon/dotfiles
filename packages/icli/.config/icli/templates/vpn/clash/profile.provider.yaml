@@ -196,6 +196,13 @@ rule-providers:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/eBay/eBay.yaml
     interval: 172800
 
+  eBayX:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/x/eBay/eBay.yaml
+    url: https://raw.githubusercontent.com/druagoon/h451/master/Clash/providers/rules/x/eBay/eBay.yaml
+    interval: 172800
+
   PayPal:
     type: http
     behavior: classical
@@ -341,6 +348,7 @@ rules:
   - RULE-SET,OpenAIX,OpenAI
   - RULE-SET,OpenAI,OpenAI
   - RULE-SET,PayPal,PayPal
+  - RULE-SET,eBayX,eBay
   - RULE-SET,eBay,eBay
   - RULE-SET,Telegram,Telegram
   # - RULE-SET,Reddit,Reddit
