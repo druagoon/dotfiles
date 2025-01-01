@@ -22,3 +22,6 @@ include "commands/layout/sync.sh"
 
 include "commands/package/cli.sh"
 include "commands/package/new.sh"
+
+include "commands/gitignore/cli.sh"
+include "commands/gitignore/generate.sh"

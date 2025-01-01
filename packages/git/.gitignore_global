@@ -1,4 +1,4 @@
-### Windows
+### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
@@ -24,7 +24,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-### macOS
+### macOS ###
 # General
 .DS_Store
 .AppleDouble
@@ -52,16 +52,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+### macOS Patch ###
+# iCloud generated files
+*.icloud
 
-### VisualStudioCode
+### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -75,15 +70,12 @@ venv.bak/
 # Built Visual Studio Code Extensions
 *.vsix
 
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### User ###
 .idea/
-
-### Makefile
+.local/
 GNUmakefile
-
-### Project
-.local

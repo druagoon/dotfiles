@@ -1,0 +1,9 @@
+[aliases]
+global = [
+    "windows",
+    "macos",
+    "visualstudiocode",
+]
+
+[templates]
+user = "User.gitignore"

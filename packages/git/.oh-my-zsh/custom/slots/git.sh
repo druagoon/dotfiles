@@ -46,9 +46,25 @@ __install_git_commitizen() {
     __go_install_repo "${args[@]}"
 }
 
+__install_git_ignore() {
+    if ! _dotf::cmd::check git-ignore; then
+        echo "brew install git-ignore"
+        brew install git-ignore
+    fi
+}
+
+__install_gibo() {
+    if ! _dotf::cmd::check gibo; then
+        echo "brew install gibo"
+        brew install gibo
+    fi
+}
+
 __init_git() {
     __install_git_checkout_branch
     __install_git_commitizen
+    __install_git_ignore
+    __install_gibo
 }
 
 __init_git

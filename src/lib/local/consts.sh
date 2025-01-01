@@ -2,8 +2,13 @@
 DOTF_ROOT="${DOTFILES_ROOT:-${HOME}/.dotfiles}"
 DOTF_PKG_ROOT="${DOTF_ROOT}/packages"
 
+dotf::pkg::dir::get() {
+    local name="$1"
+    echo "${DOTF_PKG_ROOT}/${name}"
+}
+
 ## Layout
-DOTF_LAYOUT_DIR="${DOTF_PKG_ROOT}/os/layouts"
+DOTF_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
 
 ## Link
 DOTF_LINK_STOW_SRC="${DOTF_PKG_ROOT}"
@@ -15,4 +20,7 @@ DOTF_LINK_EXCLUDE_PKG_STRING=$(
 )
 
 ## Brew
-DOTF_PKG_BREW="${DOTF_PKG_ROOT}/brew"
+DOTF_PKG_BREW="$(dotf::pkg::dir::get brew)"
+
+## Git
+DOTF_PKG_GIT="$(dotf::pkg::dir::get git)"
