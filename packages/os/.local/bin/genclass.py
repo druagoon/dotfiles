@@ -6,7 +6,7 @@
 import re
 
 import click
-import clipboard
+import pyperclip
 
 
 @click.command(help='Convert Class Name to Pascal')
@@ -15,7 +15,7 @@ def main(name: str):
     segment = re.split('[^A-Za-z0-9]+', name)
     parts = filter(None, [v.strip().title() for v in segment])
     rv = ''.join(parts)
-    clipboard.copy(rv)
+    pyperclip.copy(rv)
     print(f'{name} -> {rv}')
 
 

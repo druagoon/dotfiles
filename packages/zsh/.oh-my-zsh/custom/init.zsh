@@ -9,10 +9,9 @@ __load_preposition() {
         shell.sh
         proxy.sh
         brew.sh
-        conda.sh
-        venv.sh
         go.sh
         rust.sh
+        venv.sh
     )
     for v in "${preposition[@]}"; do
         local filepath="${ZSH_CUSTOM_INITD}/${v}"

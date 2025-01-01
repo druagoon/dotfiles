@@ -5,7 +5,7 @@ set -e
 # @describe Generate and build the dotf script
 # @meta version 0.1.0
 # @meta author lazyboy <lazyboy.fan@gmail.com>
-# @meta require-tools shfmt,icli
+# @meta require-tools shfmt,taplo,icli
 
 # Project
 # BASE_DIR="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" >/dev/null 2>&1 && pwd)"
@@ -115,6 +115,21 @@ fmt::pkg() {
 # @cmd Format shell scripts in current directory
 fmt::all() {
     fmt_shell .
+}
+
+# @cmd TOML files tools
+toml() {
+    return
+}
+
+# @cmd Format all TOML files
+toml::format() {
+    taplo format
+}
+
+# @cmd Check all TOML files
+toml::check() {
+    taplo format --check
 }
 
 # # @cmd Crate symbolic link for dotf

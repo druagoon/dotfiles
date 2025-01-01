@@ -1,6 +1,6 @@
-if command -v pipx &>/dev/null; then
-    if ! command -v register-python-argcomplete &>/dev/null; then
-        pipx install argcomplete
+if _dotf::cmd::check pipx; then
+    if ! _dotf::cmd::check register-python-argcomplete; then
+        brew install python-argcomplete
     fi
     eval "$(register-python-argcomplete pipx)"
 fi

@@ -17,7 +17,7 @@ std::color::display() {
     local color="$1"
     shift
     if [[ -z ${NO_COLOR+x} ]]; then
-        printf "$color%b\e[0m\n" "$*"
+        printf "${color}%b\e[0m\n" "$*"
     else
         printf "%b\n" "$*"
     fi
@@ -115,7 +115,7 @@ install_zsh() {
 
         local brew_zsh="${BREW_BIN}/zsh"
         case $(
-            grep -Fx "${brew_zsh}" /etc/shells >/dev/null
+            grep -Fx "${brew_zsh}" /etc/shells >/dev/null 2>&1
             echo $?
         ) in
             0) ;;
@@ -163,7 +163,7 @@ install_rust() {
 }
 
 install_deps() {
-    local deps=(bash stow git go pyenv argc)
+    local deps=(bash stow git go argc uv)
     for key in "${deps[@]}"; do
         if ! brew::check_formula_cmd "${key}"; then
             brew::install "${key}"

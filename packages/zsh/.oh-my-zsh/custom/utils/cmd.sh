@@ -1,5 +1,5 @@
 _dotf::cmd::check() {
-    command -v "$1" &>/dev/null
+    command -v "$1" >/dev/null 2>&1
 }
 
 _dotf::cmd::path::is_contains() {

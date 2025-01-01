@@ -1,9 +1,6 @@
 {
     "cSpell.words": [
         "dotf",
-        "dotfiles",
-        "druagoon",
-        "enpass"
     ],
     "files.associations": {
         "{**/.ssh/config*,**/.ssh/hosts/*,**/.ssh/hosts/local/[!.]*}": "ssh_config"
