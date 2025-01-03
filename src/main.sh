@@ -14,6 +14,13 @@ include "lib/local/consts.sh"
 include "commands/brewfile/cli.sh"
 include "commands/brewfile/generate.sh"
 
+include "commands/completion/cli.sh"
+include "commands/completion/icli.sh"
+include "commands/completion/rust.sh"
+
+include "commands/gitignore/cli.sh"
+include "commands/gitignore/generate.sh"
+
 include "commands/link.sh"
 
 include "commands/layout/cli.sh"
@@ -22,6 +29,3 @@ include "commands/layout/sync.sh"
 
 include "commands/package/cli.sh"
 include "commands/package/new.sh"
-
-include "commands/gitignore/cli.sh"
-include "commands/gitignore/generate.sh"

@@ -20,7 +20,13 @@ DOTF_LINK_EXCLUDE_PKG_STRING=$(
 )
 
 ## Brew
-DOTF_PKG_BREW="$(dotf::pkg::dir::get brew)"
+DOTF_PKG_BREW_DIR="$(dotf::pkg::dir::get brew)"
 
 ## Git
-DOTF_PKG_GIT="$(dotf::pkg::dir::get git)"
+DOTF_PKG_GIT_DIR="$(dotf::pkg::dir::get git)"
+
+## iCli
+DOTF_PKG_ICLI_DIR="$(dotf::pkg::dir::get icli)"
+
+## Rust
+DOTF_PKG_RUST_DIR="$(dotf::pkg::dir::get rust)"
