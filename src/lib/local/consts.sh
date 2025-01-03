@@ -25,6 +25,9 @@ DOTF_PKG_BREW_DIR="$(dotf::pkg::dir::get brew)"
 ## Git
 DOTF_PKG_GIT_DIR="$(dotf::pkg::dir::get git)"
 
+## Go
+DOTF_PKG_GO_DIR="$(dotf::pkg::dir::get go)"
+
 ## iCli
 DOTF_PKG_ICLI_DIR="$(dotf::pkg::dir::get icli)"
 

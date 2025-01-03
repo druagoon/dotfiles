@@ -165,6 +165,9 @@ DOTF_PKG_BREW_DIR="$(dotf::pkg::dir::get brew)"
 ## Git
 DOTF_PKG_GIT_DIR="$(dotf::pkg::dir::get git)"
 
+## Go
+DOTF_PKG_GO_DIR="$(dotf::pkg::dir::get go)"
+
 ## iCli
 DOTF_PKG_ICLI_DIR="$(dotf::pkg::dir::get icli)"
 
@@ -191,6 +194,17 @@ brewfile::generate() {
 # @cmd Manage package command completions
 completion() {
     return
+}
+#include "commands/completion/go.sh"
+# @cmd Generate golang completions
+#
+# Examples:
+#   dotf completion go
+#
+# @meta require-tools wget
+completion::go() {
+    local source="https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_golang"
+    wget -q -O "${DOTF_PKG_GO_DIR}/.zcomp/_golang" "${source}"
 }
 #include "commands/completion/icli.sh"
 # @cmd Generate icli completions
@@ -677,6 +691,7 @@ Manage package command completions
 USAGE: dotf completion <COMMAND>
 
 COMMANDS:
+  go    Generate golang completions
   icli  Generate icli completions
   rust  Generate rustup and cargo completions
 EOF
@@ -685,7 +700,7 @@ EOF
 
 _argc_parse_completion() {
     local _argc_key _argc_action
-    local _argc_subcmds="icli, rust"
+    local _argc_subcmds="go, icli, rust"
     while [[ $_argc_index -lt $_argc_len ]]; do
         _argc_item="${argc__args[_argc_index]}"
         _argc_key="${_argc_item%%=*}"
@@ -697,6 +712,11 @@ _argc_parse_completion() {
                 _argc_dash="${#argc__positionals[@]}"
                 argc__positionals+=("${argc__args[@]:$((_argc_index + 1))}")
                 _argc_index=$_argc_len
+                break
+                ;;
+            go)
+                _argc_index=$((_argc_index + 1))
+                _argc_action=_argc_parse_completion_go
                 break
                 ;;
             icli)
@@ -712,6 +732,9 @@ _argc_parse_completion() {
             help)
                 local help_arg="${argc__args[$((_argc_index + 1))]:-}"
                 case "$help_arg" in
+                    go)
+                        _argc_usage_completion_go
+                        ;;
                     icli)
                         _argc_usage_completion_icli
                         ;;
@@ -736,6 +759,51 @@ _argc_parse_completion() {
         $_argc_action
     else
         _argc_usage_completion
+    fi
+}
+
+_argc_usage_completion_go() {
+    cat <<-'EOF'
+Generate golang completions
+
+Examples:
+  dotf completion go
+
+USAGE: dotf completion go
+EOF
+    exit
+}
+
+_argc_parse_completion_go() {
+    local _argc_key _argc_action
+    local _argc_subcmds=""
+    while [[ $_argc_index -lt $_argc_len ]]; do
+        _argc_item="${argc__args[_argc_index]}"
+        _argc_key="${_argc_item%%=*}"
+        case "$_argc_key" in
+            --help | -help | -h)
+                _argc_usage_completion_go
+                ;;
+            --)
+                _argc_dash="${#argc__positionals[@]}"
+                argc__positionals+=("${argc__args[@]:$((_argc_index + 1))}")
+                _argc_index=$_argc_len
+                break
+                ;;
+            *)
+                argc__positionals+=("$_argc_item")
+                _argc_index=$((_argc_index + 1))
+                ;;
+        esac
+    done
+    _argc_tools=(sed awk git shfmt icli wget)
+    if [[ -n "${_argc_action:-}" ]]; then
+        $_argc_action
+    else
+        argc__fn=completion::go
+        if [[ "${argc__positionals[0]:-}" == "help" ]] && [[ "${#argc__positionals[@]}" -eq 1 ]]; then
+            _argc_usage_completion_go
+        fi
     fi
 }
 

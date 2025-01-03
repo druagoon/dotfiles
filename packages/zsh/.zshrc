@@ -95,7 +95,6 @@ plugins=(
     cp
     direnv
     docker
-    golang
     git
     git-flow
     wd
