@@ -3,7 +3,7 @@
 **Table of Contents**
 
 - [Prerequisites](#prerequisites)
-  - [Enpass](#enpass)
+  - [Enpass (Optional)](#enpass-optional)
   - [Clash](#clash)
   - [iTerm2 (Optional)](#iterm2-optional)
 - [Installation](#installation)
@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-### [Enpass](https://www.enpass.io/)
+### [Enpass](https://www.enpass.io/) (Optional)
 
 > Password and credentials mananger
 
@@ -34,7 +34,6 @@
 git clone git@github.com:druagoon/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
-make dotf
 ```
 
 ## Initialization
@@ -43,5 +42,6 @@ make dotf
 
 ```shell
 cd ~/.dotfiles
+make dotf
 ./dotf link -- -v
 ```
