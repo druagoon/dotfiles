@@ -33,9 +33,9 @@ layout::sync() {
     local url
     local msg
     for i in $(seq 1 2 ${#lines[@]}); do
-        path="$(std::string::strip "${lines[$i - 1]}")"
+        path="$(std::string::strip_whitespace "${lines[$i - 1]}")"
         path="${path/#\~/${HOME}}"
-        url="$(std::string::strip "${lines[$i]}")"
+        url="$(std::string::strip_whitespace "${lines[$i]}")"
         if [[ ! -d "${path}" ]]; then
             msg="git clone '${url}' to '${path}'"
             if std::bool::is_true "${dry_run}"; then

@@ -1,11 +1,11 @@
-std::string::strip() {
-    sed -e 's/^ *//' -e 's/ *$//' <<<"$1"
+std::string::strip_whitespace() {
+    sed -e 's/^[[:blank:]]*//' -e 's/[[:blank:]]*$//' <<<"$1"
 }
 
-std::string::strip_prefix() {
-    sed 's/^ *//' <<<"$1"
+std::string::lstrip_whitespace() {
+    sed -e 's/^[[:blank:]]*//' <<<"$1"
 }
 
-std::string::strip_suffix() {
-    sed 's/ *$//' <<<"$1"
+std::string::rstrip_whitespace() {
+    sed -e 's/[[:blank:]]*$//' <<<"$1"
 }
