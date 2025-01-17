@@ -7,8 +7,8 @@ dotf::pkg::dir::get() {
     echo "${DOTF_PKG_ROOT}/${name}"
 }
 
-## Layout
-DOTF_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
+## OS
+DOTF_OS_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
 
 ## Link
 DOTF_LINK_STOW_SRC="${DOTF_PKG_ROOT}"

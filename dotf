@@ -147,8 +147,8 @@ dotf::pkg::dir::get() {
     echo "${DOTF_PKG_ROOT}/${name}"
 }
 
-## Layout
-DOTF_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
+## OS
+DOTF_OS_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
 
 ## Link
 DOTF_LINK_STOW_SRC="${DOTF_PKG_ROOT}"
@@ -325,7 +325,7 @@ layout() {
 # @meta require-tools git
 # @arg path!                            Path of the git repository
 # @option -o --output <FILE>            Write layouts to file
-# @option    --layout <NAME>            Write layouts to file in ${DOTF_LAYOUT_DIR} directory
+# @option    --layout <NAME>            Write layouts to file in ${DOTF_OS_LAYOUT_DIR} directory
 # @option    --max-depth=4 <NUMBER>     Maximum depth to locate git repository in the path
 # @flag   -n --dry-run                  Show what layouts will be export (not actually run)
 layout::export() {
@@ -337,7 +337,7 @@ layout::export() {
 
     if [[ -z "${output}" ]]; then
         if [[ -n "${layout}" ]]; then
-            output="${DOTF_LAYOUT_DIR}/${layout}"
+            output="${DOTF_OS_LAYOUT_DIR}/${layout}"
         else
             std::message::fatal "missing --output or --layout, please see --help for detail."
         fi
@@ -378,7 +378,7 @@ layout::export() {
 #
 # @meta require-tools git
 # @option -s --source           Read layouts from the file
-# @option    --layout           Read layouts from ${DOTF_LAYOUT_DIR} directory
+# @option    --layout           Read layouts from ${DOTF_OS_LAYOUT_DIR} directory
 # @flag   -n --dry-run          Show what layouts will be export (not actually run)
 layout::sync() {
     local source="${argc_source}"
@@ -387,7 +387,7 @@ layout::sync() {
 
     if [[ -z "${source}" ]]; then
         if [[ -n "${layout}" ]]; then
-            source="${DOTF_LAYOUT_DIR}/${layout}"
+            source="${DOTF_OS_LAYOUT_DIR}/${layout}"
         else
             std::message::fatal "missing --source or --layout, please see --help for detail."
         fi
@@ -1142,7 +1142,7 @@ ARGS:
 
 OPTIONS:
   -o, --output <FILE>       Write layouts to file
-      --layout <NAME>       Write layouts to file in ${DOTF_LAYOUT_DIR} directory
+      --layout <NAME>       Write layouts to file in ${DOTF_OS_LAYOUT_DIR} directory
       --max-depth <NUMBER>  Maximum depth to locate git repository in the path [default: 4]
   -n, --dry-run             Show what layouts will be export (not actually run)
   -h, --help                Print help
@@ -1247,7 +1247,7 @@ USAGE: dotf layout sync [OPTIONS]
 
 OPTIONS:
   -s, --source <SOURCE>  Read layouts from the file
-      --layout <LAYOUT>  Read layouts from ${DOTF_LAYOUT_DIR} directory
+      --layout <LAYOUT>  Read layouts from ${DOTF_OS_LAYOUT_DIR} directory
   -n, --dry-run          Show what layouts will be export (not actually run)
   -h, --help             Print help
 EOF
