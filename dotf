@@ -136,11 +136,37 @@ std::message::fatal() {
     std::message::error "$@"
     exit 1
 }
+#include "lib/std/path.sh"
+std::path::dir::ensure() {
+    local dir="$1"
+    if [[ ! -d "$dir" ]]; then
+        mkdir -p "$dir"
+    fi
+}
+
+std::path::file::ensure() {
+    local file="$1"
+    if [[ ! -f "${name}" ]]; then
+        touch "$file"
+    fi
+}
+
+std::path::file::ensure_dir() {
+    local file="$1"
+    if [[ ! -f "${name}" ]]; then
+        local dir="$(dirname "$file")"
+        std::path::dir::ensure "$dir"
+        touch "$file"
+    fi
+}
 
 #include "lib/local/consts.sh"
 # Global
 DOTF_ROOT="${DOTFILES_ROOT:-${HOME}/.dotfiles}"
 DOTF_PKG_ROOT="${DOTF_ROOT}/packages"
+
+## Plugin
+DOTF_PLUGIN_PREFIX="dotf"
 
 dotf::pkg::dir::get() {
     local name="$1"
@@ -173,6 +199,16 @@ DOTF_PKG_ICLI_DIR="$(dotf::pkg::dir::get icli)"
 
 ## Rust
 DOTF_PKG_RUST_DIR="$(dotf::pkg::dir::get rust)"
+#include "lib/local/path.sh"
+dotf::path::gitkeep::exists() {
+    local name="$1/.gitkeep"
+    [[ -f "${name}" ]]
+}
+
+dotf::path::gitkeep::ensure_dir() {
+    local name="$1/.gitkeep"
+    std::path::file::ensure_dir "${name}"
+}
 
 # Commands
 #include "commands/brewfile/cli.sh"
@@ -428,11 +464,28 @@ package() {
 #include "commands/package/new.sh"
 # @cmd Create a new dotfiles package
 # @arg name!
+# @flag    --no-omz-plugins                 Do not create oh-my-zsh plugins directory
+# @flag    --no-omz-functions               Do not create oh-my-zsh functions directory
+# @flag    --no-omz-completions             Do not create oh-my-zsh completions directory
 package::new() {
-    local pkg_dir="${DOTF_PKG_ROOT}/${argc_name}"
+    local name="${argc_name}"
+    local pkg_dir="$(dotf::pkg::dir::get "${name}")"
     local pkg_omz_custom_dir="${pkg_dir}/.oh-my-zsh/custom"
-    mkdir -p "${pkg_dir}"/{.zfunc,.zcomp}
-    mkdir -p "${pkg_omz_custom_dir}"/{completions,slots}
+    std::path::dir::ensure "${pkg_omz_custom_dir}"
+
+    if std::bool::is_false "${argc_no_omz_completions}"; then
+        dotf::path::gitkeep::ensure_dir "${pkg_omz_custom_dir}/completions"
+    fi
+    if std::bool::is_false "${argc_no_omz_functions}"; then
+        dotf::path::gitkeep::ensure_dir "${pkg_omz_custom_dir}/functions"
+    fi
+    if std::bool::is_false "${argc_no_omz_plugins}"; then
+        local pkg_omz_plugin_name="${DOTF_PLUGIN_PREFIX}-${name}"
+        local pkg_omz_plugin_dir="${pkg_omz_custom_dir}/plugins/${pkg_omz_plugin_name}"
+        local pkg_omz_plugin_file="${pkg_omz_plugin_dir}/${pkg_omz_plugin_name}.plugin.zsh"
+        std::path::file::ensure_dir "${pkg_omz_plugin_file}"
+        dotf::path::gitkeep::ensure_dir "${pkg_omz_plugin_dir}/bin"
+    fi
 }
 
 # ARGC-BUILD {
@@ -1383,10 +1436,16 @@ _argc_usage_package_new() {
     cat <<-'EOF'
 Create a new dotfiles package
 
-USAGE: dotf package new <NAME>
+USAGE: dotf package new [OPTIONS] <NAME>
 
 ARGS:
   <NAME>
+
+OPTIONS:
+      --no-omz-plugins      Do not create oh-my-zsh plugins directory
+      --no-omz-functions    Do not create oh-my-zsh functions directory
+      --no-omz-completions  Do not create oh-my-zsh completions directory
+  -h, --help                Print help
 EOF
     exit
 }
@@ -1407,7 +1466,43 @@ _argc_parse_package_new() {
                 _argc_index=$_argc_len
                 break
                 ;;
+            --no-omz-plugins)
+                if [[ "$_argc_item" == *=* ]]; then
+                    _argc_die "error: flag \`--no-omz-plugins\` don't accept any value"
+                fi
+                _argc_index=$((_argc_index + 1))
+                if [[ -n "${argc_no_omz_plugins:-}" ]]; then
+                    _argc_die "error: the argument \`--no-omz-plugins\` cannot be used multiple times"
+                else
+                    argc_no_omz_plugins=1
+                fi
+                ;;
+            --no-omz-functions)
+                if [[ "$_argc_item" == *=* ]]; then
+                    _argc_die "error: flag \`--no-omz-functions\` don't accept any value"
+                fi
+                _argc_index=$((_argc_index + 1))
+                if [[ -n "${argc_no_omz_functions:-}" ]]; then
+                    _argc_die "error: the argument \`--no-omz-functions\` cannot be used multiple times"
+                else
+                    argc_no_omz_functions=1
+                fi
+                ;;
+            --no-omz-completions)
+                if [[ "$_argc_item" == *=* ]]; then
+                    _argc_die "error: flag \`--no-omz-completions\` don't accept any value"
+                fi
+                _argc_index=$((_argc_index + 1))
+                if [[ -n "${argc_no_omz_completions:-}" ]]; then
+                    _argc_die "error: the argument \`--no-omz-completions\` cannot be used multiple times"
+                else
+                    argc_no_omz_completions=1
+                fi
+                ;;
             *)
+                if _argc_maybe_flag_option "-" "$_argc_item"; then
+                    _argc_die "error: unexpected argument \`$_argc_key\` found"
+                fi
                 argc__positionals+=("$_argc_item")
                 _argc_index=$((_argc_index + 1))
                 ;;

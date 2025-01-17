@@ -7,8 +7,10 @@ include "lib/std/string.sh"
 include "lib/std/os.sh"
 include "lib/std/colors.sh"
 include "lib/std/message.sh"
+include "lib/std/path.sh"
 
 include "lib/local/consts.sh"
+include "lib/local/path.sh"
 
 # Commands
 include "commands/brewfile/cli.sh"

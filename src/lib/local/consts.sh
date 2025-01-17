@@ -2,6 +2,9 @@
 DOTF_ROOT="${DOTFILES_ROOT:-${HOME}/.dotfiles}"
 DOTF_PKG_ROOT="${DOTF_ROOT}/packages"
 
+## Plugin
+DOTF_PLUGIN_PREFIX="dotf"
+
 dotf::pkg::dir::get() {
     local name="$1"
     echo "${DOTF_PKG_ROOT}/${name}"
