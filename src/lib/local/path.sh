@@ -1,9 +1,9 @@
 dotf::path::gitkeep::exists() {
-    local name="$1/.gitkeep"
-    [[ -f "${name}" ]]
+    local file="$1/.gitkeep"
+    [[ -f "${file}" ]]
 }
 
 dotf::path::gitkeep::ensure_dir() {
-    local name="$1/.gitkeep"
-    std::path::file::ensure_dir "${name}"
+    local file="$1/.gitkeep"
+    std::path::file::ensure_dir "${file}"
 }

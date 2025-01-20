@@ -146,14 +146,14 @@ std::path::dir::ensure() {
 
 std::path::file::ensure() {
     local file="$1"
-    if [[ ! -f "${name}" ]]; then
+    if [[ ! -f "${file}" ]]; then
         touch "$file"
     fi
 }
 
 std::path::file::ensure_dir() {
     local file="$1"
-    if [[ ! -f "${name}" ]]; then
+    if [[ ! -f "${file}" ]]; then
         local dir="$(dirname "$file")"
         std::path::dir::ensure "$dir"
         touch "$file"
@@ -201,13 +201,13 @@ DOTF_PKG_ICLI_DIR="$(dotf::pkg::dir::get icli)"
 DOTF_PKG_RUST_DIR="$(dotf::pkg::dir::get rust)"
 #include "lib/local/path.sh"
 dotf::path::gitkeep::exists() {
-    local name="$1/.gitkeep"
-    [[ -f "${name}" ]]
+    local file="$1/.gitkeep"
+    [[ -f "${file}" ]]
 }
 
 dotf::path::gitkeep::ensure_dir() {
-    local name="$1/.gitkeep"
-    std::path::file::ensure_dir "${name}"
+    local file="$1/.gitkeep"
+    std::path::file::ensure_dir "${file}"
 }
 
 # Commands

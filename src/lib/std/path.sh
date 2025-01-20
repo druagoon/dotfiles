@@ -7,14 +7,14 @@ std::path::dir::ensure() {
 
 std::path::file::ensure() {
     local file="$1"
-    if [[ ! -f "${name}" ]]; then
+    if [[ ! -f "${file}" ]]; then
         touch "$file"
     fi
 }
 
 std::path::file::ensure_dir() {
     local file="$1"
-    if [[ ! -f "${name}" ]]; then
+    if [[ ! -f "${file}" ]]; then
         local dir="$(dirname "$file")"
         std::path::dir::ensure "$dir"
         touch "$file"
