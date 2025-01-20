@@ -33,3 +33,6 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+
+# User
+\.stow-local-ignore\.inc
