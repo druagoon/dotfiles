@@ -18,8 +18,14 @@ package::new() {
     if std::bool::is_false "${argc_no_omz_plugins}"; then
         local pkg_omz_plugin_name="${DOTF_PLUGIN_PREFIX}-${name}"
         local pkg_omz_plugin_dir="${pkg_omz_custom_dir}/plugins/${pkg_omz_plugin_name}"
-        local pkg_omz_plugin_file="${pkg_omz_plugin_dir}/${pkg_omz_plugin_name}.plugin.zsh"
-        std::path::file::ensure_dir "${pkg_omz_plugin_file}"
         dotf::path::gitkeep::ensure_dir "${pkg_omz_plugin_dir}/bin"
+
+        local pkg_omz_plugin_file="${pkg_omz_plugin_dir}/${pkg_omz_plugin_name}.plugin.zsh"
+        std::path::file::ensure "${pkg_omz_plugin_file}"
+
+        local pkg_omz_plugin_readme="${pkg_omz_plugin_dir}/README.md"
+        if [[ ! -f "${pkg_omz_plugin_readme}" ]]; then
+            printf "# ${pkg_omz_plugin_name} plugin\n" >"${pkg_omz_plugin_readme}"
+        fi
     fi
 }
