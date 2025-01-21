@@ -1,4 +1,4 @@
-__install_icli() {
+__dotf_icli_install_exec() {
     if _dotf::cmd::check cargo; then
         if ! _dotf::cmd::check icli; then
             local repo="https://github.com/druagoon/icli-rs.git"
@@ -8,8 +8,8 @@ __install_icli() {
     fi
 }
 
-__init_icli() {
-    __install_icli
+__dotf_icli_init() {
+    __dotf_icli_install_exec
 }
 
-__init_icli
+__dotf_icli_init
