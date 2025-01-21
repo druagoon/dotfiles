@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
-        "dotf",
-    ],
+		"dotf",
+		"shellproxy"
+	],
     "files.associations": {
         "{**/.ssh/config*,**/.ssh/hosts/*,**/.ssh/hosts/local/[!.]*}": "ssh_config"
     }
