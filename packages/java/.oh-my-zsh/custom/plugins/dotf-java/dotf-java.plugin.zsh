@@ -9,8 +9,8 @@ setjdk() {
     fi
 }
 
-__init_java() {
+__dotf_java_init() {
     setjdk 1.8
 }
 
-__init_java
+__dotf_java_init
