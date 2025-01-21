@@ -12,7 +12,7 @@ __dotf_venv_init() {
         uv venv --python "${venv_python_version}" "${venv_dir}"
     fi
 
-    _dotf::cmd::path::prepend "${venv_bin}"
+    _dotf::env::path::prepend "${venv_bin}"
 }
 
 __dotf_venv_init

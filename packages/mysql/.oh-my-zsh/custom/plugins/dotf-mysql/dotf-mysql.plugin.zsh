@@ -6,7 +6,7 @@ __dotf_mysql_env_path() {
     if [[ -d "${mysql_prefix}" ]]; then
         local mysql_bin="${mysql_prefix}/bin"
         if [[ -d "${mysql_bin}" ]]; then
-            _dotf::cmd::path::prepend "${mysql_bin}"
+            _dotf::env::path::prepend "${mysql_bin}"
         fi
     fi
 }

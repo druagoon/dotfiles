@@ -5,8 +5,8 @@
 
 __DOTF_CORE_DIR="${0:A:h}"
 
-__load_dotf_core_libraries()
-    for f in "${__DOTF_CORE_DIR}"/lib/*.sh; do
+__load_dotf_core_libraries() {
+    for f in "${__DOTF_CORE_DIR}"/lib/*.sh(N); do
         . "$f"
     done
 }

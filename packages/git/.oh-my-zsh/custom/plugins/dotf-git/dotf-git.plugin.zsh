@@ -50,14 +50,14 @@ __dotf_git_install_git_cz() {
 }
 
 __dotf_git_install_git_ignore() {
-    if ! _dotf::cmd::check git-ignore; then
+    if ! _dotf::cmd::exists git-ignore; then
         echo "brew install git-ignore"
         brew install git-ignore
     fi
 }
 
 __dotf_git_install_gibo() {
-    if ! _dotf::cmd::check gibo; then
+    if ! _dotf::cmd::exists gibo; then
         echo "brew install gibo"
         brew install gibo
     fi

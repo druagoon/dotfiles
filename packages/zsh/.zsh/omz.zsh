@@ -3,6 +3,13 @@
 
 unsetopt nomatch
 
+# Locale && Language
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Preferred editor
+export EDITOR="vim"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -67,22 +74,13 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM="${ZSH}/custom"
 
-# Zsh components directory
-ZSH_CUSTOM_UTILS="${ZSH_CUSTOM}/utils"
-ZSH_CUSTOM_INITD="${ZSH_CUSTOM}/init.d"
-ZSH_CUSTOM_SLOTS="${ZSH_CUSTOM}/slots"
+# Zsh custom components directory
 ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM}/plugins"
+ZSH_CUSTOM_FUNCTIONS="${ZSH_CUSTOM}/functions"
 ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
 
 # Dotfiles root directory
-DOTFILES_NAME="dotfiles"
-DOTFILES_DOT_NAME=".dotfiles"
-DOTFILES_ROOT="${HOME}/${DOTFILES_DOT_NAME}"
-
-fpath+=(
-    "${HOME}/.zcomp"
-    "${HOME}/.zfunc"
-)
+DOTFILES_ROOT="${HOME}/.dotfiles"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -103,16 +101,37 @@ plugins=(
 
 # Load custom plugins if exists.
 __zsh_load_custom_plugins() {
-    local custom_plugins=(
+    # Required dotf plugins
+    local required_plugins=(
+        dotf-core
+        dotf-shell
+        dotf-shell-proxy
+        dotf-go
+        dotf-rust
+        dotf-venv
+        dotf-icli
         dotf-git-prompt
+    )
+    for name in "${required_plugins[@]}"; do
+        if [[ -f "${ZSH_CUSTOM_PLUGINS}/${name}/${name}.plugin.zsh" ]]; then
+            plugins+=("${name}")
+        fi
+    done
+
+    # Collect other dotf plugins
+    local name
+    for item in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
+        name=${item##*/}
+        if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]]; then
+            plugins+=("${name}")
+        fi
+    done
+
+    # Third-party plugins
+    plugins+=(
         zsh-autosuggestions
         zsh-syntax-highlighting
     )
-    for plg in "${custom_plugins[@]}"; do
-        if [[ -d "${ZSH_CUSTOM_PLUGINS}/${plg}" ]]; then
-            plugins+=("${plg}")
-        fi
-    done
 }
 
 __zsh_init_bashcompinit() {
@@ -165,15 +184,18 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
