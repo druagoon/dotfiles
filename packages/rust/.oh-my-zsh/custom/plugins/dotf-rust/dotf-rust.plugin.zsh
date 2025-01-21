@@ -1,10 +1,10 @@
-__init_cargo() {
+__dotf_rust_init_cargo() {
     local cargo_env="${HOME}/.cargo/env"
     [[ -f "${cargo_env}" ]] && . "${cargo_env}"
 }
 
-__init_rust() {
-    __init_cargo
+__dotf_rust_init() {
+    __dotf_rust_init_cargo
 }
 
-__init_rust
+__dotf_rust_init
