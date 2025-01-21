@@ -1,7 +1,7 @@
 # export MYSQL_PS1="[\u@\h:\p] (\d)[\c] \R:\m:\s \n> "
 export MYSQL_PS1="[\R:\m:\s] (\u@\h:\p) [\d]#\c\n> "
 
-__init_mysql() {
+__dotf_mysql_env_path() {
     local mysql_prefix="$(brew --prefix mysql@5.7 2>/dev/null)"
     if [[ -d "${mysql_prefix}" ]]; then
         local mysql_bin="${mysql_prefix}/bin"
@@ -11,4 +11,8 @@ __init_mysql() {
     fi
 }
 
-__init_mysql
+__dotf_mysql_init() {
+    __dotf_mysql_env_path
+}
+
+# __dotf_mysql_init
