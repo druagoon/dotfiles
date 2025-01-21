@@ -1,17 +1,20 @@
 # $1 -> cmd name
 # $2 -> cmd repository
 # $3 -> cmd alias
-__go_install_repo() {
-    local gobin="${GOBIN}"
-    if [[ -z "${gobin}" ]]; then
-        local gopath="$(go env GOPATH)"
-        local gobin="${gopath}/bin"
+__dotf_git_install_go_repo() {
+    local go_bin="${GOBIN}"
+    if [[ -z "${go_bin}" ]]; then
+        local go_path="$(go env GOPATH)"
+        if [[ -z "${go_path}" ]]; then
+            return
+        fi
+        go_bin="${go_path}/bin"
     fi
 
     local name="$1"
     local repo="$2"
-    local alias_="$3"
-    local cmd="$gobin/${name}"
+    local cmd_alias="$3"
+    local cmd="$go_bin/${name}"
     if [[ ! -f "${cmd}" ]]; then
         echo "go install \"${repo}\""
         go install "${repo}"
@@ -20,51 +23,51 @@ __go_install_repo() {
         chmod +x "${cmd}"
     fi
 
-    if [[ -n "${alias_}" ]]; then
-        local target="${gobin}/${alias_}"
+    if [[ -n "${cmd_alias}" ]]; then
+        local target="${go_bin}/${cmd_alias}"
         if [[ ! -f "${target}" ]]; then
-            (cd "${gobin}" && ln -sv "./${name}" "${alias_}")
+            (cd "${go_bin}" && ln -sv "./${name}" "${cmd_alias}")
         fi
     fi
 }
 
-__install_git_checkout_branch() {
+__dotf_git_install_git_cb() {
     local args=(
         git-checkout-branch
         github.com/royeo/git-checkout-branch@latest
         git-cb
     )
-    __go_install_repo "${args[@]}"
+    __dotf_git_install_go_repo "${args[@]}"
 }
 
-__install_git_commitizen() {
+__dotf_git_install_git_cz() {
     local args=(
         commitizen-go
         github.com/lintingzhen/commitizen-go@latest
         git-cz
     )
-    __go_install_repo "${args[@]}"
+    __dotf_git_install_go_repo "${args[@]}"
 }
 
-__install_git_ignore() {
+__dotf_git_install_git_ignore() {
     if ! _dotf::cmd::check git-ignore; then
         echo "brew install git-ignore"
         brew install git-ignore
     fi
 }
 
-__install_gibo() {
+__dotf_git_install_gibo() {
     if ! _dotf::cmd::check gibo; then
         echo "brew install gibo"
         brew install gibo
     fi
 }
 
-__init_git() {
-    __install_git_checkout_branch
-    __install_git_commitizen
-    __install_git_ignore
-    __install_gibo
+__dotf_git_init() {
+    __dotf_git_install_git_cb
+    __dotf_git_install_git_cz
+    __dotf_git_install_git_ignore
+    __dotf_git_install_gibo
 }
 
-__init_git
+__dotf_git_init
