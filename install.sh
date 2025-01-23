@@ -46,38 +46,6 @@ std::color::cyan_underlined() { std::color::display "\e[4;36m" "$*"; }
 
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 
-os::is_macos() {
-    [[ "$(uname)" == "Darwin" ]]
-}
-
-os::is_arm64() {
-    local arch="$(uname -m)"
-    [[ "${arch}" == "arm64" || "${arch}" == "aarch64" ]]
-}
-
-brew::get_prefix() {
-    local prefix
-    if os::is_arm64; then
-        prefix="/opt/homebrew"
-    else
-        prefix="/usr/local"
-    fi
-    echo "${prefix}"
-}
-
-BREW_PREFIX="$(brew::get_prefix)"
-BREW_BIN="${BREW_PREFIX}/bin"
-BREW_SBIN="${BREW_PREFIX}/sbin"
-BREW_EXEC="${BREW_BIN}/brew"
-
-brew::install() {
-    "${BREW_EXEC}" install "$1"
-}
-
-brew::check_formula_cmd() {
-    [[ -x "${BREW_BIN}/${1}" || -x "${BREW_SBIN}/${1}" ]]
-}
-
 write_log() {
     if [[ $? -eq 0 ]]; then
         local result="$(std::color::green_bold OK)"
@@ -87,17 +55,46 @@ write_log() {
     printf "Install %-8s [ %s ]\n" "$1" "${result}"
 }
 
-check_cmd() {
-    command -v "$1" >/dev/null 2>&1
-}
-
 abort() {
     printf "%s\n" "$@" >&2
     exit 1
 }
 
+std::cmd::exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+std::os::is_macos() {
+    [[ "$(uname)" == "Darwin" ]]
+}
+
+std::os::is_arm64() {
+    local arch="$(uname -m)"
+    [[ "${arch}" == "arm64" || "${arch}" == "aarch64" ]]
+}
+
+if ! std::os::is_macos; then
+    abort "Only supported on macOS."
+fi
+
+if std::os::is_arm64; then
+    BREW_PREFIX="/opt/homebrew"
+else
+    BREW_PREFIX="/usr/local"
+fi
+BREW_BIN="${BREW_PREFIX}/bin"
+BREW_SBIN="${BREW_PREFIX}/sbin"
+BREW_EXEC="${BREW_BIN}/brew"
+
+brew::install() {
+    "${BREW_EXEC}" install "$1"
+}
+
+brew::cmd::exists() {
+    [[ -x "${BREW_BIN}/${1}" || -x "${BREW_SBIN}/${1}" ]]
+}
+
 install_os() {
-    mkdir -p "${HOME}"/{.zcomp,.zfunc}
     mkdir -p "${HOME}"/.local/{bin,sbin}
     write_log os
 }
@@ -105,12 +102,13 @@ install_os() {
 install_brew() {
     if [[ ! -f "${BREW_EXEC}" ]]; then
         bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval "$("$BREW_EXEC" shellenv)"
     fi
     write_log brew
 }
 
 install_zsh() {
-    if ! brew::check_formula_cmd zsh; then
+    if ! brew::cmd::exists zsh; then
         brew::install zsh
 
         local brew_zsh="${BREW_BIN}/zsh"
@@ -137,9 +135,9 @@ install_zsh() {
 install_omz() {
     local omz_root="${HOME}/.oh-my-zsh"
     if [[ ! -d "${omz_root}" ]]; then
-        if check_cmd curl; then
+        if std::cmd::exists curl; then
             bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        elif check_cmd wget; then
+        elif std::cmd::exists wget; then
             bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
         else
             echo "curl or wget not found, please install first."
@@ -163,23 +161,30 @@ install_rust() {
 }
 
 install_deps() {
-    local deps=(bash stow git go argc uv)
-    for key in "${deps[@]}"; do
-        if ! brew::check_formula_cmd "${key}"; then
-            brew::install "${key}"
+    local -a deps=(
+        argc
+        bash
+        druagoon/brew/icli:icli
+        gawk
+        git
+        gnu-sed:gsed
+        go
+        stow
+        uv
+    )
+
+    local name bin
+    for item in "${deps[@]}"; do
+        name="${item%%:*}"
+        bin="${item##*:}"
+        if ! brew::cmd::exists "${bin}"; then
+            brew::install "${name}"
         fi
-        write_log "${key}"
+        write_log "${bin}"
     done
 }
 
-check() {
-    if ! os::is_macos; then
-        abort "Only supported on macOS."
-    fi
-}
-
 main() {
-    check
     install_os
     install_brew
     install_zsh
