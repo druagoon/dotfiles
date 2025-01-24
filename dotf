@@ -217,7 +217,7 @@ brewfile() {
     return
 }
 #include "commands/brewfile/generate.sh"
-# @cmd Generate brewfile by `brew bundle dump`
+# @cmd Generate Brewfile by `brew bundle dump`
 #
 # Examples:
 #   dotf brewfile generate
@@ -679,7 +679,7 @@ Manage brewfile
 USAGE: dotf brewfile <COMMAND>
 
 COMMANDS:
-  generate  Generate brewfile by `brew bundle dump`
+  generate  Generate Brewfile by `brew bundle dump`
 EOF
     exit
 }
@@ -734,7 +734,7 @@ _argc_parse_brewfile() {
 
 _argc_usage_brewfile_generate() {
     cat <<-'EOF'
-Generate brewfile by `brew bundle dump`
+Generate Brewfile by `brew bundle dump`
 
 Examples:
   dotf brewfile generate

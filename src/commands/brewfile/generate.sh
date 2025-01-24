@@ -1,4 +1,4 @@
-# @cmd Generate brewfile by `brew bundle dump`
+# @cmd Generate Brewfile by `brew bundle dump`
 #
 # Examples:
 #   dotf brewfile generate
