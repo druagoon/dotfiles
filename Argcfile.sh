@@ -32,28 +32,25 @@ get_pkg_dir() {
     echo "${DOTFILES_PKG_ROOT}/${name}"
 }
 
-get_pkg_omz_dir() {
+get_pkg_omz_custom_dir() {
     local name="$1"
     local pkg_dir=$(get_pkg_dir "${name}")
     echo "${pkg_dir}/.oh-my-zsh/custom"
 }
 
-get_pkg_omz_comp_dir() {
-    local name="$1"
-    local pkg_omz_dir=$(get_pkg_omz_dir "${name}")
-    echo "${pkg_omz_dir}/completions"
+get_pkg_omz_plugin_path() {
+    local pkg_name="$1"
+    local plugin_name="${2:-"${pkg_name}"}"
+    local pkg_omz_dir=$(get_pkg_omz_custom_dir "${pkg_name}")
+    echo "${pkg_omz_dir}/plugins/${plugin_name}/${plugin_name}.plugin.zsh"
+}
+
+get_dotf_cli_plugin_path() {
+    get_pkg_omz_plugin_path "${NAME}" dotf-cli
 }
 
 fmt_shell() {
     shfmt ${SHFMT_OPTS} "$@"
-}
-
-complete() {
-    local shell="$1"
-    local comp_dir="$(get_pkg_omz_comp_dir "${NAME}")"
-    local output="${comp_dir}/_${NAME}.${shell}"
-    icli shinc completion ${shell} >"${output}"
-    fmt_shell "${output}"
 }
 
 # # @cmd Generate executable bash script
@@ -86,10 +83,16 @@ build() {
     cp -v "${TARGET_CLI}" "${DOTF_FILE}"
 }
 
-# @cmd Generate dotf zsh completion
-# @arg shell[=zsh|bash]
-completion() {
-    complete "${argc_shell}"
+# @cmd Manage dotf cli completions
+completions() {
+    return
+}
+
+# @cmd Generate dotf cli zsh completions
+completions::generate() {
+    local output="$(get_dotf_cli_plugin_path)"
+    icli shinc completion zsh >"${output}"
+    fmt_shell "${output}"
 }
 
 # @cmd Format shell scripts
@@ -146,7 +149,7 @@ toml::check() {
 # @meta require-tools gawk,sed,shfmt
 release() {
     build
-    complete zsh
+    completions::generate
     # link
 }
 
