@@ -15,6 +15,10 @@ indent_style = tab
 [{*.go,go.mod,go.sum}]
 indent_style = tab
 
+[*.{rb,rake,gemspec,Rakefile,Guardfile,Capfile,Gemfile,config.ru}]
+indent_size = 2
+max_line_length = 80
+
 [*.{yml,yaml}]
 indent_size = 2
 
