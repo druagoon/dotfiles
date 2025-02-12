@@ -1,0 +1,39 @@
+alias ldsh="source ~/.zshrc"
+alias flushdns="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+alias pb64="pbpaste | base64 -D && echo"
+alias pb64j="pbpaste | base64 -D | jq --indent 4 -S . | pbcopy && echo 'ok'"
+alias pjson="pbpaste | jq --indent 4 -S . | pbcopy && echo 'ok'"
+
+pfpath() {
+    # print -l $fpath | sed "s#${HOME}#~#g"
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+    for v in "${fpath[@]}"; do
+        printf "%s\n" "${v/#"${HOME}"/~}"
+    done
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+}
+
+ppath() {
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+    local paths=(${path//:/ })
+    for v in "${paths[@]}"; do
+        printf "%s\n" "${v/#"${HOME}"/~}"
+    done
+    printf -- '-%.0s' {1..100}
+    printf -- '\n'
+}
+
+__dotf_shell_init_terminal_tabstop() {
+    if command -v tabs >/dev/null 2>&1; then
+        tabs -4
+    fi
+}
+
+__dotf_shell_init() {
+    __dotf_shell_init_terminal_tabstop
+}
+
+__dotf_shell_init

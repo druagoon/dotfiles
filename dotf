@@ -217,7 +217,7 @@ brewfile() {
     return
 }
 #include "commands/brewfile/generate.sh"
-# @cmd Generate brewfile by `brew bundle dump`
+# @cmd Generate Brewfile by `brew bundle dump`
 #
 # Examples:
 #   dotf brewfile generate
@@ -508,15 +508,15 @@ package::new() {
     std::path::dir::ensure "${pkg_omz_custom_dir}"
 
     if std::bool::is_false "${argc_no_omz_completions}"; then
-        dotf::path::gitkeep::ensure_dir "${pkg_omz_custom_dir}/completions"
+        std::path::dir::ensure "${pkg_omz_custom_dir}/completions"
     fi
     if std::bool::is_false "${argc_no_omz_functions}"; then
-        dotf::path::gitkeep::ensure_dir "${pkg_omz_custom_dir}/functions"
+        std::path::dir::ensure "${pkg_omz_custom_dir}/functions"
     fi
     if std::bool::is_false "${argc_no_omz_plugins}"; then
         local pkg_omz_plugin_name="${argc_omz_plugin_name:-"${DOTF_PLUGIN_PREFIX}-${name}"}"
         local pkg_omz_plugin_dir="${pkg_omz_custom_dir}/plugins/${pkg_omz_plugin_name}"
-        dotf::path::gitkeep::ensure_dir "${pkg_omz_plugin_dir}/bin"
+        std::path::dir::ensure "${pkg_omz_plugin_dir}/bin"
 
         local pkg_omz_plugin_file="${pkg_omz_plugin_dir}/${pkg_omz_plugin_name}.plugin.zsh"
         std::path::file::ensure "${pkg_omz_plugin_file}"
@@ -679,7 +679,7 @@ Manage brewfile
 USAGE: dotf brewfile <COMMAND>
 
 COMMANDS:
-  generate  Generate brewfile by `brew bundle dump`
+  generate  Generate Brewfile by `brew bundle dump`
 EOF
     exit
 }
@@ -734,7 +734,7 @@ _argc_parse_brewfile() {
 
 _argc_usage_brewfile_generate() {
     cat <<-'EOF'
-Generate brewfile by `brew bundle dump`
+Generate Brewfile by `brew bundle dump`
 
 Examples:
   dotf brewfile generate
