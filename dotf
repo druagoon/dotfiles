@@ -272,8 +272,12 @@ completion::icli() {
 #
 # @meta require-tools rustup,cargo
 completion::rust() {
-    rustup completions zsh cargo >"${DOTF_PKG_RUST_DIR}/.zcomp/_cargo"
-    rustup completions zsh rustup >"${DOTF_PKG_RUST_DIR}/.zcomp/_rustup"
+    local comp_dir="$(dotf::pkg::completions::dir rust)"
+    std::path::dir::ensure "${comp_dir}"
+    local comp_cargo="${comp_dir}/_cargo"
+    local comp_rustup="${comp_dir}/_rustup"
+    rustup completions zsh cargo >"${comp_cargo}"
+    rustup completions zsh rustup >"${comp_rustup}"
 }
 
 #include "commands/gitignore/cli.sh"
