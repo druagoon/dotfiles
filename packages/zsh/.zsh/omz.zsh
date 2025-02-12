@@ -80,7 +80,7 @@ ZSH_CUSTOM_FUNCTIONS="${ZSH_CUSTOM}/functions"
 ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
 
 # Dotfiles root directory
-DOTFILES_ROOT="${HOME}/.dotfiles"
+export DOTFILES_ROOT="${HOME}/.dotfiles"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -164,14 +164,19 @@ __zsh_init_user_env_paths() {
 
 __omz_pre_load() {
     __zsh_init_sys_env_paths
-    __zsh_init_user_env_paths
     __zsh_init_bashcompinit
     __zsh_load_custom_plugins
+}
+
+__omz_post_load() {
+    __zsh_init_user_env_paths
 }
 
 __omz_pre_load
 
 source $ZSH/oh-my-zsh.sh
+
+__omz_post_load
 
 # User configuration
 
