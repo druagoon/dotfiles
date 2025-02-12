@@ -5,5 +5,8 @@
 #
 # @meta require-tools icli
 completion::icli() {
-    icli completion zsh >"${DOTF_PKG_ICLI_DIR}/.zcomp/_icli"
+    local comp_dir="$(dotf::pkg::completions::dir icli)"
+    std::path::dir::ensure "${comp_dir}"
+    local target="${comp_dir}/_icli"
+    icli completion zsh >"${target}"
 }
