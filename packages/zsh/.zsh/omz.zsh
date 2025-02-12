@@ -122,7 +122,6 @@ __zsh_load_custom_plugins() {
     for plg in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
         name="${plg##*/}"
         ignore="${plg}/.dotfignore"
-        echo "dot ignore: ${ignore}"
         if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -e "${ignore}" ]]; then
             plugins+=("${name}")
         fi
