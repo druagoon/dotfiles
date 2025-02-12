@@ -109,7 +109,6 @@ __zsh_load_custom_plugins() {
         dotf-go
         dotf-rust
         dotf-venv
-        dotf-icli
         dotf-git-prompt
     )
     for name in "${required_plugins[@]}"; do
@@ -119,10 +118,12 @@ __zsh_load_custom_plugins() {
     done
 
     # Collect other dotf plugins
-    local name
-    for item in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
-        name=${item##*/}
-        if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]]; then
+    local name ignore
+    for plg in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
+        name="${plg##*/}"
+        ignore="${plg}/.dotfignore"
+        echo "dot ignore: ${ignore}"
+        if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -e "${ignore}" ]]; then
             plugins+=("${name}")
         fi
     done
