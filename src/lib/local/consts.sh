@@ -10,6 +10,12 @@ dotf::pkg::dir::get() {
     echo "${DOTF_PKG_ROOT}/${name}"
 }
 
+dotf::pkg::completions::dir() {
+    local name="$1"
+    local pkg_dir="$(dotf::pkg::dir::get "${name}")"
+    echo "${pkg_dir}/.oh-my-zsh/custom/completions"
+}
+
 ## OS
 DOTF_OS_LAYOUT_DIR="$(dotf::pkg::dir::get "os/layouts")"
 
