@@ -52,7 +52,7 @@ write_log() {
     else
         local result="$(std::color::red_bold ERROR)"
     fi
-    printf "Install %-8s [ %s ]\n" "$1" "${result}"
+    printf "Install %-20s [ %s ]\n" "$1" "${result}"
 }
 
 abort() {
@@ -164,7 +164,7 @@ install_deps() {
     local -a deps=(
         argc
         bash
-        druagoon/brew/icli:icli
+        druagoon/brew/icli
         gawk
         git
         gnu-sed:gsed
@@ -176,11 +176,17 @@ install_deps() {
     local name bin
     for item in "${deps[@]}"; do
         name="${item%%:*}"
-        bin="${item##*:}"
+        if [[ "${item}" == *":"* ]]; then
+            bin="${item##*:}"
+        elif [[ "${item}" == *"/"* ]]; then
+            bin="${item##*/}"
+        else
+            bin="${name}"
+        fi
         if ! brew::cmd::exists "${bin}"; then
             brew::install "${name}"
         fi
-        write_log "${bin}"
+        write_log "${name}"
     done
 }
 
