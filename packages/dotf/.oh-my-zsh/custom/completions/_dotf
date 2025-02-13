@@ -1,3 +1,5 @@
+#compdef argc dotf
+
 _argc_completer() {
     local new_words
     _argc_completer_reassemble_words
