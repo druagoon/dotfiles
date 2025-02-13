@@ -96,6 +96,7 @@ plugins=(
     docker
     git
     git-flow
+    git-prompt
     wd
 )
 
@@ -109,7 +110,6 @@ __zsh_load_custom_plugins() {
         dotf-go
         dotf-rust
         dotf-venv
-        dotf-git-prompt
     )
     for name in "${required_plugins[@]}"; do
         if [[ -f "${ZSH_CUSTOM_PLUGINS}/${name}/${name}.plugin.zsh" ]]; then
