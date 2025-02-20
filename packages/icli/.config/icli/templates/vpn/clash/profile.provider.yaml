@@ -80,6 +80,14 @@ proxy-groups:
     use:
       *proxy-providers-ref
 
+  - name: Twitter
+    type: select
+    proxies:
+      - Proxy
+      - DIRECT
+    use:
+      *proxy-providers-ref
+
   - name: Jetbrains
     type: select
     proxies:
@@ -223,6 +231,20 @@ rule-providers:
     behavior: classical
     path: ./custom/providers/rules/r/Telegram/Telegram.yaml
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    interval: 172800
+
+  Twitter:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/r/Twitter/Twitter.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
+    interval: 172800
+
+  TwitterX:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/x/Twitter/Twitter.yaml
+    url: https://raw.githubusercontent.com/druagoon/h451/master/Clash/providers/rules/x/Twitter/Twitter.yaml
     interval: 172800
 
   # Reddit:
@@ -382,6 +404,8 @@ rules:
   - RULE-SET,eBayX,eBay
   - RULE-SET,eBay,eBay
   - RULE-SET,Telegram,Telegram
+  - RULE-SET,TwitterX,Twitter
+  - RULE-SET,Twitter,Twitter
   # - RULE-SET,Reddit,Reddit
   - RULE-SET,JetbrainsX,Jetbrains
   - RULE-SET,Jetbrains,Jetbrains
