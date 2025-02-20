@@ -5,25 +5,11 @@ alias pb64j="pbpaste | base64 -D | jq --indent 4 -S . | pbcopy && echo 'ok'"
 alias pjson="pbpaste | jq --indent 4 -S . | pbcopy && echo 'ok'"
 
 pfpath() {
-    # print -l $fpath | sed "s#${HOME}#~#g"
-    printf -- '-%.0s' {1..100}
-    printf -- '\n'
-    for v in "${fpath[@]}"; do
-        printf "%s\n" "${v/#"${HOME}"/~}"
-    done
-    printf -- '-%.0s' {1..100}
-    printf -- '\n'
+    print -l $fpath | sed "s#^${HOME}#~#g"
 }
 
 ppath() {
-    printf -- '-%.0s' {1..100}
-    printf -- '\n'
-    local paths=(${path//:/ })
-    for v in "${paths[@]}"; do
-        printf "%s\n" "${v/#"${HOME}"/~}"
-    done
-    printf -- '-%.0s' {1..100}
-    printf -- '\n'
+    echo "$PATH" | sed -e 's/:/\n/g' | sed -e "s#^${HOME}#~#"
 }
 
 __dotf_shell_init_terminal_tabstop() {
