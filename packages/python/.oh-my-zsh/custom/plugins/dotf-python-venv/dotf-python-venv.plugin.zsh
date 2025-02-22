@@ -1,7 +1,7 @@
-__dotf_venv_init() {
+__dotf_python_venv_init() {
     local root="${DOTFILES_ROOT}"
     local venv_dir="${root}/.venv"
-    local venv_bin="${venv_dir}/bin"
+    local venv_bin_dir="${venv_dir}/bin"
     local venv_python_version="$(head -n 1 "${root}/.python-version")"
 
     if [[ ! -d "${venv_dir}" ]]; then
@@ -12,7 +12,7 @@ __dotf_venv_init() {
         uv venv --python "${venv_python_version}" "${venv_dir}"
     fi
 
-    _dotf::env::path::prepend "${venv_bin}"
+    _dotf::env::path::prepend "${venv_bin_dir}"
 }
 
-__dotf_venv_init
+__dotf_python_venv_init
