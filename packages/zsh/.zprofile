@@ -1,7 +1,18 @@
 ZPROFILED="${HOME}/.zprofile.d"
+ZPROFILED_LOCAL="${HOME}/.zprofile.d/local"
 
-if [ -d "${ZPROFILED}" ]; then
-    for f in "${ZPROFILED}"/*.sh; do
-        . "${f}"
+__load_zprofile_shells() {
+    for dir in "$@"; do
+        if [[ -d "${dir}" ]]; then
+            for f in "${dir}"/*.(sh|zsh)(N); do
+                if [[ -r "$f" ]]; then
+                    . "$f"
+                fi
+            done
+        fi
     done
-fi
+}
+
+__load_zprofile_shells "${ZPROFILED}" "${ZPROFILED_LOCAL}"
+
+unfunction __load_zprofile_shells
