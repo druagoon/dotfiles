@@ -15,4 +15,4 @@ __dotf_mysql_init() {
     __dotf_mysql_env_path
 }
 
-# __dotf_mysql_init
+__dotf_mysql_init
