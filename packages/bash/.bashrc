@@ -1,8 +1,13 @@
-# alias rm='rm -i'
-# alias cp='cp -i'
-# alias mv='mv -i'
+load_bashrc_d() {
+    for v in "$@"; do
+        if [[ -d "$v" ]]; then
+            for file in $(find "$v" -type f -name "*.sh"); do
+                . "${file}"
+            done
+        elif [[ -r "$v" ]]; then
+            . "$v"
+        fi
+    done
+}
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
+load_bashrc_d ~/.bashrc.d/libs ~/.bashrc.d/plugins

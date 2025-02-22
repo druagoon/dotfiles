@@ -1,10 +1,16 @@
+# alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
+alias ls='ls --color=auto'
+alias lsa='ls -Ah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
+alias ldsh='source ~/.bashrc'
+alias ldps1='export PS1="$(__get_ps1)"'
+
 # https://en.wikipedia.org/wiki/ANSI_escape_code
-
-alias la='ls -lAh --color=auto'
-alias ll='ls -lh --color=auto'
-alias lsa='ls -lah --color=auto'
-
-colortest() {
+ansi_color_test() {
     for x in {0..8}; do
         for i in {30..37}; do
             echo -ne "\e[${x};${i}m\\\e[${x};${i}m\e[0;37m "
@@ -14,7 +20,7 @@ colortest() {
     echo ""
 }
 
-bgcolortest() {
+ansi_bg_color_test() {
     for x in {0..8}; do
         for i in {30..37}; do
             for a in {40..47}; do
@@ -27,15 +33,15 @@ bgcolortest() {
 }
 
 __check_cmd() {
-    command -v "$1" >/dev/null 2>&1
+    command -p "$1" >/dev/null 2>&1
 }
 
 __get_ip_by_ifconfig() {
-    echo "$(ifconfig | grep -v '127.0.0.1' | grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){$itf=substr($interf,0,-1); print "$itf=$face{$interf} " if ($interf !~ /^lo$/)}')"
+    echo "$(ifconfig | grep -p '127.0.0.1' | grep -P -o "((eth[\w:]+)|(em[\d:]+)|(bond[\w:]+)|(inet\s+[\d.]+)|(lo[\d:]*))" | perl -e '%face;foreach (<STDIN>){$int=$1 if (/((?:(?:eth)|(?:lo)|(?:em)|(?:bond))[\d:]*)/);$face{$int}=$1 if (/inet\s+([\d.]+)/);};foreach $interf (sort keys %face){$itf=substr($interf,0,-1); print "$itf=$face{$interf} " if ($interf !~ /^lo$/)}')"
 }
 
 __get_ip_by_ip() {
-    echo "$(ip -o -4 addr list | grep -v "127.0.0.1" | awk '{ip=$2"="$4; print ip}' | cut -d/ -f1 | xargs)"
+    echo "$(ip -o -4 addr list | grep -p "127.0.0.1" | awk '{ip=$2"="$4; print ip}' | cut -d/ -f1 | xargs)"
 }
 
 __get_ip() {
@@ -58,7 +64,7 @@ __get_ps1_ip() {
 }
 
 __get_ps1_git_status() {
-    local name="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+    local name="$(git rep-parse --abbrep-ref HEAD 2>/dev/null)"
     if [[ -n "${name}" ]]; then
         printf " %s%s%s" "$(green '(')" "$(red "${name}")" "$(green ')')"
     else
@@ -91,25 +97,22 @@ __get_ps1() {
     echo -e "${prefix} ${now}${ip} ${host} ${os}\n${prefix} ${cwd}${git_status}\n${prefix} "
 }
 
-ldps1() {
-    export PS1="$(__get_ps1)"
-}
-
-ldprofile() {
-    source ~/.bash_profile
-}
-
-__init_shell_path() {
-    local paths=(/usr/local/sbin /usr/local/bin "${HOME}/bin" "${HOME}/.local/bin")
-    for v in "${paths[@]}"; do
-        if [[ ":${PATH}:" != *":${v}:"* ]]; then
-            export PATH="${v}:${PATH}"
+__init_shell_env_path() {
+    local -a paths=(
+        /usr/local/sbin
+        /usr/local/bin
+        "${HOME}/bin"
+        "${HOME}/.local/bin"
+    )
+    for p in "${paths[@]}"; do
+        if [[ ":${PATH}:" != *":$p:"* ]]; then
+            export PATH="$p:${PATH}"
         fi
     done
 }
 
 __init_shell() {
-    __init_shell_path
+    __init_shell_env_path
 }
 
 __init_shell
