@@ -172,6 +172,5 @@ cython_debug/
 .pypirc
 
 ### Local ###
-/target/
 /output/
 .stow-local-ignore

@@ -164,13 +164,14 @@ install_deps() {
     local -a deps=(
         argc
         bash
-        druagoon/brew/icli
         gawk
         git
         gnu-sed:gsed
         go
         stow
         uv
+        druagoon/brew/icli
+        druagoon/brew/dotf
     )
 
     local name bin

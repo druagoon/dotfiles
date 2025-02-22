@@ -10,12 +10,6 @@ SHELL := bash
 motto: ## Show motto
 	@if [[ -f .motto ]]; then cat .motto; fi
 
-##@ Cli
-
-.PHONY: dotf
-dotf: ## Build `dotf` cli
-	@argc release
-
 ##@ General
 
 .PHONY: help
