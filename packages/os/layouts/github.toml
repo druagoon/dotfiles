@@ -1,0 +1,299 @@
+[[repository]]
+path = "~/Code/github/apps/alfred-workflow/alfred-http"
+url = "https://github.com/mrcgrtz/alfred-http.git"
+
+[[repository]]
+path = "~/Code/github/apps/alfred-workflow/alfred-stackoverflow"
+url = "https://github.com/deanishe/alfred-stackexchange.git"
+
+[[repository]]
+path = "~/Code/github/apps/dash/dash-no-license"
+url = "https://github.com/shinohara-rin/dash-no-license.git"
+
+[[repository]]
+path = "~/Code/github/apps/iTerm2-dracula"
+url = "https://github.com/dracula/iterm.git"
+
+[[repository]]
+path = "~/Code/github/apps/navicat/navicat-keygen"
+url = "https://notabug.org/doublesine/navicat-keygen.git"
+
+[[repository]]
+path = "~/Code/github/apps/navicat/navicat_reset_mac"
+url = "https://github.com/yhan219/navicat_reset_mac.git"
+
+[[repository]]
+path = "~/Code/github/books/Writing-a-Interpreter-in-Go-Translation"
+url = "https://github.com/LixvYang/Writing-a-Interpreter-in-Go-Translation.git"
+
+[[repository]]
+path = "~/Code/github/books/ddia"
+url = "https://github.com/Vonng/ddia.git"
+
+[[repository]]
+path = "~/Code/github/books/qyuhen-book"
+url = "https://github.com/qyuhen/book.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/bilibili-go-common"
+url = "git@github.com:druagoon/bilibili-go-common.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/dotf"
+url = "git@github.com:druagoon/dotf.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/dotfiles"
+url = "git@github.com:druagoon/dotfiles.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/h451"
+url = "git@github.com:druagoon/h451.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/homebrew-brew"
+url = "git@github.com:druagoon/homebrew-brew.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/iCrack"
+url = "git@github.com:druagoon/iCrack.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/icli-go"
+url = "git@github.com:druagoon/icli-go.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/icli-python"
+url = "git@github.com:druagoon/icli-python.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/icli-rs"
+url = "git@github.com:druagoon/icli-rs.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/iterm2-zmodem"
+url = "git@github.com:druagoon/iterm2-zmodem.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/lazyxml"
+url = "git@github.com:druagoon/lazyxml.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/leetcode-go"
+url = "git@github.com:druagoon/leetcode-go.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/leetcode-practice-python"
+url = "git@github.com:druagoon/leetcode-practice-python.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/leetcode-python"
+url = "git@github.com:druagoon/leetcode-python.git"
+
+[[repository]]
+path = "~/Code/github/druagoon/qtunnel"
+url = "git@github.com:druagoon/qtunnel.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/fakerfactory"
+url = "https://github.com/toddlerya/fakerfactory.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/gin"
+url = "https://github.com/gin-gonic/gin.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/go-best-practice"
+url = "https://github.com/llitfkitfk/go-best-practice.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/go-monkey-interpreter/go-monkey-donnol"
+url = "https://github.com/donnol/monkey-interpreter.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/go-monkey-interpreter/go-monkey-hangingman"
+url = "https://github.com/hangingman/go-monkey.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/go-monkey-interpreter/go-monkey-skatsuta"
+url = "https://github.com/skatsuta/monkey-interpreter.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/go-monkey-interpreter/go-monkey-skx"
+url = "https://github.com/skx/monkey.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/golang/go"
+url = "https://github.com/golang/go.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/gopherchina/conference"
+url = "https://github.com/gopherchina/conference.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/gopherchina/meetup"
+url = "https://github.com/gopherchina/meetup.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/goproxy"
+url = "https://github.com/goproxyio/goproxy.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/imageproxy"
+url = "https://github.com/willnorris/imageproxy.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/kratos-layout"
+url = "https://github.com/go-kratos/kratos-layout.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/kratos"
+url = "https://github.com/go-kratos/kratos.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/minica"
+url = "https://github.com/jsha/minica.git"
+
+[[repository]]
+path = "~/Code/github/go-assets/qtunnel"
+url = "https://github.com/getqujing/qtunnel.git"
+
+[[repository]]
+path = "~/Code/github/js-assets/UnblockNeteaseMusic"
+url = "https://github.com/nondanee/UnblockNeteaseMusic.git"
+
+[[repository]]
+path = "~/Code/github/js-assets/browser-logos"
+url = "https://github.com/alrra/browser-logos.git"
+
+[[repository]]
+path = "~/Code/github/organizations/alibaba/p3c"
+url = "https://github.com/alibaba/p3c.git"
+
+[[repository]]
+path = "~/Code/github/organizations/megaease/easegress"
+url = "https://github.com/megaease/easegress.git"
+
+[[repository]]
+path = "~/Code/github/organizations/nginx"
+url = "https://github.com/nginx/nginx.git"
+
+[[repository]]
+path = "~/Code/github/organizations/shadowsocks/shadowsocks-go"
+url = "https://github.com/shadowsocks/shadowsocks-go.git"
+
+[[repository]]
+path = "~/Code/github/organizations/shadowsocks/shadowsocks-rust"
+url = "https://github.com/shadowsocks/shadowsocks-rust.git"
+
+[[repository]]
+path = "~/Code/github/organizations/shadowsocks/shadowsocks"
+url = "https://github.com/shadowsocks/shadowsocks.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/AI/bilingual_book_maker"
+url = "https://github.com/yihong0618/bilingual_book_maker.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/AI/immersive-translate"
+url = "https://github.com/immersive-translate/immersive-translate.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/CPython-Internals"
+url = "https://github.com/zpoint/CPython-Internals.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/PMP_slide"
+url = "https://github.com/Python-Meetup-Peking/PMP_slide.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/Python-Guide-CN"
+url = "https://github.com/Prodesire/Python-Guide-CN.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/ai-for-beginners"
+url = "http://github.com/microsoft/ai-for-beginners"
+
+[[repository]]
+path = "~/Code/github/python-assets/django"
+url = "https://github.com/django/django.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/fastapi"
+url = "https://github.com/tiangolo/fastapi.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/ip2region"
+url = "https://github.com/lionsoul2014/ip2region.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/pyconchina/2019"
+url = "https://github.com/PyConChina/2019-Slides.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/pydantic-core"
+url = "https://github.com/pydantic/pydantic-core.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/pydantic"
+url = "https://github.com/pydantic/pydantic.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/python3-cookbook"
+url = "https://github.com/yidao620c/python3-cookbook.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/python_data_structures_and_algorithms"
+url = "https://github.com/PegasusWang/python_data_structures_and_algorithms.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/socket-programming-in-python-cn"
+url = "https://github.com/keelii/socket-programming-in-python-cn.git"
+
+[[repository]]
+path = "~/Code/github/python-assets/tornado"
+url = "https://github.com/tornadoweb/tornado.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/argc"
+url = "https://github.com/sigoden/argc.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/clap"
+url = "https://github.com/clap-rs/clap.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/mio"
+url = "https://github.com/tokio-rs/mio.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/reqwest"
+url = "https://github.com/seanmonstar/reqwest.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/ripgrep"
+url = "https://github.com/BurntSushi/ripgrep.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/rust"
+url = "https://github.com/rust-lang/rust.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/serde"
+url = "https://github.com/serde-rs/serde.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/tauri"
+url = "https://github.com/tauri-apps/tauri.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/tokio"
+url = "https://github.com/tokio-rs/tokio.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/toml-rs"
+url = "https://github.com/toml-rs/toml.git"
+
+[[repository]]
+path = "~/Code/github/rust-assets/wasmer"
+url = "https://github.com/wasmerio/wasmer.git"
