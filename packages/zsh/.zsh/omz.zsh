@@ -100,6 +100,17 @@ plugins=(
     wd
 )
 
+__is_dotf_plugin() {
+    local name="${1}"
+    [[ -f "${ZSH_CUSTOM_PLUGINS}/${name}/${name}.plugin.zsh" ]]
+}
+
+__load_dotf_consts() {
+    local name="${1}"
+    local file="${ZSH_CUSTOM_PLUGINS}/${name}/consts.zsh"
+    [[ -f "${file}" ]] && source "${file}"
+}
+
 # Load custom plugins if exists.
 __zsh_load_custom_plugins() {
     # Required dotf plugins
@@ -112,18 +123,24 @@ __zsh_load_custom_plugins() {
         dotf-python-venv
     )
     for name in "${required_plugins[@]}"; do
-        if [[ -f "${ZSH_CUSTOM_PLUGINS}/${name}/${name}.plugin.zsh" ]]; then
+        if __is_dotf_plugin "${name}" ]]; then
             plugins+=("${name}")
         fi
+        __load_dotf_consts "${name}"
     done
 
     # Collect other dotf plugins
     local name ignore
     for plg in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
-        name="${plg##*/}"
-        ignore="${plg}/.dotfignore"
-        if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -e "${ignore}" ]]; then
-            plugins+=("${name}")
+        if [[ -d "${plg}" ]]; then
+            name="${plg##*/}"
+            ignore="${plg}/.dotfignore"
+            if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -f "${ignore}" ]]; then
+                if __is_dotf_plugin "${name}" ]]; then
+                    plugins+=("${name}")
+                fi
+                __load_dotf_consts "${name}"
+            fi
         fi
     done
 
@@ -173,6 +190,8 @@ __omz_post_load() {
 }
 
 __omz_pre_load
+
+# unfunction ${(k)functions[(I)__zsh_init_*]}
 
 source $ZSH/oh-my-zsh.sh
 

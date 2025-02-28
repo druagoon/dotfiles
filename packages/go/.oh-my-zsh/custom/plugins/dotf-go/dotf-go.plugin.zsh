@@ -1,6 +1,12 @@
-export GO111MODULE=on
-export GOPROXY=https://goproxy.cn,direct
-export GOPATH="${HOME}/.go"
+if [[ -z "${GO111MODULE}" ]]; then
+    export GO111MODULE=on
+fi
+if [[ -z "${GOPROXY}" ]]; then
+    export GOPROXY=https://goproxy.cn,direct
+fi
+if [[ -z "${GOPATH}" ]]; then
+    export GOPATH="${HOME}/.go"
+fi
 
 __dotf_go_env_path() {
     _dotf::env::path::prepend "${GOPATH}/bin"
