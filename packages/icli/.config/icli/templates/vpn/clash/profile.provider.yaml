@@ -18,6 +18,7 @@ proxy-providers-ref: &proxy-providers-ref
 
 proxy-groups:
   - name: Proxy
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Proxy.png
     type: select
     proxies:
       - Auto
@@ -25,6 +26,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Auto
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Auto.png
     type: url-test
     url: http://www.google.com/generate_204
     interval: 300
@@ -33,6 +35,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: AppleProxy
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/App_Store.png
     type: select
     proxies:
       - Proxy
@@ -41,6 +44,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Apple
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
     type: select
     proxies:
       - DIRECT
@@ -49,6 +53,16 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: OpenAI
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/OpenAI.png
+    type: select
+    proxies:
+      - Proxy
+      - DIRECT
+    use:
+      *proxy-providers-ref
+
+  - name: GitHub
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/GitHub.png
     type: select
     proxies:
       - Proxy
@@ -57,6 +71,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: eBay
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/eBay.png
     type: select
     proxies:
       - Proxy
@@ -65,6 +80,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: PayPal
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
     type: select
     proxies:
       - Proxy
@@ -73,6 +89,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Telegram
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
     type: select
     proxies:
       - Proxy
@@ -81,6 +98,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Twitter
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png
     type: select
     proxies:
       - Proxy
@@ -89,6 +107,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Jetbrains
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Jetbrains.png
     type: select
     proxies:
       - Proxy
@@ -97,6 +116,7 @@ proxy-groups:
       *proxy-providers-ref
 
   # - name: Reddit
+  #   icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Reddit.png
   #   type: select
   #   proxies:
   #     - Proxy
@@ -104,7 +124,17 @@ proxy-groups:
   #   use:
   #     *proxy-providers-ref
 
+  - name: TikTok
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+    type: select
+    proxies:
+      - Proxy
+      - DIRECT
+    use:
+      *proxy-providers-ref
+
   - name: Google
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google.png
     type: select
     proxies:
       - Proxy
@@ -113,6 +143,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: OneDrive
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png
     type: select
     proxies:
       - Proxy
@@ -121,6 +152,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Microsoft
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
     type: select
     proxies:
       - Proxy
@@ -129,6 +161,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Porn
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pornhub.png
     type: select
     proxies:
       - Proxy
@@ -137,6 +170,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Hijacking
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hijacking.png
     type: select
     proxies:
       - REJECT
@@ -145,6 +179,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Privacy
+    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Privacy.png
     type: select
     proxies:
       - REJECT
@@ -153,6 +188,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Advertising
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
     type: select
     proxies:
       - REJECT
@@ -161,6 +197,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: China
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
     type: select
     proxies:
       - DIRECT
@@ -169,6 +206,7 @@ proxy-groups:
       *proxy-providers-ref
 
   - name: Final
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
     type: select
     proxies:
       - Proxy
@@ -203,6 +241,13 @@ rule-providers:
     behavior: classical
     path: ./custom/providers/rules/x/OpenAI/OpenAI.yaml
     url: https://raw.githubusercontent.com/druagoon/h451/master/Clash/providers/rules/x/OpenAI/OpenAI.yaml
+    interval: 172800
+
+  GitHub:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/r/GitHub/GitHub.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
     interval: 172800
 
   eBay:
@@ -253,6 +298,13 @@ rule-providers:
   #   path: ./custom/providers/rules/r/Reddit/Reddit.yaml
   #   # url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Reddit/Reddit.yaml
   #   # interval: 172800
+
+  TikTok:
+    type: http
+    behavior: classical
+    path: ./custom/providers/rules/r/TikTok/TikTok.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    interval: 172800
 
   Jetbrains:
     type: http
@@ -408,6 +460,7 @@ rules:
   - RULE-SET,Apple,Apple
   - RULE-SET,OpenAIX,OpenAI
   - RULE-SET,OpenAI,OpenAI
+  - RULE-SET,GitHub,GitHub
   - RULE-SET,PayPal,PayPal
   - RULE-SET,eBayX,eBay
   - RULE-SET,eBay,eBay
@@ -415,6 +468,7 @@ rules:
   - RULE-SET,TwitterX,Twitter
   - RULE-SET,Twitter,Twitter
   # - RULE-SET,Reddit,Reddit
+  # - RULE-SET,TikTok,TikTok
   - RULE-SET,JetbrainsX,Jetbrains
   - RULE-SET,Jetbrains,Jetbrains
   - RULE-SET,PornX,Porn
