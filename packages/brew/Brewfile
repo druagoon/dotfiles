@@ -1,7 +1,11 @@
-tap "druagoon/icli", "https://github.com/druagoon/homebrew-icli.git"
+tap "druagoon/brew"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "mongodb/brew"
+# Run your GitHub Actions locally
+brew "act"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
 # TIFF library and utilities
 brew "libtiff"
 # Color management engine supporting ICC profiles
@@ -26,6 +30,10 @@ brew "bat"
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@76"
+# Spell checker for code
+brew "cspell"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Load/unload environment variables based on $PWD
@@ -34,8 +42,6 @@ brew "direnv"
 brew "fastfetch"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c@76"
 # Library for JPEG-2000 image manipulation
 brew "openjpeg"
 # Image processing and image analysis library
@@ -52,6 +58,8 @@ brew "fzf"
 brew "gawk"
 # GNU compiler collection
 brew "gcc"
+# GitHub command-line tool
+brew "gh"
 # Access GitHub's .gitignore boilerplates
 brew "gibo"
 # Distributed revision control system
@@ -88,6 +96,8 @@ brew "jq"
 brew "kubernetes-cli"
 # Tools for zmodem/xmodem/ymodem file transfer
 brew "lrzsz"
+# Mac App Store command-line interface
+brew "mas"
 # 'traceroute' and 'ping' in a single tool
 brew "mtr"
 # Tool for querying IP geographic information and CDN provider
@@ -134,10 +144,26 @@ brew "yq"
 brew "yt-dlp"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Lightweight and flexible bash tool for managing dotfiles efficiently
+brew "druagoon/brew/dotf"
+# CLI for creating conventional-commits friendly commit messages
+brew "druagoon/brew/git-cm"
 # Includes various commonly used utilities for personal use
-brew "druagoon/icli/icli"
+brew "druagoon/brew/icli"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community"
+# Application launcher and productivity software
+cask "alfred"
+# E-books management software
+cask "calibre"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
+# AI chatbot for many LLMs
+cask "chatwise"
+# Desktop client that supports multiple LLM providers
+cask "cherry-studio"
+# Continuation of Clash Verge - A Clash Meta GUI based on Tauri
+cask "clash-verge-rev"
 # Utility to hide menu bar items
 cask "hiddenbar"
 # Tool for multi-language users
@@ -150,6 +176,49 @@ cask "orbstack"
 cask "popclip"
 # Network toolbox
 cask "surge"
+# Quicklook extension for source files
+cask "syntax-highlight"
+mas "AdGuard for Safari", id: 1440147259
+mas "AnyKit", id: 1435159279
+mas "Apple Configurator", id: 1037126344
+mas "Bob", id: 1630034110
+mas "DockX", id: 6452276577
+mas "Enpass", id: 732710998
+mas "Futubull", id: 664513913
+mas "GarageBand", id: 682658836
+mas "Immersive Translate", id: 6447957425
+mas "iMovie", id: 408981434
+mas "Infuse", id: 1136220934
+mas "Keynote", id: 409183694
+mas "LocalSend", id: 1661733229
+mas "MarkMark", id: 6475077023
+mas "MediaInfo", id: 510620098
+mas "Medis", id: 1579200037
+mas "MenubarX", id: 1575588022
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft OneNote", id: 784801555
+mas "Microsoft Outlook", id: 985367838
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Word", id: 462054704
+mas "Moom Classic", id: 419330170
+mas "NetEaseMusic", id: 944848654
+mas "Numbers", id: 409203825
+mas "OneDrive", id: 823766827
+mas "OneTab", id: 1540160809
+mas "OpenCat", id: 6445999201
+mas "Pages", id: 409201541
+mas "PasteNow", id: 1552536109
+mas "Slack", id: 803453959
+mas "SnippetsLab", id: 1006087419
+mas "TencentMeeting", id: 1484048379
+mas "The Unarchiver", id: 425424353
+mas "Twitter", id: 409789998
+mas "Userscripts-Mac-App", id: 1463298887
+mas "Velja", id: 1607635845
+mas "WeChat", id: 836500024
+mas "WeCom", id: 1189898970
+mas "Whisper Transcription", id: 1668083311
+mas "Xcode", id: 497799835
 vscode "ahmadalli.vscode-nginx-conf"
 vscode "alexdima.copy-relative-path"
 vscode "bierner.markdown-mermaid"
@@ -167,6 +236,8 @@ vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "formulahendry.auto-rename-tag"
 vscode "foxundermoon.shell-format"
+vscode "github.copilot"
+vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "jebbs.plantuml"
@@ -174,6 +245,7 @@ vscode "jeff-hykin.better-shellscript-syntax"
 vscode "k--kato.intellij-idea-keybindings"
 vscode "leetcode.vscode-leetcode"
 vscode "lextudio.restructuredtext"
+vscode "luggage66.awk"
 vscode "mechatroner.rainbow-csv"
 vscode "mikestead.dotenv"
 vscode "mkhl.direnv"
