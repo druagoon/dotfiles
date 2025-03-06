@@ -1,7 +1,11 @@
 alias bi="brew info"
 alias bs="brew search"
+alias bii="brew install"
+alias blf="brew list --full-name"
 alias bci="brew info --cask"
 alias bcs="brew search --cask"
+alias bcii="brew install --cask"
+alias bclf="brew list --cask --full-name"
 alias bcog="brew outdated --cask --greedy"
 
 # export HOMEBREW_NO_ANALYTICS="1"
