@@ -26,6 +26,20 @@ brew "openssl@3"
 brew "libssh2"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Binary installation for rust projects
+brew "cargo-binstall"
+# Utility for managing cargo dependencies from the command-line
+brew "cargo-edit"
+# Show what Rust code looks like with macros expanded
+brew "cargo-expand"
+# Cargo subcommand for displaying when Rust dependencies are out of date
+brew "cargo-outdated"
+# Cargo subcommand `release`: everything about releasing a rust crate
+brew "cargo-release"
+# Find unused dependencies in Cargo.toml
+brew "cargo-udeps"
+# Cargo subcommand for checking and applying updates to installed executables
+brew "cargo-update"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
@@ -102,6 +116,8 @@ brew "mas"
 brew "mtr"
 # Tool for querying IP geographic information and CDN provider
 brew "nali"
+# Open source visual route tracking CLI tool
+brew "nexttrace"
 # Manage multiple Node.js versions
 brew "nvm"
 # OpenBSD freely-licensed SSH connectivity tools
@@ -148,12 +164,18 @@ brew "zsh"
 brew "druagoon/brew/dotf"
 # CLI for creating conventional-commits friendly commit messages
 brew "druagoon/brew/git-cm"
-# Includes various commonly used utilities for personal use
+# Personal command-line tool includes various commonly used utilities
 brew "druagoon/brew/icli"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community"
 # Application launcher and productivity software
 cask "alfred"
+# iOS App Store alternative
+cask "altserver"
+# Application uninstaller
+cask "appcleaner"
+# Opensource IDE for exploring and testing api's
+cask "bruno"
 # E-books management software
 cask "calibre"
 # OpenAI's official ChatGPT desktop app
@@ -164,27 +186,85 @@ cask "chatwise"
 cask "cherry-studio"
 # Continuation of Clash Verge - A Clash Meta GUI based on Tauri
 cask "clash-verge-rev"
+# API documentation browser and code snippet manager
+cask "dash"
+# Utilities designed to make common development tasks easier
+cask "devtoys"
+# Voice and text chat software
+cask "discord"
+# Downloads videos from different websites
+cask "downie"
+# Dictionary and translator app
+cask "easydict"
+# Web browser
+cask "firefox"
 # Utility to hide menu bar items
 cask "hiddenbar"
+# Testing client for REST, GraphQL, and HTTP APIs
+cask "httpie"
+# Free and open-source media player
+cask "iina"
 # Tool for multi-language users
 cask "input-source-pro"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Open-source screen recorder built with web technology
+cask "kap"
+# Organize and sort apps and folders on LaunchPad following specific rules
+cask "launchpadder"
+# Display technical and tag data for video and audio files
+cask "mediainfo"
+# Modern GUI for Redis
+cask "medis"
 # Minimal installer for conda
 cask "miniconda"
+# Smooths scrolling and set mouse scroll directions independently
+cask "mos"
+# Markdown writing, note taking, and static blog generator app
+cask "mweb-pro"
+# Get up and running with large language models locally
+cask "ollama"
+# All system and utility switches in one place
+cask "one-switch"
 # Replacement for Docker Desktop
 cask "orbstack"
+# PDF reader, editor and annotator
+cask "pdf-expert"
+# Converts and edits video, audio or image files
+cask "permute"
 # Used to access context-specific actions when text is selected
 cask "popclip"
+# HTTP debugging proxy
+cask "proxyman"
+# Control your tools with a few keystrokes
+cask "raycast"
+# GUI for streamlined Redis application development
+cask "redis-insight"
+# Screenshot measurement and annotation tool
+cask "shottr"
+# Graphical client for Git version control
+cask "sourcetree"
 # Network toolbox
 cask "surge"
 # Quicklook extension for source files
 cask "syntax-highlight"
+# Messaging app with a focus on speed and security
+cask "telegram"
+# Desktop client for Telegram messenger
+cask "telegram-desktop"
+# Extract text from images and other digital documents
+cask "textsniper"
+# Configurable document editor that supports Markdown
+cask "typora"
+# Open-source code editor
+cask "visual-studio-code"
 mas "AdGuard for Safari", id: 1440147259
 mas "AnyKit", id: 1435159279
 mas "Apple Configurator", id: 1037126344
 mas "Bob", id: 1630034110
 mas "DockX", id: 6452276577
 mas "Enpass", id: 732710998
-mas "Futubull", id: 664513913
+mas "Futubull Legacy", id: 664513913
 mas "GarageBand", id: 682658836
 mas "Immersive Translate", id: 6447957425
 mas "iMovie", id: 408981434
@@ -192,8 +272,6 @@ mas "Infuse", id: 1136220934
 mas "Keynote", id: 409183694
 mas "LocalSend", id: 1661733229
 mas "MarkMark", id: 6475077023
-mas "MediaInfo", id: 510620098
-mas "Medis", id: 1579200037
 mas "MenubarX", id: 1575588022
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft OneNote", id: 784801555
