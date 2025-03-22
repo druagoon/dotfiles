@@ -7,6 +7,7 @@ alias bcs="brew search --cask"
 alias bcii="brew install --cask"
 alias bclf="brew list --cask --full-name"
 alias bcog="brew outdated --cask --greedy"
+alias bcug="brew upgrade --cask --greedy"
 
 # export HOMEBREW_NO_ANALYTICS="1"
 export HOMEBREW_AUTO_UPDATE_SECS="86400"
