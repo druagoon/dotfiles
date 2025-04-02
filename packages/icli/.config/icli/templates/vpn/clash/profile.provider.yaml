@@ -16,12 +16,23 @@ proxy-providers-ref: &proxy-providers-ref
   - {{ provider.name }}
 {%- endfor %}
 
+proxies-ref: &proxies-ref
+  - Proxy
+  - DIRECT
+  # - REJECT
+  # - HK
+  # - TW
+  # - SG
+  # - JP
+  - US
+
 proxy-groups:
   - name: Proxy
     icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Proxy.png
     type: select
     proxies:
       - Auto
+      - US
     use:
       *proxy-providers-ref
 
@@ -38,8 +49,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/App_Store.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -56,8 +66,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/OpenAI.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -65,8 +74,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/GitHub.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -74,8 +82,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/eBay.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -83,8 +90,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -92,8 +98,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -101,8 +106,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -110,8 +114,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Jetbrains.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -119,8 +122,7 @@ proxy-groups:
   #   icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Reddit.png
   #   type: select
   #   proxies:
-  #     - Proxy
-  #     - DIRECT
+  #     *proxies-ref
   #   use:
   #     *proxy-providers-ref
 
@@ -128,8 +130,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -137,8 +138,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -146,8 +146,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/OneDrive.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -155,8 +154,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -164,8 +162,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pornhub.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
@@ -196,6 +193,51 @@ proxy-groups:
     use:
       *proxy-providers-ref
 
+  # - name: HK
+  #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
+  #   type: select
+  #   proxies:
+  #   - DIRECT
+  #   use:
+  #   - AmyTelecom
+  #   filter: "(?i)香港|HK"
+
+  # - name: TW
+  #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
+  #   type: select
+  #   proxies:
+  #   - DIRECT
+  #   use:
+  #   - AmyTelecom
+  #   filter: "(?i)台湾|TW"
+
+  # - name: SG
+  #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
+  #   type: select
+  #   proxies:
+  #   - DIRECT
+  #   use:
+  #   - AmyTelecom
+  #   filter: "(?i)新加坡|SG"
+
+  # - name: JP
+  #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+  #   type: select
+  #   proxies:
+  #   - DIRECT
+  #   use:
+  #   - AmyTelecom
+  #   filter: "(?i)日本|JP"
+
+  - name: US
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
+    type: select
+    proxies:
+    - DIRECT
+    use:
+    - AmyTelecom
+    filter: "(?i)美国|US"
+
   - name: China
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
     type: select
@@ -209,8 +251,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
     type: select
     proxies:
-      - Proxy
-      - DIRECT
+      *proxies-ref
     use:
       *proxy-providers-ref
 
