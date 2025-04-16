@@ -1,0 +1,15 @@
+windows:
+  links:
+    Config.ini: "~/apps/DiscordProxyStart/Config.ini"
+
+  installs: |
+    $url = "https://github.com/aiqinxuancai/DiscordProxyStart/releases/download/v0.0.14/DiscordProxyStart-win-amd64.zip"
+    $output = "$env:USERPROFILE/Downloads/DiscordProxyStart-win-amd64.zip"
+    $temp = "$env:USERPROFILE/temp/DiscordProxyStart"
+    $appDir = "$env:USERPROFILE/apps/DiscordProxyStart"
+    $bin = "$appDir/DiscordProxyStart.exe"
+    $shortcut = "$env:USERPROFILE/Desktop/DiscordProxyStart"
+    Invoke-WebRequest -Uri "$url" -OutFile "$output"
+    Expand-Archive -Path "$output" -DestinationPath "$temp" -Force
+    Move-Item -Path "$temp/build" -Destination "$appDir" -Force
+    New-Item -ItemType SymbolicLink -Path "$shortcut" -Target "$bin"

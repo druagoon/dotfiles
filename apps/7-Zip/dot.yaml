@@ -1,0 +1,2 @@
+windows:
+  installs: winget install --id 7zip.7zip

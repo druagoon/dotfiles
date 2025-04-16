@@ -1,0 +1,3 @@
+darwin|linux:
+  links:
+    .stow-global-ignore: ~/.stow-global-ignore

@@ -1,0 +1,2 @@
+windows:
+  installs: winget install --id XP8JK4HZBVF435

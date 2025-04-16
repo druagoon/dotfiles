@@ -1,0 +1,4 @@
+darwin:
+  links:
+    omz/plugins/dotf-go: ~/.oh-my-zsh/custom/plugins/dotf-go
+    _golang: ~/.oh-my-zsh/custom/completions/_golang

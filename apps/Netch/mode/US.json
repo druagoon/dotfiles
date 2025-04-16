@@ -1,0 +1,35 @@
+{
+  "type": "ProcessMode",
+  "remark": {
+    "zh-CN": "US"
+  },
+  "handle": [
+    "ChatGPT\\.exe",
+    "elevate\\.exe",
+    "Uninstall WeakAuras Companion\\.exe",
+    "WeakAuras Companion\\.exe",
+    "OverwolfLauncherProxy\\.exe",
+    "OverwolfBenchmarking\\.exe",
+    "OverwolfBrowser\\.exe",
+    "OverwolfCrashHandler\\.exe",
+    "ow-overlay\\.exe",
+    "OWCleanup\\.exe",
+    "OWUninstallMenu\\.exe",
+    "owver64\\.exe",
+    "Overwolf\\.exe",
+    "OverwolfLauncher\\.exe",
+    "OWUninstaller\\.exe"
+  ],
+  "bypass": [],
+  "filterIntranet": true,
+  "filterLoopback": false,
+  "dnsHost": "1.1.1.1:53",
+  "handleOnlyDNS": null,
+  "icmpDelay": 10,
+  "filterParent": true,
+  "filterDNS": null,
+  "filterUDP": null,
+  "filterTCP": null,
+  "filterICMP": null,
+  "dnsProxy": null
+}

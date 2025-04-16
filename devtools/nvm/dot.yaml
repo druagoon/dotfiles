@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-nvm: ~/.oh-my-zsh/custom/plugins/dotf-nvm

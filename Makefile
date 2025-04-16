@@ -4,12 +4,6 @@ SHELL := bash
 
 # BASE_DIR := $(shell cd "`dirname "$0"`" >/dev/null 2>&1 && pwd)
 
-##@ Project
-
-.PHONY: motto
-motto: ## Show motto
-	@if [[ -f .motto ]]; then cat .motto; fi
-
 ##@ General
 
 .PHONY: help

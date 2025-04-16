@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-pyenv: ~/.oh-my-zsh/custom/plugins/dotf-pyenv

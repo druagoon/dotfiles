@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-mysql: ~/.oh-my-zsh/custom/plugins/dotf-mysql

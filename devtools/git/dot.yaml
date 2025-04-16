@@ -1,0 +1,14 @@
+global:
+  links:
+    .config/git-ignore: ~/.config/git-ignore
+    .gitattributes: ~/.gitattributes
+    .gitconfig: ~/.gitconfig
+    .gitignore_global: ~/.gitignore_global
+
+windows:
+  installs: winget install --id Git.Git
+
+darwin:
+  links:
+    omz/plugins/dotf-git: ~/.oh-my-zsh/custom/plugins/dotf-git
+    omz/plugins/dotf-git-prompt: ~/.oh-my-zsh/custom/plugins/dotf-git-prompt

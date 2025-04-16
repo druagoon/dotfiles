@@ -44,22 +44,6 @@ std::color::blue_underlined() { std::color::display "\e[4;34m" "$*"; }
 std::color::magenta_underlined() { std::color::display "\e[4;35m" "$*"; }
 std::color::cyan_underlined() { std::color::display "\e[4;36m" "$*"; }
 
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
-
-write_log() {
-    if [[ $? -eq 0 ]]; then
-        local result="$(std::color::green_bold OK)"
-    else
-        local result="$(std::color::red_bold ERROR)"
-    fi
-    printf "Install %-20s [ %s ]\n" "$1" "${result}"
-}
-
-abort() {
-    printf "%s\n" "$@" >&2
-    exit 1
-}
-
 std::cmd::exists() {
     command -v "$1" >/dev/null 2>&1
 }
@@ -92,6 +76,32 @@ brew::install() {
 
 brew::cmd::exists() {
     [[ -x "${BREW_BIN}/${1}" || -x "${BREW_SBIN}/${1}" ]]
+}
+
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+
+DOTFILES_DEFAULT_ROOT="${HOME}/.dotfiles"
+DOTFILES_DEFAULT_GIT_REMOTE="https://github.com/druagoon/dotfiles.git"
+
+DOTFILES_ROOT="${DOTFILES_ROOT:-"${DOTFILES_DEFAULT_ROOT}"}"
+DOTFILES_GIT_REMOTE="${DOTFILES_GIT_REMOTE:-"${DOTFILES_DEFAULT_GIT_REMOTE}"}"
+
+ohai() {
+    printf "\033[34m==>\033[0m \033[1m%s\033[0m\n" "$*"
+}
+
+write_log() {
+    if [[ $? -eq 0 ]]; then
+        local result="$(std::color::green_bold OK)"
+    else
+        local result="$(std::color::red_bold ERROR)"
+    fi
+    printf "%-20s [ %s ]\n" "$1" "${result}"
+}
+
+abort() {
+    printf "%s\n" "$@" >&2
+    exit 1
 }
 
 install_os() {
@@ -170,8 +180,9 @@ install_deps() {
         go
         stow
         uv
-        druagoon/brew/icli
         druagoon/brew/dotf
+        druagoon/brew/icli
+        druagoon/brew/rotz
     )
 
     local name bin
@@ -191,13 +202,30 @@ install_deps() {
     done
 }
 
-main() {
+clone_repository() {
+    if [[ ! -d "${DOTFILES_ROOT}" ]]; then
+        ohai "Cloning dotfiles repository"
+        echo "${DOTFILES_GIT_REMOTE} ==> ${DOTFILES_ROOT}"
+        git clone "${DOTFILES_GIT_REMOTE}" "${DOTFILES_ROOT}"
+    else
+        ohai "Found the local dotfiles repository"
+        echo "${DOTFILES_ROOT}"
+    fi
+}
+
+install() {
+    ohai "Installing required dependencies"
     install_os
     install_brew
     install_zsh
     install_omz
     install_rust
     install_deps
+}
+
+main() {
+    clone_repository
+    install
 }
 
 main

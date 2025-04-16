@@ -1,0 +1,4 @@
+darwin:
+  links:
+    omz/plugins/dotf-python: ~/.oh-my-zsh/custom/plugins/dotf-python
+    omz/plugins/dotf-python-venv: ~/.oh-my-zsh/custom/plugins/dotf-python-venv

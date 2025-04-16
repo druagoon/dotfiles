@@ -1,0 +1,6 @@
+windows:
+  links:
+    settings.json: ~/scoop/apps/netch/current/data/settings.json
+    mode/US.json: ~/scoop/apps/netch/current/mode/Custom/US.json
+
+  installs: scoop install netch
