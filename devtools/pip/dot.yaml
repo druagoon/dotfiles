@@ -1,0 +1,18 @@
+linux:
+  links:
+    .config/pip:
+      - ~/.config/pip
+      - ~/.pip
+
+darwin:
+  links:
+    _pip: ~/.oh-my-zsh/custom/completions/_pip
+    .config/pip:
+      - ~/.config/pip
+      - ~/.pip
+
+windows:
+  links:
+    .config/pip:
+      - ~/AppData/Roaming/pip
+      - ~/.pip

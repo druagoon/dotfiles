@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-make: ~/.oh-my-zsh/custom/plugins/dotf-make

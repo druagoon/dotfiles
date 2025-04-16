@@ -1,0 +1,4 @@
+darwin:
+  links:
+    omz/plugins/dotf-shell: ~/.oh-my-zsh/custom/plugins/dotf-shell
+    omz/plugins/dotf-shell-proxy: ~/.oh-my-zsh/custom/plugins/dotf-shell-proxy

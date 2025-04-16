@@ -1,0 +1,9 @@
+global:
+  links:
+    .cargo/config.toml: ~/.cargo/config.toml
+
+darwin:
+  links:
+    omz/plugins/dotf-rust: ~/.oh-my-zsh/custom/plugins/dotf-rust
+    _cargo: ~/.oh-my-zsh/custom/completions/_cargo
+    _rustup: ~/.oh-my-zsh/custom/completions/_rustup

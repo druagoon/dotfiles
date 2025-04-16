@@ -1,0 +1,7 @@
+global:
+  links:
+    .condarc: ~/.condarc
+
+darwin:
+  links:
+    omz/plugins/dotf-conda: ~/.oh-my-zsh/custom/plugins/dotf-conda

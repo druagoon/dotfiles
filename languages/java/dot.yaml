@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-java: ~/.oh-my-zsh/custom/plugins/dotf-java

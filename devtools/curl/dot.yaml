@@ -1,0 +1,8 @@
+global:
+  links:
+    .config/curl: ~/.config/curl
+    .curlrc: ~/.curlrc
+
+darwin:
+  links:
+    omz/plugins/dotf-curl: ~/.oh-my-zsh/custom/plugins/dotf-curl

@@ -1,0 +1,5 @@
+darwin:
+  links:
+    omz/plugins/dotf-cli: ~/.oh-my-zsh/custom/plugins/dotf-cli
+    omz/plugins/dotf-core: ~/.oh-my-zsh/custom/plugins/dotf-core
+    omz/themes/dotf.zsh-theme: ~/.oh-my-zsh/custom/themes/dotf.zsh-theme

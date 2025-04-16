@@ -1,0 +1,5 @@
+global:
+  links:
+    .bashrc.d: ~/.bashrc.d
+    .bash_profile: ~/.bash_profile
+    .bashrc: ~/.bashrc

@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-svn: ~/.oh-my-zsh/custom/plugins/dotf-svn

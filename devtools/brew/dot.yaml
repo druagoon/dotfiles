@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-brew: ~/.oh-my-zsh/custom/plugins/dotf-brew

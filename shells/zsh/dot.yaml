@@ -1,0 +1,7 @@
+darwin:
+  links:
+    .zprofile.d: ~/.zprofile.d
+    .zsh: ~/.zsh
+    .zprofile: ~/.zprofile
+    .zshenv: ~/.zshenv
+    .zshrc: ~/.zshrc
