@@ -3,6 +3,6 @@
         "shellproxy"
     ],
     "files.associations": {
-        "{**/.ssh/config*,**/.ssh/hosts/*,**/.ssh/hosts/local/[!.]*}": "ssh_config"
+        "**/.ssh/hosts/**/*.conf": "ssh_config"
     }
 }
