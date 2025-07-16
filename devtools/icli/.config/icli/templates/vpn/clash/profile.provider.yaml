@@ -19,31 +19,31 @@ proxy-providers-ref: &proxy-providers-ref
 proxies-ref: &proxies-ref
   - Proxy
   - DIRECT
-  # - REJECT
-  # - HK
-  # - TW
+  - REJECT
+  - 🇺🇸 US
   # - SG
   # - JP
-  - US
+  # - TW
+  # - HK
 
 proxy-groups:
   - name: Proxy
     icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Proxy.png
     type: select
     proxies:
-      - Auto
-      - US
+      # - Auto
+      - 🇺🇸 US
     use:
       *proxy-providers-ref
 
-  - name: Auto
-    icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Auto.png
-    type: url-test
-    url: http://www.google.com/generate_204
-    interval: 300
-    tolerance: 50
-    use:
-      *proxy-providers-ref
+  # - name: Auto
+  #   icon: https://raw.githubusercontent.com/druagoon/h451/master/Assets/IconSet/Color/Auto.png
+  #   type: url-test
+  #   url: http://www.google.com/generate_204
+  #   interval: 300
+  #   tolerance: 50
+  #   use:
+  #     *proxy-providers-ref
 
   - name: AppleProxy
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/App_Store.png
@@ -193,50 +193,48 @@ proxy-groups:
     use:
       *proxy-providers-ref
 
-  # - name: HK
+  # - name: 🇭🇰 HK
   #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
   #   type: select
   #   proxies:
   #   - DIRECT
   #   use:
   #   - AmyTelecom
-  #   filter: "(?i)香港|HK"
+  #   filter: "(?i)HK|香港"
 
-  # - name: TW
+  # - name: 🇹🇼 TW
   #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
   #   type: select
   #   proxies:
   #   - DIRECT
   #   use:
   #   - AmyTelecom
-  #   filter: "(?i)台湾|TW"
+  #   filter: "(?i)TW|台湾"
 
-  # - name: SG
+  # - name: 🇸🇬 SG
   #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
   #   type: select
   #   proxies:
   #   - DIRECT
   #   use:
   #   - AmyTelecom
-  #   filter: "(?i)新加坡|SG"
+  #   filter: "(?i)SG|新加坡"
 
-  # - name: JP
+  # - name: 🇯🇵 JP
   #   icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
   #   type: select
   #   proxies:
   #   - DIRECT
   #   use:
   #   - AmyTelecom
-  #   filter: "(?i)日本|JP"
+  #   filter: "(?i)JP|日本"
 
-  - name: US
+  - name: 🇺🇸 US
     icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
     type: select
-    proxies:
-    - DIRECT
     use:
     - AmyTelecom
-    filter: "(?i)美国|US"
+    filter: "(?i)US|美国"
 
   - name: China
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
