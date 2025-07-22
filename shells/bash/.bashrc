@@ -10,4 +10,4 @@ load_bashrc_d() {
     done
 }
 
-load_bashrc_d ~/.bashrc.d/libs ~/.bashrc.d/plugins
+load_bashrc_d ~/.bashrc.d/libs ~/.bashrc.d/plugins ~/.bashrc.d/local

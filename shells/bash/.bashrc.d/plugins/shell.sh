@@ -75,7 +75,7 @@ __get_ps1_git_status() {
 __get_ps1_os() {
     local ret="$(uname -sm)"
     if __check_cmd lsb_release; then
-        local distrib="$(lsb_release -sir 2>/dev/null)"
+        local distrib="$(lsb_release -sir 2>/dev/null | xargs)"
         if [[ -n "${distrib}" ]]; then
             ret+=" ${distrib}"
         fi
