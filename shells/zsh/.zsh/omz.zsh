@@ -26,7 +26,7 @@ ZSH_THEME="dotf"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -173,7 +173,6 @@ __zsh_init_sys_env_paths() {
 
 __zsh_init_user_env_paths() {
     local paths=(
-        "${HOME}/.local/sbin"
         "${HOME}/.local/bin"
     )
     __zsh_init_env_paths "${paths[@]}"
