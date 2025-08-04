@@ -1,14 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-unsetopt nomatch
-
-# Locale && Language
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-# Preferred editor
-export EDITOR="vim"
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -17,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="dotf"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -33,7 +24,7 @@ ZSH_THEME="dotf"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
-zstyle ':omz:update' mode disabled # disable automatic updates
+# zstyle ':omz:update' mode disabled # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
@@ -41,7 +32,7 @@ zstyle ':omz:update' mode disabled # disable automatic updates
 # zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-DISABLE_MAGIC_FUNCTIONS="true"
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -72,129 +63,18 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM="${ZSH}/custom"
-
-# Zsh custom components directory
-ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM}/plugins"
-ZSH_CUSTOM_FUNCTIONS="${ZSH_CUSTOM}/functions"
-ZSH_CUSTOM_COMPLETIONS="${ZSH_CUSTOM}/completions"
-
-# Dotfiles root directory
-export DOTFILES_ROOT="${HOME}/.dotfiles"
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    brew
-    colored-man-pages
-    copypath
-    cp
-    direnv
-    docker
-    git
-    git-flow
-    git-prompt
-    wd
-)
+plugins=(git)
 
-__is_dotf_plugin() {
-    local name="${1}"
-    [[ -f "${ZSH_CUSTOM_PLUGINS}/${name}/${name}.plugin.zsh" ]]
-}
-
-__load_dotf_consts() {
-    local name="${1}"
-    local file="${ZSH_CUSTOM_PLUGINS}/${name}/consts.zsh"
-    [[ -f "${file}" ]] && source "${file}"
-}
-
-# Load custom plugins if exists.
-__zsh_load_custom_plugins() {
-    # Required dotf plugins
-    local required_plugins=(
-        dotf-core
-        dotf-shell
-        dotf-shell-proxy
-        dotf-go
-        dotf-rust
-        dotf-python-venv
-    )
-    for name in "${required_plugins[@]}"; do
-        if __is_dotf_plugin "${name}" ]]; then
-            plugins+=("${name}")
-        fi
-        __load_dotf_consts "${name}"
-    done
-
-    # Collect other dotf plugins
-    local name ignore
-    for plg in "${ZSH_CUSTOM_PLUGINS}"/dotf-*(N); do
-        if [[ -d "${plg}" ]]; then
-            name="${plg##*/}"
-            ignore="${plg}/.dotfignore"
-            if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -f "${ignore}" ]]; then
-                if __is_dotf_plugin "${name}" ]]; then
-                    plugins+=("${name}")
-                fi
-                __load_dotf_consts "${name}"
-            fi
-        fi
-    done
-
-    # Third-party plugins
-    plugins+=(
-        zsh-autosuggestions
-        zsh-syntax-highlighting
-    )
-}
-
-__zsh_init_bashcompinit() {
-    autoload -U +X bashcompinit && bashcompinit
-}
-
-__zsh_init_env_paths() {
-    for p in "$@"; do
-        if [[ ! ":${PATH}:" == *":${p}:"* ]]; then
-            export PATH="${p}:${PATH}"
-        fi
-    done
-}
-
-__zsh_init_sys_env_paths() {
-    local paths=(
-        /usr/local/sbin
-        /usr/local/bin
-    )
-    __zsh_init_env_paths "${paths[@]}"
-}
-
-__zsh_init_user_env_paths() {
-    local paths=(
-        "${HOME}/.local/bin"
-    )
-    __zsh_init_env_paths "${paths[@]}"
-}
-
-__omz_pre_load() {
-    __zsh_init_sys_env_paths
-    __zsh_init_bashcompinit
-    __zsh_load_custom_plugins
-}
-
-__omz_post_load() {
-    __zsh_init_user_env_paths
-}
-
-__omz_pre_load
-
-# unfunction ${(k)functions[(I)__zsh_init_*]}
-
+source "${HOME}/.zsh/omz-pre-load.zsh"
 source $ZSH/oh-my-zsh.sh
-
-__omz_post_load
+source "${HOME}/.zsh/omz-post-load.zsh"
 
 # User configuration
 
