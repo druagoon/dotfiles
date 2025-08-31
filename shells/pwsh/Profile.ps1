@@ -37,31 +37,60 @@ $env:NO_PROXY = "localhost,127.0.0.1"
 # Write-Host "PSModulePath updated to: $($env:PSModulePath)"
 
 function wingot {
-  param (
-      [Parameter(ValueFromRemainingArguments = $true)]
-      $options
-  )
+    param (
+        [Parameter(ValueFromRemainingArguments = $true)]
+        $options
+    )
 
-  # Microsoft.Winget.Client.exe @options --proxy http://127.0.0.1:7890
-  winget @options --proxy http://127.0.0.1:7890
+    # Microsoft.Winget.Client.exe @options --proxy http://127.0.0.1:7890
+    winget @options --proxy http://127.0.0.1:7890
 }
 
-function makelink {
-  param (
-    [string]$Source,
-    [string]$Destination
-  )
+function mklink {
+    param (
+        [string]$Source,
+        [string]$Destination
+    )
 
-  try {
-    New-Item -ItemType SymbolicLink -Path $Destination -Target $Source -Force
-    # Write-Host "Successfully created symbolic link: '$Destination' -> '$Source'"
-  }
-  catch {
-    Write-Error "Failed to create symbolic link: $($_.Exception.Message)"
-  }
+    try {
+        New-Item -ItemType SymbolicLink -Path $Destination -Target $Source -Force
+        # Write-Host "Successfully created symbolic link: '$Destination' -> '$Source'"
+    }
+    catch {
+        Write-Error "Failed to create symbolic link: $($_.Exception.Message)"
+    }
+}
+
+function clhist {
+    # 1. 清除当前会话历史
+    Clear-History
+    [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
+
+    # 2. 立刻清空历史文件（如果存在）
+    $historyFile = (Get-PSReadLineOption).HistorySavePath
+    if (Test-Path $historyFile) {
+        Set-Content $historyFile ""
+    }
+
+    Write-Host "History Cleaned"
 }
 
 # enable completion in current shell, use absolute path because PowerShell Core not respect $env:PSModulePath
-Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
-Import-Module posh-git
-Import-Module git-aliases -DisableNameChecking
+$ScoopCompletion = "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
+if (Test-Path "$ScoopCompletion") {
+    Import-Module "$ScoopCompletion"
+}
+if (Get-Module -ListAvailable -Name gsudoModule) {
+    Import-Module gsudoModule
+}
+if (Get-Module -ListAvailable -Name posh-git) {
+    Import-Module posh-git
+    $GitPromptSettings.EnablePromptStatus = $false
+    $GitPromptSettings.EnableFileStatus = $false
+}
+if (Get-Module -ListAvailable -Name git-aliases) {
+    Import-Module git-aliases -DisableNameChecking
+}
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship init powershell)
+}
