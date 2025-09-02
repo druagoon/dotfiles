@@ -1,6 +1,6 @@
 python-downloads = "manual"
 python-preference = "only-managed"
 
-[[index]]
-name = "aliyun-pypi"
-url = "https://mirrors.aliyun.com/pypi/simple/"
+# [[index]]
+# name = "aliyun-pypi"
+# url = "https://mirrors.aliyun.com/pypi/simple/"
