@@ -1,3 +1,11 @@
 global:
   links:
     .ssh: ~/.ssh
+
+darwin|linux:
+  links:
+    .ssh/os/unix: ~/.ssh/hosts/os
+
+windows:
+  links:
+    .ssh/os/windows: ~/.ssh/hosts/os
