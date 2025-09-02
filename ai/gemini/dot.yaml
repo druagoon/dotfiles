@@ -1,0 +1,4 @@
+global:
+  links:
+    .env: ~/.gemini/.env
+    settings.json: ~/.gemini/settings.json

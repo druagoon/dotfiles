@@ -1,0 +1,6 @@
+{
+    "privacy": {
+        "usageStatisticsEnabled": false
+    },
+    "selectedAuthType": "gemini-api-key"
+}
