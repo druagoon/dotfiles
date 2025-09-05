@@ -1,7 +1,9 @@
 alias ls='ls --color=auto'
-alias lsa='ls -Ah'
+alias lsa='ls -A'
 alias ll='ls -lh'
-alias la='ls -lAh'
+alias la='ls -lhA'
+alias lf='ls -lhF'
+alias lfa='ls -lhAF'
 
 alias ldsh='source ~/.zshrc'
 alias clhist='yes | history -c'
