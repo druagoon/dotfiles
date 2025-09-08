@@ -1,11 +1,9 @@
-global:
-  links:
-    .ssh: ~/.ssh
-
 darwin|linux:
   links:
-    .ssh/os/unix: ~/.ssh/hosts/os
+    .ssh: ~/.ssh
+    .ssh/config_unix: ~/.ssh/config
 
 windows:
   links:
-    .ssh/os/windows: ~/.ssh/hosts/os
+    .ssh: ~/.ssh
+    .ssh/config_windows: ~/.ssh/config
