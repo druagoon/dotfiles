@@ -39,22 +39,19 @@
 # 	helper = store
 
 [alias]
-	# 丢弃本地的修改
-	discard = reset --hard HEAD
-	# 删除最近一次提交(保留文件修改)
-	undo = reset --soft HEAD^
-	# 删除最近一次提交(不保留文件修改)
-	cancel = reset --hard HEAD^
-	# 修正最近一次提交
-	amend = commit --amend --no-edit
-
-	# git change-commits GIT_COMMITTER_NAME "old name" "new name"
-	# https://stackoverflow.com/questions/2919878/git-rewrite-previous-commit-usernames-and-emails
-	# https://github.com/brauliobo/gitconfig/blob/master/configs/.gitconfig#L275
-	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
-	change-commits-username = change-commits GIT_AUTHOR_NAME
-	change-commits-email = change-commits GIT_AUTHOR_EMAIL
-	ccu = change-commits-username
-	cce = change-commits-email
-
+	# List all git aliases
 	alias = config --get-regexp ^alias\\.
+	# Rewrite author/committer name/email in entire history
+	# git rewrite-name "old name" "new name"
+	rewrite-name = "!f() { old=\"$1\"; new=\"$2\"; git filter-repo --force --name-callback \"return b\\\"$new\\\" if name == b\\\"$old\\\" else name\"; }; f"
+	# git rewrite-email "old email" "new email"
+	rewrite-email = "!f() { old=\"$1\"; new=\"$2\"; git filter-repo --force --email-callback \"return b\\\"$new\\\" if email == b\\\"$old\\\" else email\"; }; f"
+
+	# Discard all local changes in working directory
+	discard = reset --hard HEAD
+	# Undo the last commit, keeping all changes staged
+	undo = reset --soft HEAD^
+	# Discard the last commit and all associated changes
+	cancel = reset --hard HEAD^
+	# Amend the last commit without changing its commit message
+	amend = commit --amend --no-edit
