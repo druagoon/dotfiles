@@ -1,0 +1,3 @@
+darwin:
+  links:
+    yamlfmt.yaml: ~/.config/yamlfmt/yamlfmt.yaml
