@@ -1,0 +1,3 @@
+darwin:
+  links:
+    omz/plugins/dotf-xcode: ~/.oh-my-zsh/custom/plugins/dotf-xcode
