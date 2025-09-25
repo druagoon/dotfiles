@@ -51,5 +51,16 @@ toml::check() {
     taplo format --check
 }
 
+# @cmd YAML files tools
+# @meta require-tools yamlfmt
+yaml() {
+    return
+}
+
+# @cmd Format all YAML files
+yaml::format() {
+    yamlfmt .
+}
+
 # See more details at https://github.com/sigoden/argc
 eval "$(argc --argc-eval "$0" "$@")"

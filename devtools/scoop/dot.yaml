@@ -1,7 +1,6 @@
 windows:
   links:
     config.json: ~/.config/scoop/config.json
-
-  installs: |
+  installs: |-
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression

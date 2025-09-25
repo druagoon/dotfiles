@@ -1,8 +1,7 @@
 windows:
   links:
     Config.ini: "~/apps/DiscordProxyStart/Config.ini"
-
-  installs: |
+  installs: |-
     $url = "https://github.com/aiqinxuancai/DiscordProxyStart/releases/download/v0.0.14/DiscordProxyStart-win-amd64.zip"
     $output = "$env:USERPROFILE/Downloads/DiscordProxyStart-win-amd64.zip"
     $temp = "$env:USERPROFILE/temp/DiscordProxyStart"
