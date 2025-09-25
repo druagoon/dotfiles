@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
+version: "0.2"
+language: en
+dictionaryDefinitions:
+  - name: local
+    path: ~/.config/cspell/dictionaries/local.txt
+    addWords: true
+dictionaries:
+  - cpp
+  - go
+  - local
+  - python
+  - rust
+  - shellscript
+  - software-tools

@@ -1,0 +1,4 @@
+global:
+  links:
+    cspell.config.yaml: ~/.config/cspell.config.yaml
+    dictionaries: ~/.config/cspell/dictionaries
