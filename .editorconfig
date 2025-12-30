@@ -20,8 +20,8 @@ space_redirects = false
 keep_padding = true
 function_next_line = false
 
-[{*.go,go.mod,go.sum}]
-indent_style = tab
+[*.{json,json5,jsonc}]
+indent_size = 2
 
 [{*.yml,*.yaml,.condarc}]
 indent_size = 2
