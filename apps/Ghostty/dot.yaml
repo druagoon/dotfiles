@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=../../schemas/rotz-dot.schema.json
+
+drawin:
+  links:
+    config: ~/.config/ghostty/config
