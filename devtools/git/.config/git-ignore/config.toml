@@ -1,8 +1,8 @@
 [aliases]
 global = [
-    "windows",
-    "macos",
-    "visualstudiocode",
+  "windows",
+  "macos",
+  "visualstudiocode",
 ]
 
 [templates]

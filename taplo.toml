@@ -1,26 +1,32 @@
 ## https://taplo.tamasfe.dev/configuration/file.html
 
+include = ["**/*.toml"]
+
+exclude = [
+  ".git/**",
+  ".idea/**",
+  ".venv/**",
+]
+
 [formatting]
-array_auto_collapse = false
-indent_string = '    '
 allowed_blank_lines = 1
+array_auto_collapse = false
+indent_string = "  "
 
 [[rule]]
-include = ["**/pyproject.toml"]
-keys = [
-    "project.dependencies",
-    "dependency-groups",
-]
-
-[rule.formatting]
-reorder_arrays = true
-
-[[rule]]
-include = ["**/pyproject.toml"]
-keys = [
-    "tool.isort",
-]
+include = [".taplo.toml", "taplo.toml"]
+keys = ["exclude", "formatting", "include", "rule"]
 
 [rule.formatting]
 reorder_arrays = true
 reorder_keys = true
+
+[[rule]]
+include = ["**/pyproject.toml"]
+keys = [
+  "dependency-groups",
+  "project.dependencies",
+]
+
+[rule.formatting]
+reorder_arrays = true
