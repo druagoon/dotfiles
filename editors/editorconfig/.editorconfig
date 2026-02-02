@@ -12,6 +12,14 @@ trim_trailing_whitespace = true
 [{GNUmakefile,[Mm]akefile,*.mk}]
 indent_style = tab
 
+[*.{sh,zsh}]
+# shfmt
+binary_next_line = true
+function_next_line = false
+keep_padding = true
+space_redirects = false
+switch_case_indent = true
+
 [{*.go,go.mod,go.sum}]
 indent_style = tab
 
@@ -37,3 +45,6 @@ trim_trailing_whitespace = false
 
 [.git*]
 indent_style = tab
+
+[.condarc]
+indent_size = 2
