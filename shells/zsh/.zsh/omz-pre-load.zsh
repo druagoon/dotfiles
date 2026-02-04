@@ -55,6 +55,7 @@ plugins=(
     git
     git-flow
     git-prompt
+    npm
     wd
 )
 
@@ -109,10 +110,6 @@ omz_pre_load_plugins() {
     )
 }
 
-omz_pre_load_bashcompinit() {
-    autoload -U +X bashcompinit && bashcompinit
-}
-
 omz_pre_add_sys_env_paths() {
     local paths=(
         /usr/local/sbin
@@ -123,7 +120,6 @@ omz_pre_add_sys_env_paths() {
 
 omz_pre_load() {
     omz_pre_add_sys_env_paths
-    omz_pre_load_bashcompinit
     omz_pre_load_plugins
 }
 
