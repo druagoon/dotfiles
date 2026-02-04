@@ -1,3 +1,4 @@
 global:
   links:
+    commands: ~/.gemini/commands
     settings.json: ~/.gemini/settings.json
