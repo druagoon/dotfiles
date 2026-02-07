@@ -1,0 +1,4 @@
+windows:
+  links:
+    starship.toml: ~/.config/starship.toml
+  installs: scoop install starship
