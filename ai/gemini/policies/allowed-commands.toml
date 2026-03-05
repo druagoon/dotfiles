@@ -1,0 +1,29 @@
+[[rule]]
+toolName = "run_shell_command"
+decision = "allow"
+priority = 100
+commandPrefix = [
+  "ls",
+  "cat",
+  "echo",
+  "grep",
+  "find",
+  "head",
+  "tail",
+  "pwd",
+  "awk",
+  "sort",
+  "uniq",
+  "mkdir",
+  "touch",
+  "cp",
+  "sed",
+  "xargs",
+  "git status",
+  "git diff",
+  "git log",
+  "git show",
+  "git blame",
+  "git grep",
+  "git add",
+]

@@ -1,4 +1,5 @@
 global:
   links:
     commands: ~/.gemini/commands
+    policies: ~/.gemini/policies
     settings.json: ~/.gemini/settings.json
