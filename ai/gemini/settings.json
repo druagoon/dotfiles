@@ -6,6 +6,9 @@
       "AGENTS.md"
     ]
   },
+  "experimental": {
+    "plan": true
+  },
   "general": {
     "enableAutoUpdate": false,
     "previewFeatures": true,
@@ -33,7 +36,7 @@
     }
   },
   "ui": {
-    "theme": "Atom One",
-    "showMemoryUsage": true
+    "showMemoryUsage": true,
+    "theme": "Atom One"
   }
 }
