@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Skill(statusline)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); now=$(date '+%Y/%m/%d %H:%M:%S'); ip=$(icli ip ps1 2>/dev/null || echo ''); user=$(whoami); host=$(hostname -s); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir'); git_branch=$(git -C \"$cwd\" symbolic-ref --short HEAD 2>/dev/null || git -C \"$cwd\" describe --tags --exact-match 2>/dev/null || echo ''); git_dirty=$(git -C \"$cwd\" diff --quiet 2>/dev/null && echo '' || echo '*'); printf '➜ %s %s %s@%s %s' \"$now\" \"$ip\" \"$user\" \"$host\" \"$cwd\"; [ -n \"$git_branch\" ] && printf ' (git:%s%s)' \"$git_branch\" \"$git_dirty\"; printf '\n'"
+  }
+}
