@@ -11,11 +11,9 @@
   },
   "general": {
     "enableAutoUpdate": false,
-    "previewFeatures": true,
     "sessionRetention": {
       "enabled": true,
-      "maxAge": "30d",
-      "warningAcknowledged": true
+      "maxAge": "30d"
     }
   },
   "mcpServers": {
@@ -24,7 +22,8 @@
         "-y",
         "@upstash/context7-mcp"
       ],
-      "command": "npx"
+      "command": "npx",
+      "timeout": 60000
     }
   },
   "privacy": {
@@ -33,6 +32,11 @@
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
+    }
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
     }
   },
   "ui": {
