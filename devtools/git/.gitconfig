@@ -8,6 +8,9 @@
 	quotepath = false
 	ignorecase = false
 
+[safe]
+	directory = *
+
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
 	path = -ro
