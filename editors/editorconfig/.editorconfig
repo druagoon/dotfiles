@@ -12,6 +12,13 @@ trim_trailing_whitespace = true
 [{GNUmakefile,[Mm]akefile,*.mk}]
 indent_style = tab
 
+[*.{bat,cmd}]
+charset = gbk
+end_of_line = crlf
+
+[*.{ps1,psd1,psm1}]
+end_of_line = crlf
+
 [*.{sh,zsh}]
 # shfmt
 binary_next_line = true
