@@ -20,8 +20,10 @@
 	sort = -version:refname
 
 [push]
-	# https://git-scm.com/docs/git-config#git-config-pushdefault
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 	default = simple
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushautoSetupRemote
+	autoSetupRemote = true
 
 [pull]
 	rebase = true
@@ -47,11 +49,16 @@
 	# git rewrite-email "old email" "new email"
 	rewrite-email = "!f() { old=\"$1\"; new=\"$2\"; git filter-repo --force --email-callback \"return b\\\"$new\\\" if email == b\\\"$old\\\" else email\"; }; f"
 
+	### Reset aliases
 	# Discard all local changes in working directory
 	discard = reset --hard HEAD
 	# Undo the last commit, keeping all changes staged
 	undo = reset --soft HEAD^
 	# Discard the last commit and all associated changes
 	cancel = reset --hard HEAD^
+
+	### Commit aliases
 	# Amend the last commit without changing its commit message
 	amend = commit --amend --no-edit
+	# Reuse the commit message from the last commit
+	reuse = commit --reuse-message=HEAD
