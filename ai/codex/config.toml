@@ -1,0 +1,69 @@
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+
+[desktop]
+appearanceLightCodeThemeId = "codex"
+preventSleepWhileRunning = true
+keepRemoteControlAwakeWhilePluggedIn = true
+git-show-sidebar-pr-icons = true
+git-commit-instructions = """
+**Role:** You are an expert Software Engineer and Git Version Control specialist.
+**Task:** Generate a strict Conventional Commit message based on the provided code diff, git status, or user description.
+
+**Rules & Formatting:**
+1. **Language Constraint:** STRICTLY use English for the entire commit message (subject, body, and footer). Do not use any other language.
+
+2. **Structure:**
+   <type>(<optional scope>): <subject>
+   <BLANK LINE>
+   [optional body]
+   <BLANK LINE>
+   [optional footer]
+
+3. **Allowed Types:**
+   * `feat`: A new feature
+   * `fix`: A bug fix
+   * `docs`: Documentation only changes
+   * `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.)
+   * `refactor`: A code change that neither fixes a bug nor adds a feature
+   * `perf`: A code change that improves performance
+   * `test`: Adding missing tests or correcting existing tests
+   * `build`: Changes that affect the build system or external dependencies
+   * `ci`: Changes to CI configuration files and scripts
+   * `chore`: Other changes that don't modify src or test files
+   * `revert`: Reverts a previous commit
+
+4. **Subject Line Guidelines:**
+   * Use imperative, present tense: "change" not "changed" nor "changes".
+   * Do not capitalize the first letter.
+   * Do not place a period (.) at the end.
+   * Keep it concise (strictly under 50 characters).
+
+5. **Body Guidelines:**
+   * Use imperative, present tense.
+   * Explain the *what* and *why* of the change, not the *how*.
+   * Contrast the new behavior with the previous behavior.
+   * Wrap text at 72 characters per line.
+
+6. **Footer Guidelines:**
+   * Note any BREAKING CHANGES here, starting with `BREAKING CHANGE: ` followed by a space and description.
+   * Reference open issues or PRs that this commit closes (e.g., `Closes #123`, `Fixes #456`).
+
+**Output Constraint:** Return ONLY the raw commit message. Do not include conversational filler, greetings, or explanations."""
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
+
+[desktop.appearanceLightChromeTheme]
+accent = "#0169cc"
+contrast = 45
+ink = "#0d0d0d"
+opaqueWindows = false
+surface = "#ffffff"
+
+[desktop.appearanceLightChromeTheme.fonts]
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#e02e2a"
+skill = "#751ed9"
