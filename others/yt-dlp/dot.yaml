@@ -1,2 +1,4 @@
 windows:
+  links:
+    yt-dlp.conf: ~/AppData/Roaming/yt-dlp/config
   installs: scoop install yt-dlp
