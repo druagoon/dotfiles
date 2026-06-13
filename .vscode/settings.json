@@ -1,9 +1,14 @@
 {
-    "cSpell.words": [
-        "shellproxy"
-    ],
-    "files.associations": {
-        "**/.ssh/hosts/**/*.conf": "ssh_config",
-        "**/.ssh/config_*": "ssh_config"
+  "cSpell.words": [
+    "shellproxy"
+  ],
+  "files.associations": {
+    "**/.ssh/config_*": "ssh_config",
+    "**/.ssh/hosts/**/*.conf": "ssh_config"
+  },
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": "./.github/instructions/git.instructions.md"
     }
+  ]
 }
