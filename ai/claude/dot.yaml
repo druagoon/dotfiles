@@ -1,3 +1,4 @@
 global:
   links:
+    CLAUDE.md: ~/.claude/CLAUDE.md
     settings.json: ~/.claude/settings.json
