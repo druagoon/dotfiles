@@ -20,7 +20,7 @@ normalize_line_continuations = true
 max_line_length = 120
 
 # PHONY settings
-auto_insert_phony_declarations = false
+auto_insert_phony_declarations = true
 group_phony_declarations = false
 phony_at_top = false
 
@@ -34,4 +34,8 @@ fix_missing_recipe_tabs = true
 # Conditional formatting settings (Default disabled)
 indent_nested_conditionals = false
 # Indentation settings
-tab_width = 2
+tab_width = 4
+
+# Variable alignment settings
+align_variable_assignments = false
+align_across_comments = false

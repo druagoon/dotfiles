@@ -6,6 +6,7 @@ SHELL := bash
 
 ##@ Lint && Format
 
+.PHONY: fmt-yaml
 fmt-yaml: ## Format YAML files using yamlfmt
 	@yamlfmt .
 
