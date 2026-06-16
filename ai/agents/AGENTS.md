@@ -83,16 +83,21 @@ Creating or modifying files under `.local/draft` never requires confirmation and
 - Prefer Conventional Commits style.
 - Keep commit subjects concise and factual.
 
-## Engineering
+## Engineering & Architecture
 
-### Engineering Principles
+### Core Philosophy & Architecture
 
-- Avoid inventing extra entities/components/abstractions without necessity.
-- Use modern best practices by default.
-- Add backward compatibility/legacy workarounds only when requested.
+- **Architectural Target:** Focus strictly on "Mid-Sized Enterprise Systems." Categorically reject hyper-scale over-engineering and premature distribution (e.g., microservices or complex distributed transactions) unless forced by hard physical isolation or extreme traffic constraints.
+- **Pragmatic & Just-Enough Design:** Avoid inventing extra entities, components, or abstractions without clear necessity. Balance security, maintainability, and observability against limited R&D and DevOps resources.
+- **Production-Ready Defaults:** Skip the "demo/toy" phase. Directly provide modern, production-grade scaffolding and architectural skeletons aligned with mid-sized best practices.
+
+### Implementation Guidelines
+
+- **Pattern Selection:** Prioritize high-cohesion, low-coupling "Modular Monoliths" or clean, well-structured "Monorepos".
+- **Compatibility:** Add backward compatibility or legacy workarounds _only_ when explicitly requested.
 
 ### Documentation Standards
 
-- Keep documentation concise and task-relevant.
-- Include assumptions, setup, usage, and verification steps when relevant.
-- Avoid time or cost estimates unless the user explicitly requests them.
+- **Conciseness:** Keep documentation concise, task-relevant, and focused.
+- **Context & Verification:** Include assumptions, setup, usage, and verification steps when relevant or when mitigating risk/ambiguity.
+- **Estimates:** Avoid time or cost estimates unless explicitly requested.
