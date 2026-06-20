@@ -1,11 +1,35 @@
 model = "gpt-5.5"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
+disable_response_storage = true
 personality = "pragmatic"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+goals = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
 
 [desktop]
-appearanceLightCodeThemeId = "codex"
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
 preventSleepWhileRunning = true
-keepRemoteControlAwakeWhilePluggedIn = true
+reviewDelivery = "inline"
+show-context-window-usage = true
+defaultTerminalLocation = "bottom"
+appearanceLightCodeThemeId = "codex"
+appearanceDarkCodeThemeId = "codex"
+usePointerCursors = true
+appearanceDiffMarkerStyle = "symbols"
 git-show-sidebar-pr-icons = true
 git-commit-instructions = """
 **Role:** You are an expert Software Engineer and Git Version Control specialist.
@@ -51,8 +75,6 @@ git-commit-instructions = """
    * Reference open issues or PRs that this commit closes (e.g., `Closes #123`, `Fixes #456`).
 
 **Output Constraint:** Return ONLY the raw commit message. Do not include conversational filler, greetings, or explanations."""
-conversationDetailMode = "STEPS_COMMANDS"
-ambient-suggestions-enabled = true
 
 [desktop.appearanceLightChromeTheme]
 accent = "#0169cc"
@@ -67,3 +89,17 @@ surface = "#ffffff"
 diffAdded = "#00a240"
 diffRemoved = "#e02e2a"
 skill = "#751ed9"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#0169cc"
+contrast = 60
+ink = "#fcfcfc"
+opaqueWindows = false
+surface = "#111111"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#e02e2a"
+skill = "#b06dff"
