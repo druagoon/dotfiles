@@ -1,7 +1,4 @@
 {
-  "cSpell.words": [
-    "shellproxy"
-  ],
   "files.associations": {
     "**/.ssh/config_*": "ssh_config",
     "**/.ssh/hosts/**/*.conf": "ssh_config"

@@ -6,10 +6,7 @@ dictionaryDefinitions:
     path: ~/.config/cspell/dictionaries/local.txt
     addWords: true
 dictionaries:
-  - cpp
-  - go
   - local
-  - python
+  - mime-types
   - rust
   - shellscript
-  - software-tools
