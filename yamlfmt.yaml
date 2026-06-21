@@ -1,6 +1,4 @@
 line_ending: lf
-exclude:
-  - others/icli/.config/icli/templates/vpn/clash/profile.provider.yaml
 formatter:
   type: basic
   eof_newline: true
