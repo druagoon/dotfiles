@@ -49,13 +49,6 @@ __dotf_git_install_git_cz() {
     __dotf_git_install_go_repo "${args[@]}"
 }
 
-__dotf_git_install_git_ignore() {
-    if ! _dotf::cmd::exists git-ignore; then
-        echo "brew install git-ignore"
-        brew install git-ignore
-    fi
-}
-
 __dotf_git_install_gibo() {
     if ! _dotf::cmd::exists gibo; then
         echo "brew install gibo"
@@ -66,7 +59,6 @@ __dotf_git_install_gibo() {
 __dotf_git_init() {
     __dotf_git_install_git_cb
     __dotf_git_install_git_cz
-    __dotf_git_install_git_ignore
     __dotf_git_install_gibo
 }
 
