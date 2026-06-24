@@ -65,3 +65,6 @@
 	amend = commit --amend --no-edit
 	# Reuse the commit message from the last commit
 	reuse = commit --reuse-message=HEAD
+
+[include]
+	path = ~/.config/git/config.local
