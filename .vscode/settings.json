@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "**/.ssh/config_*": "ssh_config",
-    "**/.ssh/hosts/**/*.conf": "ssh_config"
+    "**/.ssh/hosts/**/*.conf": "ssh_config",
+    "**/git/.config/conf.d/config.*": "ini"
   },
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {

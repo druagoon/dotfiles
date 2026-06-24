@@ -1,5 +1,6 @@
 global:
   links:
+    .config: ~/.config/git
     .gitattributes: ~/.gitattributes
     .gitconfig: ~/.gitconfig
     .gitignore_global: ~/.gitignore_global
