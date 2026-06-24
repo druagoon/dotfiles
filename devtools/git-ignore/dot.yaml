@@ -1,0 +1,6 @@
+global:
+  links:
+    .config: ~/.config/git-ignore
+
+darwin:
+  installs: brew install git-ignore
