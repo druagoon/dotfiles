@@ -49,9 +49,17 @@ __dotf_git_install_git_cz() {
     __dotf_git_install_go_repo "${args[@]}"
 }
 
+__dotf_git_delete_brew_completions() {
+    local brew_prefix="$(brew --prefix)"
+    local completions_dir="${brew_prefix}/share/zsh/site-functions"
+    # Automatically clean up the truncated git completions brought by brew
+    [[ -e "${completions_dir}/_git" ]] && rm "${completions_dir}/_git" "${completions_dir}/git-completion.bash" 2>/dev/null
+}
+
 __dotf_git_init() {
     __dotf_git_install_git_cb
     __dotf_git_install_git_cz
+    __dotf_git_delete_brew_completions
 }
 
 __dotf_git_init
