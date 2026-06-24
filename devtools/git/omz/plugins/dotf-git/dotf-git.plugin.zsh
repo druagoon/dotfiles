@@ -49,17 +49,9 @@ __dotf_git_install_git_cz() {
     __dotf_git_install_go_repo "${args[@]}"
 }
 
-__dotf_git_install_gibo() {
-    if ! _dotf::cmd::exists gibo; then
-        echo "brew install gibo"
-        brew install gibo
-    fi
-}
-
 __dotf_git_init() {
     __dotf_git_install_git_cb
     __dotf_git_install_git_cz
-    __dotf_git_install_gibo
 }
 
 __dotf_git_init
