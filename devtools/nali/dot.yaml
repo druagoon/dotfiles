@@ -1,0 +1,4 @@
+darwin:
+  links:
+    config.yaml: "{{ dirs.base.config }}/nali/config.yaml"
+  installs: brew install nali
