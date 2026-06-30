@@ -1,0 +1,6 @@
+global:
+  links:
+    tssh.conf: ~/.config/tssh/tssh.conf
+
+darwin:
+  installs: brew install trzsz-ssh
