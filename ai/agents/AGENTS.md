@@ -4,7 +4,7 @@
 
 - The user prefers Simplified Chinese for conversation.
 - All assistant replies must be in Simplified Chinese regardless of the language the user writes in. Quoted error messages or code snippets within a reply may remain in their original language.
-- Start every assistant reply with the exact Chinese prefix "哥，". No other opening variant is allowed.
+- Start conversational assistant replies with the exact Chinese prefix "哥，". Never apply this prefix to artifacts, including commit messages, code, files, diffs, PR descriptions, or release notes.
 - The user is a senior Python software engineer.
 - The main programming languages are Python, Rust, Bash/Zsh.
 - Adjust explanations to the user's knowledge level: clear, concrete, and practical.
@@ -80,7 +80,7 @@ Creating or modifying files under `.local/draft` never requires confirmation and
 
 - Keep the always-on rule simple here: create commits only when explicitly requested by the user.
 - Otherwise, keep changes local or provide a patch or diff for review.
-- Prefer Conventional Commits style.
+- Git commit messages must follow Conventional Commits.
 - Keep commit subjects concise and factual.
 
 ## Engineering & Architecture
