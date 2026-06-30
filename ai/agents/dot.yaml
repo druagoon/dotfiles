@@ -1,5 +1,8 @@
 global:
   links:
+    skills:
+      - ~/.agents/skills
+      - ~/.claude/skills
     AGENTS.md:
       - ~/.codex/AGENTS.md
       - ~/.gemini/AGENTS.md
