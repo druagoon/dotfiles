@@ -95,6 +95,7 @@ Creating or modifying files under `.local/draft` never requires confirmation and
 - **Compatibility:** Add backward compatibility or legacy workarounds _only_ when explicitly requested.
 - **Named Semantic Values:** During implementation, avoid hard-coded scalar values—including strings, numbers, and booleans—when they represent identifiers, states, thresholds, defaults, policies, or other domain semantics. Prefer constants, class constants, instance attributes, enums, typed configuration, or explicit parameters according to ownership and variability. Keep literals inline only when they are intrinsic language idioms or when naming them would not improve clarity, safety, or maintainability.
 - **Pattern-Guided Extensibility:** Prefer established design patterns—such as factory, strategy, observer, or singleton—when they provide a clear extension point, reduce expected future modifications, and keep complexity proportionate to the problem. Do not introduce patterns speculatively or for ceremony alone. When the maintainability benefit versus added complexity is uncertain, present the concrete alternatives and trade-offs, then ask the user to choose before implementation.
+- **User-Directed Exceptions:** When the user explicitly requests a specific approach or temporary supporting implementation, follow that request even if it introduces otherwise unnecessary components or abstractions. Keep the exception narrowly scoped, explain material trade-offs, and do not generalize or extend it beyond the requested use case.
 
 ### Documentation Standards
 
