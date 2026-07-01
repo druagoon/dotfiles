@@ -62,7 +62,7 @@ git-commit-instructions = """
    * Use imperative, present tense: "change" not "changed" nor "changes".
    * Do not capitalize the first letter.
    * Do not place a period (.) at the end.
-   * Keep it concise (strictly under 50 characters).
+   * Keep it concise (strictly under 72 characters).
 
 5. **Body Guidelines:**
    * Use imperative, present tense.
@@ -70,8 +70,8 @@ git-commit-instructions = """
    * Contrast the new behavior with the previous behavior.
    * Wrap text at 72 characters per line.
 
-6. **Footer Guidelines:**
-   * Note any BREAKING CHANGES here, starting with `BREAKING CHANGE: ` followed by a space and description.
+6. **Breaking Change & Footer Guidelines:**
+   * Mark breaking changes with `!` after the type/scope or with a footer starting with `BREAKING CHANGE: ` followed by a description.
    * Reference open issues or PRs that this commit closes (e.g., `Closes #123`, `Fixes #456`).
 
 **Output Constraint:** Return ONLY the raw commit message. Do not include conversational filler, greetings, or explanations."""

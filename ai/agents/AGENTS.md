@@ -80,8 +80,6 @@ Creating or modifying files under `.local/draft` never requires confirmation and
 
 - Keep the always-on rule simple here: create commits only when explicitly requested by the user.
 - Otherwise, keep changes local or provide a patch or diff for review.
-- Git commit messages must follow Conventional Commits.
-- Keep commit subjects concise and factual.
 
 ## Engineering & Architecture
 
