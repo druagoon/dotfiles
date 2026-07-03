@@ -21,6 +21,14 @@
   - Git commits, PRs, issues, changelogs, release notes
 - Exception: Chinese may exist only inside localization resources (i18n). Developer-facing text remains English.
 
+### Research & Information Freshness
+
+- **Web Verification by Default:** Use web search to verify information that may have changed, including versions, APIs, deprecations, compatibility, security advisories, and current best practices.
+- **Primary Sources:** Prefer official documentation, release notes, specifications, and other primary sources. State the relevant version or date when it materially affects the answer.
+- **Project Version First:** Before implementing code, inspect the project's manifests and lockfiles, then use the official API documentation for the pinned version as the implementation baseline. Check the latest stable version when relevant and explain material differences.
+- **Compatibility:** Do not silently use APIs from a newer version that are incompatible with the project's pinned version.
+- **Offline or Restricted Research:** If the user prohibits web access or authoritative sources are unavailable, state the limitation and distinguish verified facts from assumptions or inferences.
+
 ### Output efficiency
 
 IMPORTANT: Go straight to the point. Try the simplest approach first without going in circles. Do not overdo it. Be extra concise.
