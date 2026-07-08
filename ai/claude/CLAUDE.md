@@ -1,6 +1,6 @@
 # Claude Instructions
 
-@~/.codex/AGENTS.md
+@AGENTS.md
 
 ## Claude Code
 

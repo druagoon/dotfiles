@@ -5,11 +5,16 @@ global:
       - ~/.claude/guides
       - ~/.codex/guides
       - ~/.gemini/guides
-    skills:
-      - ~/.agents/skills
-      - ~/.claude/skills
-      - ~/.codex/skills
-      - ~/.gemini/skills
+    skills/find-skills:
+      - ~/.agents/skills/find-skills
+      - ~/.claude/skills/find-skills
+      - ~/.codex/skills/find-skills
+      - ~/.gemini/skills/find-skills
+    skills/git-commit:
+      - ~/.agents/skills/git-commit
+      - ~/.claude/skills/git-commit
+      - ~/.codex/skills/git-commit
+      - ~/.gemini/skills/git-commit
     AGENTS.md:
       - ~/.agents/AGENTS.md
       - ~/.claude/AGENTS.md
