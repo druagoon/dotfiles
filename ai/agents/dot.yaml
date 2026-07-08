@@ -1,8 +1,17 @@
 global:
   links:
+    guides:
+      - ~/.agents/guides
+      - ~/.claude/guides
+      - ~/.codex/guides
+      - ~/.gemini/guides
     skills:
       - ~/.agents/skills
       - ~/.claude/skills
+      - ~/.codex/skills
+      - ~/.gemini/skills
     AGENTS.md:
+      - ~/.agents/AGENTS.md
+      - ~/.claude/AGENTS.md
       - ~/.codex/AGENTS.md
       - ~/.gemini/AGENTS.md
