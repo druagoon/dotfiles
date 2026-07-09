@@ -1,10 +1,5 @@
 global:
   links:
-    guides:
-      - ~/.agents/guides
-      - ~/.claude/guides
-      - ~/.codex/guides
-      - ~/.gemini/guides
     skills/find-skills:
       - ~/.agents/skills/find-skills
       - ~/.claude/skills/find-skills
