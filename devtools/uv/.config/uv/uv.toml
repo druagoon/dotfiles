@@ -1,6 +1,12 @@
 python-downloads = "manual"
 python-preference = "only-managed"
 
+# uv sync / uv add / uv run
 # [[index]]
-# name = "aliyun-pypi"
-# url = "https://mirrors.aliyun.com/pypi/simple/"
+# name = "aliyun"
+# url = "https://mirrors.aliyun.com/pypi/simple"
+# default = true
+
+# uv pip install / uv pip compile
+# [pip]
+# index-url = "https://mirrors.aliyun.com/pypi/simple"
