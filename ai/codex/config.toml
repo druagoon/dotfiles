@@ -1,6 +1,8 @@
-model = "gpt-5.5"
+#:schema https://raw.githubusercontent.com/openai/codex/main/codex-rs/core/config.schema.json
+
+model = "gpt-5.6-sol"
+# model_verbosity = "high"
 model_reasoning_effort = "high"
-disable_response_storage = true
 personality = "pragmatic"
 sandbox_mode = "workspace-write"
 
@@ -8,29 +10,45 @@ sandbox_mode = "workspace-write"
 network_access = true
 
 [features]
-goals = true
+default_mode_request_user_input = true
 
 [plugins."browser@openai-bundled"]
-enabled = true
-
-[plugins."computer-use@openai-bundled"]
 enabled = true
 
 [plugins."chrome@openai-bundled"]
 enabled = true
 
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
 [desktop]
-conversationDetailMode = "STEPS_COMMANDS"
-ambient-suggestions-enabled = true
-preventSleepWhileRunning = true
-reviewDelivery = "inline"
-show-context-window-usage = true
-defaultTerminalLocation = "bottom"
-appearanceLightCodeThemeId = "codex"
+ambient-suggestions-enabled = false
 appearanceDarkCodeThemeId = "codex"
-usePointerCursors = true
 appearanceDiffMarkerStyle = "symbols"
-git-show-sidebar-pr-icons = true
+appearanceLightCodeThemeId = "codex"
+composerEnterBehavior = "cmdAlways"
+conversationDetailMode = "STEPS_COMMANDS"
+defaultTerminalLocation = "bottom"
+dock-icon-preference = "codex-system"
+followUpQueueMode = "queue"
 git-commit-instructions = """
 **Role:** You are an expert Software Engineer and Git Version Control specialist.
 **Task:** Generate a strict Conventional Commit message based on the provided code diff, git status, or user description.
@@ -75,6 +93,11 @@ git-commit-instructions = """
    * Reference open issues or PRs that this commit closes (e.g., `Closes #123`, `Fixes #456`).
 
 **Output Constraint:** Return ONLY the raw commit message. Do not include conversational filler, greetings, or explanations."""
+git-show-sidebar-pr-icons = true
+preventSleepWhileRunning = true
+reviewDelivery = "inline"
+show-context-window-usage = true
+usePointerCursors = true
 
 [desktop.appearanceLightChromeTheme]
 accent = "#0169cc"
