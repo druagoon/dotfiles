@@ -3,6 +3,7 @@ ClashX
 LeetCode
 OrbStack
 QuantumultX
+Dify
 dotf
 druagoon
 enpass
@@ -14,3 +15,4 @@ nftables
 shellformat
 shellproxy
 taplo
+venv
