@@ -75,6 +75,50 @@ function clhist {
     Write-Host "History Cleaned"
 }
 
+function Get-ExecutableFileNames {
+    param(
+        [string]$Path = "."
+    )
+
+    $files = fd `
+        --type f `
+        -e exe `
+        -e com `
+        -e bat `
+        -e cmd `
+        . $Path
+
+    # 提取文件名、去重、排序
+    $names = $files |
+    ForEach-Object {
+        [System.IO.Path]::GetFileName($_)
+    } |
+    Sort-Object -Unique
+
+    # 1. 输出原始路径
+    Write-Host "Files:"
+    $files | ForEach-Object {
+        $_
+    }
+
+    # 2. 输出排序后的文件名
+    Write-Host "`nSorted Result:"
+    $names
+
+    # 3. 输出分号+换行分隔结果
+    Write-Host "`nJoined Result:"
+    $names |
+    ForEach-Object {
+        if ($_ -match '[\s;`"$&|<>*?()]') {
+            '"' + $_.Replace('"', '\"') + '"'
+        }
+        else {
+            $_
+        }
+    } |
+    Join-String -Separator ";`n"
+}
+
 # enable completion in current shell, use absolute path because PowerShell Core not respect $env:PSModulePath
 $ScoopCompletion = "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 if (Test-Path "$ScoopCompletion") {
