@@ -57,12 +57,6 @@
 - Expand only when asked or when omitted detail would materially affect
   correctness, safety, or the user's decision.
 
-### Output Scratchpad Directory
-
-Use `.local/draft` for temporary working files when the tool or workflow allows
-it. Use another temporary directory only when the user requests it, a tool
-requires it, or the location is not configurable.
-
 ### Change Safety & Intent
 
 - Investigate available context before asking questions. Resolve discoverable
