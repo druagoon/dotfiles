@@ -1,8 +1,9 @@
 #:schema https://raw.githubusercontent.com/openai/codex/main/codex-rs/core/config.schema.json
 
+approval_policy = "on-request"
 model = "gpt-5.6-sol"
-# model_verbosity = "high"
 model_reasoning_effort = "high"
+model_verbosity = "medium"
 personality = "pragmatic"
 sandbox_mode = "workspace-write"
 
