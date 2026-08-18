@@ -1,3 +1,4 @@
-# global:
-#   links:
-#     config.toml: ~/.codex/config.toml
+global:
+  links:
+    # config.toml: ~/.codex/config.toml
+    rules: ~/.codex/rules

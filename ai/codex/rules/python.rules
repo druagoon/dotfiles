@@ -1,0 +1,24 @@
+prefix_rule(
+    pattern = [
+        "uv",
+        [
+            "run",
+            "sync",
+            "lock",
+        ],
+    ],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "black",
+            "isort",
+            "mypy",
+            "pytest",
+            "ruff",
+        ],
+    ],
+    decision = "allow",
+)

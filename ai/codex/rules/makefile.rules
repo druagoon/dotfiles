@@ -1,0 +1,60 @@
+prefix_rule(
+    pattern = [
+        "make",
+        [
+            "fmt",
+            "fmt-markdown",
+            "fmt-python",
+            "fmt-shell",
+            "fmt-toml",
+            "fmt-yaml",
+        ],
+    ],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = [
+        "make",
+        [
+            "check",
+            "check-fix",
+            "check-markdown",
+            "check-python",
+            "check-shell",
+            "check-toml",
+            "check-yaml",
+        ],
+    ],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = [
+        "make",
+        [
+            "lint",
+            "lint-fix",
+            "lint-markdown",
+            "lint-python",
+            "lint-shell",
+            "lint-toml",
+            "lint-yaml",
+        ],
+    ],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = [
+        "make",
+        [
+            "build",
+            "clean",
+            "help",
+            "run",
+            "test",
+        ],
+    ],
+    decision = "allow",
+)

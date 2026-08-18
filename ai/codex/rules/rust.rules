@@ -1,0 +1,12 @@
+prefix_rule(
+    pattern = [
+        "cargo",
+        [
+            "check",
+            "test",
+            "clippy",
+            "fmt",
+        ],
+    ],
+    decision = "allow",
+)
