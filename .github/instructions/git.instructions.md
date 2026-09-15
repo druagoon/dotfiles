@@ -10,17 +10,20 @@ name: "Git Workflow"
 - Prefer Conventional Commits style.
 - Keep commit subjects concise and factual.
 - Use English for the entire commit message.
-- When generating a commit message, examine both staged and unstaged diffs for the target files or for the whole repository when no target is specified.
+- When generating a commit message, examine both staged and unstaged diffs for the target files or
+  for the whole repository when no target is specified.
 - Use the format `<type>(<optional scope>): <subject>`.
 - Allowed commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
-- Use an imperative, present-tense subject, do not capitalize the first letter, and do not end the subject with a period.
+- Use an imperative, present-tense subject, do not capitalize the first letter,
+  and do not end the subject with a period.
 - Add an optional body only when the change is complex enough that a short subject is insufficient.
 - In commit bodies, explain what changed and why, not how.
-- When asked to output a commit message, return only the raw commit message text with no surrounding explanation or code fences.
+- When asked to output a commit message,
+  return only the raw commit message text with no surrounding explanation or code fences.
 
 ## A complete Conventional Commit message sample
 
-```
+```text
 feat(auth): implement JWT-based session management
 
 Replace the legacy cookie-based session store with state-less JWT tokens

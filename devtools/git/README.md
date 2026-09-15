@@ -4,7 +4,8 @@
 
 ### [git-checkout-branch](https://github.com/royeo/git-checkout-branch)
 
-> The git-checkout-branch tool is a command-line tool for improving the efficiency of switching git branches. It is an extended git command.
+> The git-checkout-branch tool is a command-line tool for improving the efficiency of switching git branches.
+> It is an extended git command.
 
 - Alias: git-cb
 
@@ -18,8 +19,8 @@
 
 ### [gibo](https://github.com/simonwhitaker/gibo)
 
-> Access GitHub's .gitignore boilerplates
+> Access GitHub's .gitignore boilerplates.
 
 ### [git-ignore](ttps://github.com/sondr3/git-ignore)
 
-> List, fetch and generate .gitignore templates
+> List, fetch and generate .gitignore templates.
