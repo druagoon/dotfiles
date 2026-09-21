@@ -6,7 +6,7 @@ disable = ["MD033"]
 [MD013]
 line-length = 120
 length-mode = "visual"
-reflow = true
+reflow = false
 reflow-mode = "semantic-line-breaks"
 code-blocks = false
 tables = false
