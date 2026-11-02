@@ -96,38 +96,589 @@ prefix_rule(
     not_match = ["diskutil unmount /Volumes/External"],
 )
 
-# Query network configuration without allowing interface or route changes.
+# Network risk policy (macOS): high = prompt, medium = allow, low = allow.
+# The strictest matching decision wins, regardless of rule order or prefix length.
+# Do not add blanket prompt rules for networksetup, route, or ipconfig: they
+# would override their query approvals. Unmatched forms use approval_policy.
+# Prefixes cannot inspect arbitrary argument positions, combined flags, stdin,
+# wrappers, or scripts. Unrecognized forms are not automatically classified.
+# Cover command names and standard absolute paths without allowing sudo broadly.
+
+# High risk: firewall/traffic-shaping administration and privileged network
+# administration. Even query forms of these administrative entry points need approval.
+
 prefix_rule(
     pattern = [
-        "networksetup",
         [
-            "-getairportnetwork",
-            "-getairportpower",
-            "-getdnsservers",
-            "-getinfo",
-            "-getnetworkserviceenabled",
-            "-getsearchdomains",
-            "-getsecurewebproxy",
-            "-getwebproxy",
-            "-listallhardwareports",
-            "-listallnetworkservices",
-            "-listnetworkserviceorder",
+            "pfctl",
+            "/sbin/pfctl",
+            "dnctl",
+            "/sbin/dnctl",
+            "socketfilterfw",
+            "/usr/libexec/ApplicationFirewall/socketfilterfw",
         ],
     ],
-    decision = "allow",
-    match = ["networksetup -getinfo Wi-Fi", "networksetup -listallhardwareports"],
-    not_match = ["networksetup -setdnsservers Wi-Fi 1.1.1.1"],
+    decision = "prompt",
+    match = [
+        "pfctl -d",
+        "/sbin/pfctl -f /etc/pf.conf",
+        "dnctl flush",
+        "/usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off",
+    ],
 )
 
 prefix_rule(
     pattern = [
-        "route",
+        "sudo",
+        [
+            "arp",
+            "/usr/sbin/arp",
+            "dnctl",
+            "/sbin/dnctl",
+            "ifconfig",
+            "/sbin/ifconfig",
+            "ipconfig",
+            "/usr/sbin/ipconfig",
+            "ndp",
+            "/usr/sbin/ndp",
+            "networksetup",
+            "/usr/sbin/networksetup",
+            "pfctl",
+            "/sbin/pfctl",
+            "route",
+            "/sbin/route",
+            "scutil",
+            "/usr/sbin/scutil",
+            "socketfilterfw",
+            "/usr/libexec/ApplicationFirewall/socketfilterfw",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "sudo pfctl -d",
+        "sudo /sbin/ifconfig en0 down",
+        "sudo networksetup -setdnsservers Wi-Fi 1.1.1.1",
+    ],
+)
+
+# High risk: persistent network configuration, service removal, and connectivity changes.
+
+prefix_rule(
+    pattern = [
+        [
+            "networksetup",
+            "/usr/sbin/networksetup",
+        ],
+        [
+            "-addDeviceToBond",
+            "-addpreferredwirelessnetworkatindex",
+            "-connectpppoeservice",
+            "-create6to4service",
+            "-createBond",
+            "-createlocation",
+            "-createnetworkservice",
+            "-createpppoeservice",
+            "-createVLAN",
+            "-deleteBond",
+            "-deletelocation",
+            "-deletepppoeservice",
+            "-deleteVLAN",
+            "-detectnewhardware",
+            "-disconnectpppoeservice",
+            "-duplicatenetworkservice",
+            "-ordernetworkservices",
+            "-removeallpreferredwirelessnetworks",
+            "-removeDeviceFromBond",
+            "-removenetworkservice",
+            "-removepreferredwirelessnetwork",
+            "-renamenetworkservice",
+            "-set6to4automatic",
+            "-set6to4manual",
+            "-setadditionalroutes",
+            "-setairportnetwork",
+            "-setairportpower",
+            "-setautoproxystate",
+            "-setautoproxyurl",
+            "-setbootp",
+            "-setcomputername",
+            "-setdhcp",
+            "-setdnsservers",
+            "-setmanual",
+            "-setmanualwithdhcprouter",
+            "-setmedia",
+            "-setMTU",
+            "-setMTUAndMediaAutomatically",
+            "-setnetworkserviceenabled",
+            "-setpppoeaccountname",
+            "-setpppoepassword",
+            "-setproxyautodiscovery",
+            "-setproxybypassdomains",
+            "-setsearchdomains",
+            "-setsecurewebproxy",
+            "-setsecurewebproxystate",
+            "-setsocksfirewallproxy",
+            "-setsocksfirewallproxystate",
+            "-setv4off",
+            "-setv6additionalroutes",
+            "-setv6automatic",
+            "-setv6LinkLocal",
+            "-setv6manual",
+            "-setv6off",
+            "-setwebproxy",
+            "-setwebproxystate",
+            "-switchtolocation",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "networksetup -setdnsservers Wi-Fi 1.1.1.1",
+        "networksetup -setwebproxystate Wi-Fi off",
+        "/usr/sbin/networksetup -removenetworkservice Wi-Fi",
+    ],
+    not_match = [
+        "networksetup -getinfo Wi-Fi",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "ipconfig",
+            "/usr/sbin/ipconfig",
+        ],
+        [
+            "set",
+            "setverbose",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "ipconfig set en0 NONE",
+        "/usr/sbin/ipconfig set en0 DHCP",
+    ],
+    not_match = [
+        "ipconfig getifaddr en0",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "scutil",
+            "/usr/sbin/scutil",
+        ],
+        [
+            "--allow-new-interfaces",
+            "--prefs",
+            "--set",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "scutil --set HostName example",
+        "scutil --prefs",
+    ],
+    not_match = [
+        "scutil --dns",
+    ],
+)
+
+# High risk: routing writes, neighbor poisoning, and flood/preload probes.
+# Reordered or combined options may miss high-risk prompts; prefixes are not a parser.
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
+        [
+            "add",
+            "change",
+            "delete",
+            "flush",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "route flush",
+        "route delete default",
+    ],
+    not_match = [
+        "route get default",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
+        "-n",
+        [
+            "add",
+            "change",
+            "delete",
+            "flush",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "route -n add default 192.0.2.1",
+        "/sbin/route -n flush",
+    ],
+    not_match = [
+        "route -n get default",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "arp",
+            "/usr/sbin/arp",
+        ],
+        [
+            "-f",
+            "-s",
+            "-S",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "arp -s 192.0.2.1 00:11:22:33:44:55",
+    ],
+    not_match = [
+        "arp -an",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "ndp",
+            "/usr/sbin/ndp",
+        ],
+        [
+            "-f",
+            "-s",
+            "-W",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "ndp -s 2001:db8::1 00:11:22:33:44:55",
+    ],
+    not_match = [
+        "ndp -an",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "ping",
+            "/sbin/ping",
+            "ping6",
+            "/sbin/ping6",
+        ],
+        [
+            "-f",
+            "-l",
+        ],
+    ],
+    decision = "prompt",
+    match = [
+        "ping -f 192.0.2.1",
+        "/sbin/ping -l 1000 192.0.2.1",
+    ],
+    not_match = [
+        "ping -c 2 192.0.2.1",
+    ],
+)
+
+# Medium risk: active probes, transfers, remote execution, listeners, scans,
+# packet capture, service discovery/registration, and bandwidth-intensive tests.
+# Interface, neighbor-cache, interactive DNS, and scutil modes are also allowed.
+# Explicit high-risk prefixes still prompt, overriding these broader approvals.
+
+prefix_rule(
+    pattern = [
+        [
+            "arp",
+            "/usr/sbin/arp",
+            "curl",
+            "/usr/bin/curl",
+            "/opt/homebrew/bin/curl",
+            "dns-sd",
+            "/usr/bin/dns-sd",
+            "ftp",
+            "/usr/bin/ftp",
+            "/opt/homebrew/bin/ftp",
+            "http",
+            "/opt/homebrew/bin/http",
+            "https",
+            "/opt/homebrew/bin/https",
+            "ifconfig",
+            "/sbin/ifconfig",
+            "iperf",
+            "/opt/homebrew/bin/iperf",
+            "iperf3",
+            "/opt/homebrew/bin/iperf3",
+            "mtr",
+            "/opt/homebrew/sbin/mtr",
+            "nc",
+            "/usr/bin/nc",
+            "ncat",
+            "/opt/homebrew/bin/ncat",
+            "ndp",
+            "/usr/sbin/ndp",
+            "netcat",
+            "networkQuality",
+            "/usr/bin/networkQuality",
+            "nmap",
+            "/opt/homebrew/bin/nmap",
+            "nslookup",
+            "/usr/bin/nslookup",
+            "ping",
+            "/sbin/ping",
+            "ping6",
+            "/sbin/ping6",
+            "rsync",
+            "/usr/bin/rsync",
+            "/opt/homebrew/bin/rsync",
+            "scp",
+            "/usr/bin/scp",
+            "scutil",
+            "/usr/sbin/scutil",
+            "sftp",
+            "/usr/bin/sftp",
+            "socat",
+            "/opt/homebrew/bin/socat",
+            "speedtest",
+            "/opt/homebrew/bin/speedtest",
+            "ssh",
+            "/usr/bin/ssh",
+            "tcpdump",
+            "/usr/sbin/tcpdump",
+            "telnet",
+            "/usr/bin/telnet",
+            "/opt/homebrew/bin/telnet",
+            "traceroute",
+            "/usr/sbin/traceroute",
+            "traceroute6",
+            "/usr/sbin/traceroute6",
+            "tshark",
+            "/opt/homebrew/bin/tshark",
+            "wget",
+            "/opt/homebrew/bin/wget",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "curl --head https://example.com",
+        "/usr/bin/curl --upload-file file https://example.com",
+        "wget https://example.com/file",
+        "ssh example.com uptime",
+        "nc -l 8080",
+        "nmap -sT 192.0.2.1",
+        "tcpdump -i en0",
+        "networkQuality",
+        "ping -c 2 192.0.2.1",
+        "ifconfig en0",
+        "ifconfig en0 down",
+        "arp -an",
+        "ndp -an",
+        "scutil --dns",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
+        "monitor",
+    ],
+    decision = "allow",
+    match = [
+        "route monitor",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
+        "-n",
+        "monitor",
+    ],
+    decision = "allow",
+    match = [
+        "route -n monitor",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "openssl",
+            "/usr/bin/openssl",
+            "/opt/homebrew/bin/openssl",
+        ],
+        "s_client",
+    ],
+    decision = "allow",
+    match = [
+        "openssl s_client -connect example.com:443",
+    ],
+)
+
+# Low risk: DNS lookups and read-only local socket, route, and DHCP inspection.
+
+prefix_rule(
+    pattern = [
+        [
+            "dig",
+            "/usr/bin/dig",
+            "host",
+            "/usr/bin/host",
+            "lsof",
+            "/usr/sbin/lsof",
+            "netstat",
+            "/usr/sbin/netstat",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "dig example.com A",
+        "host example.com",
+        "lsof -nP -iTCP -sTCP:LISTEN",
+        "netstat -rn",
+        "/usr/sbin/netstat -an",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "networksetup",
+            "/usr/sbin/networksetup",
+        ],
+        [
+            "-getadditionalroutes",
+            "-getairportnetwork",
+            "-getairportpower",
+            "-getautoproxyurl",
+            "-getcomputername",
+            "-getcurrentlocation",
+            "-getdnsservers",
+            "-getinfo",
+            "-getmacaddress",
+            "-getmedia",
+            "-getMTU",
+            "-getnetworkserviceenabled",
+            "-getproxyautodiscovery",
+            "-getproxybypassdomains",
+            "-getsearchdomains",
+            "-getsecurewebproxy",
+            "-getsocksfirewallproxy",
+            "-getv6additionalroutes",
+            "-getwebproxy",
+            "-isBondSupported",
+            "-listallhardwareports",
+            "-listallnetworkservices",
+            "-listBonds",
+            "-listdevicesthatsupportVLAN",
+            "-listlocations",
+            "-listnetworkserviceorder",
+            "-listpppoeservices",
+            "-listpreferredwirelessnetworks",
+            "-listvalidmedia",
+            "-listvalidMTUrange",
+            "-listVLANs",
+            "-showBondStatus",
+            "-showpppoestatus",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "networksetup -getinfo Wi-Fi",
+        "networksetup -listallhardwareports",
+        "/usr/sbin/networksetup -getdnsservers Wi-Fi",
+    ],
+    not_match = [
+        "networksetup -setdnsservers Wi-Fi 1.1.1.1",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "ipconfig",
+            "/usr/sbin/ipconfig",
+        ],
+        [
+            "getdhcpduid",
+            "getdhcpiaid",
+            "getifaddr",
+            "getoption",
+            "getpacket",
+            "getra",
+            "getsummary",
+            "getv6packet",
+            "ifcount",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "ipconfig getifaddr en0",
+        "ipconfig getoption en0 domain_name_server",
+        "/usr/sbin/ipconfig getsummary en0",
+    ],
+    not_match = [
+        "ipconfig set en0 NONE",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
+        "get",
+    ],
+    decision = "allow",
+    match = [
+        "route get default",
+    ],
+    not_match = [
+        "route add default 192.0.2.1",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "route",
+            "/sbin/route",
+        ],
         "-n",
         "get",
     ],
     decision = "allow",
-    match = ["route -n get default"],
-    not_match = ["route -n add default 192.168.1.1"],
+    match = [
+        "route -n get default",
+        "/sbin/route -n get 192.0.2.1",
+    ],
+    not_match = [
+        "route -n add default 192.0.2.1",
+    ],
 )
 
 # Power status.
