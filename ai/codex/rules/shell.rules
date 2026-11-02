@@ -15,8 +15,6 @@ prefix_rule(
             "head",
             "hexdump",
             "ls",
-            "mdfind",
-            "mdls",
             "nl",
             "od",
             "pwd",
@@ -38,12 +36,8 @@ prefix_rule(
             "arch",
             "df",
             "groups",
-            "hostinfo",
             "id",
-            "ioreg",
             "ps",
-            "sw_vers",
-            "system_profiler",
             "uname",
             "uptime",
             "who",
@@ -51,58 +45,4 @@ prefix_rule(
         ],
     ],
     decision = "allow",
-)
-
-# Read property lists without enabling conversion or editing.
-prefix_rule(
-    pattern = [
-        "plutil",
-        "-p",
-        "--",
-    ],
-    decision = "allow",
-    match = ["plutil -p -- Info.plist"],
-    not_match = [
-        "plutil -replace Name -string value Info.plist",
-        "plutil -p -remove Name Info.plist",
-    ],
-)
-
-prefix_rule(
-    pattern = [
-        "defaults",
-        [
-            "domains",
-            "find",
-            "read",
-            "read-type",
-        ],
-    ],
-    decision = "allow",
-    match = ["defaults read com.apple.finder"],
-    not_match = ["defaults write com.apple.finder AppleShowAllFiles -bool true"],
-)
-
-prefix_rule(
-    pattern = [
-        "diskutil",
-        [
-            "info",
-            "list",
-        ],
-    ],
-    decision = "allow",
-    match = ["diskutil list", "diskutil info /"],
-    not_match = ["diskutil unmount /Volumes/External"],
-)
-
-# Power status.
-prefix_rule(
-    pattern = [
-        "pmset",
-        "-g",
-    ],
-    decision = "allow",
-    match = ["pmset -g batt"],
-    not_match = ["pmset sleep 0"],
 )
