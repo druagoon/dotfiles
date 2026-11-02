@@ -1,0 +1,142 @@
+# Prefixes also allow trailing arguments. Do not broadly allow tools with write
+# or execution modes, such as find, sed, awk, rg, xargs, or shell interpreters.
+# These approvals do not replace the filesystem sandbox.
+
+# File contents, directory listings, metadata, and text searches.
+prefix_rule(
+    pattern = [
+        [
+            "basename",
+            "cat",
+            "cmp",
+            "dirname",
+            "du",
+            "grep",
+            "head",
+            "hexdump",
+            "ls",
+            "mdfind",
+            "mdls",
+            "nl",
+            "od",
+            "pwd",
+            "readlink",
+            "realpath",
+            "stat",
+            "strings",
+            "tail",
+            "wc",
+        ],
+    ],
+    decision = "allow",
+)
+
+# System, hardware, process, storage, and user information.
+prefix_rule(
+    pattern = [
+        [
+            "arch",
+            "df",
+            "groups",
+            "hostinfo",
+            "id",
+            "ioreg",
+            "ps",
+            "sw_vers",
+            "system_profiler",
+            "uname",
+            "uptime",
+            "who",
+            "whoami",
+        ],
+    ],
+    decision = "allow",
+)
+
+# Read property lists without enabling conversion or editing.
+prefix_rule(
+    pattern = [
+        "plutil",
+        "-p",
+        "--",
+    ],
+    decision = "allow",
+    match = ["plutil -p -- Info.plist"],
+    not_match = [
+        "plutil -replace Name -string value Info.plist",
+        "plutil -p -remove Name Info.plist",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "defaults",
+        [
+            "domains",
+            "find",
+            "read",
+            "read-type",
+        ],
+    ],
+    decision = "allow",
+    match = ["defaults read com.apple.finder"],
+    not_match = ["defaults write com.apple.finder AppleShowAllFiles -bool true"],
+)
+
+prefix_rule(
+    pattern = [
+        "diskutil",
+        [
+            "info",
+            "list",
+        ],
+    ],
+    decision = "allow",
+    match = ["diskutil list", "diskutil info /"],
+    not_match = ["diskutil unmount /Volumes/External"],
+)
+
+# Query network configuration without allowing interface or route changes.
+prefix_rule(
+    pattern = [
+        "networksetup",
+        [
+            "-getairportnetwork",
+            "-getairportpower",
+            "-getdnsservers",
+            "-getinfo",
+            "-getnetworkserviceenabled",
+            "-getsearchdomains",
+            "-getsecurewebproxy",
+            "-getwebproxy",
+            "-listallhardwareports",
+            "-listallnetworkservices",
+            "-listnetworkserviceorder",
+        ],
+    ],
+    decision = "allow",
+    match = ["networksetup -getinfo Wi-Fi", "networksetup -listallhardwareports"],
+    not_match = ["networksetup -setdnsservers Wi-Fi 1.1.1.1"],
+)
+
+prefix_rule(
+    pattern = [
+        "route",
+        "-n",
+        "get",
+    ],
+    decision = "allow",
+    match = ["route -n get default"],
+    not_match = ["route -n add default 192.168.1.1"],
+)
+
+# Power status.
+prefix_rule(
+    pattern = [
+        "pmset",
+        "-g",
+    ],
+    decision = "allow",
+    match = ["pmset -g batt"],
+    not_match = ["pmset sleep 0"],
+)
