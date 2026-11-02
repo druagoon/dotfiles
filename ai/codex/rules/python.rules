@@ -1,14 +1,104 @@
+# Development workflows can execute project code, build backends, and plugins,
+# install dependencies, and modify files. These are not read-only approvals.
+# Do not broadly allow Python interpreters, uv, or pip without a subcommand.
+
 prefix_rule(
     pattern = [
         "uv",
         [
+            "add",
+            "build",
+            "export",
+            "lock",
             "run",
             "sync",
-            "lock",
+            "tree",
+            "venv",
         ],
     ],
     decision = "allow",
+    match = [
+        "uv run pytest -q",
+        "uv sync --locked",
+        "uv add --dev ruff",
+        "uv build",
+    ],
+    not_match = [
+        "uv publish",
+        "uv auth login",
+        "uv cache clean",
+        "uv self update",
+    ],
 )
+
+prefix_rule(
+    pattern = [
+        "uv",
+        "pip",
+        [
+            "check",
+            "compile",
+            "freeze",
+            "install",
+            "list",
+            "show",
+            "sync",
+            "tree",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "uv pip install -r requirements.txt",
+        "uv pip compile requirements.in",
+        "uv pip check",
+    ],
+    not_match = [
+        "uv pip uninstall example",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "uv",
+        "python",
+        [
+            "dir",
+            "find",
+            "install",
+            "list",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "uv python list",
+        "uv python install 3.12",
+    ],
+    not_match = [
+        "uv python uninstall 3.12",
+        "uv python update-shell",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "uv",
+        "tool",
+        [
+            "list",
+            "run",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "uv tool list",
+        "uv tool run ruff check .",
+    ],
+    not_match = [
+        "uv tool uninstall ruff",
+    ],
+)
+
+# Preserve direct formatter, type-checker, and test-runner approvals.
 
 prefix_rule(
     pattern = [
@@ -21,4 +111,118 @@ prefix_rule(
         ],
     ],
     decision = "allow",
+    match = [
+        "black --check .",
+        "isort .",
+        "mypy src",
+        "pytest -q",
+        "ruff check --fix .",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "pip",
+            "pip3",
+        ],
+        [
+            "check",
+            "download",
+            "freeze",
+            "index",
+            "inspect",
+            "install",
+            "list",
+            "show",
+            "wheel",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "pip install -e .",
+        "pip3 list",
+    ],
+    not_match = [
+        "pip uninstall example",
+        "pip config set global.index-url https://example.com/simple",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "python",
+            "python3",
+        ],
+        "-m",
+        "pip",
+        [
+            "check",
+            "download",
+            "freeze",
+            "index",
+            "inspect",
+            "install",
+            "list",
+            "show",
+            "wheel",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "python -m pip install -e .",
+        "python3 -m pip check",
+    ],
+    not_match = [
+        "python3 -m pip uninstall example",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "python",
+            "python3",
+        ],
+        "-m",
+        [
+            "black",
+            "build",
+            "compileall",
+            "isort",
+            "mypy",
+            "pytest",
+            "ruff",
+            "unittest",
+            "venv",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "python3 -m pytest -q",
+        "python -m build",
+        "python3 -m venv .venv",
+    ],
+    not_match = [
+        "python3 -c pass",
+        "python3 script.py",
+        "python3 -m twine upload dist/*",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "python",
+            "python3",
+            "uv",
+        ],
+        "--version",
+    ],
+    decision = "allow",
+    match = [
+        "python3 --version",
+        "uv --version",
+    ],
 )

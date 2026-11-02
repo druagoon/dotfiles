@@ -1,0 +1,191 @@
+# Installs and script/package runners may execute arbitrary lifecycle scripts
+# or downloaded code and modify files. These are development approvals, not
+# read-only rules. Direct publishing, credentials, and cleanup remain explicit.
+# Use explicit run/exec commands; do not broadly allow runtimes or managers.
+
+prefix_rule(
+    pattern = [
+        "npm",
+        [
+            "audit",
+            "ci",
+            "diff",
+            "exec",
+            "explain",
+            "install",
+            "ls",
+            "outdated",
+            "pack",
+            "prefix",
+            "query",
+            "rebuild",
+            "root",
+            "run",
+            "run-script",
+            "search",
+            "test",
+            "view",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "npm ci",
+        "npm run build",
+        "npm exec -- prettier --check .",
+        "npm test -- --runInBand",
+    ],
+    not_match = [
+        "npm publish",
+        "npm unpublish example",
+        "npm login",
+        "npm token create",
+        "npm cache clean --force",
+        "npm config set registry https://example.com",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "pnpm",
+        [
+            "add",
+            "audit",
+            "dlx",
+            "exec",
+            "fetch",
+            "install",
+            "list",
+            "outdated",
+            "pack",
+            "rebuild",
+            "run",
+            "test",
+            "view",
+            "why",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "pnpm install --frozen-lockfile",
+        "pnpm run build",
+        "pnpm exec tsc --noEmit",
+    ],
+    not_match = [
+        "pnpm publish",
+        "pnpm store prune",
+        "pnpm config set registry https://example.com",
+    ],
+)
+
+# Yarn uses explicit run/exec; workspace and plugin dispatch are not blanket approvals.
+
+prefix_rule(
+    pattern = [
+        "yarn",
+        [
+            "add",
+            "dlx",
+            "exec",
+            "install",
+            "pack",
+            "run",
+            "why",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "yarn install --immutable",
+        "yarn run build",
+        "yarn dlx prettier --check .",
+    ],
+    not_match = [
+        "yarn npm publish",
+        "yarn publish",
+        "yarn config set npmRegistryServer https://example.com",
+        "yarn plugin import example",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "bun",
+        [
+            "add",
+            "audit",
+            "build",
+            "info",
+            "install",
+            "outdated",
+            "run",
+            "test",
+            "why",
+            "x",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "bun install --frozen-lockfile",
+        "bun run build",
+        "bun test",
+        "bun build src/index.ts --outdir dist",
+    ],
+    not_match = [
+        "bun publish",
+        "bun upgrade",
+        "bun pm cache rm",
+        "bun script.ts",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "bunx",
+            "npx",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "npx --no-install tsc --noEmit",
+        "bunx prettier --check .",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "node",
+        [
+            "--check",
+            "--run",
+            "--test",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "node --check src/index.js",
+        "node --run build",
+        "node --test",
+    ],
+    not_match = [
+        "node -e process.exit(0)",
+        "node script.js",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "bun",
+            "node",
+            "npm",
+            "pnpm",
+            "yarn",
+        ],
+        "--version",
+    ],
+    decision = "allow",
+    match = [
+        "node --version",
+        "npm --version",
+    ],
+)

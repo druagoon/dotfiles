@@ -1,12 +1,145 @@
+# Cargo builds, tests, and dependency operations may execute build scripts,
+# proc macros, project binaries, and configured runners, and modify files.
+# Keep publishing, registry credentials, toolchain removal, and cleanup explicit.
+
 prefix_rule(
     pattern = [
         "cargo",
         [
+            "add",
+            "bench",
+            "build",
             "check",
-            "test",
             "clippy",
+            "doc",
+            "fetch",
+            "fix",
             "fmt",
+            "generate-lockfile",
+            "info",
+            "install",
+            "locate-project",
+            "metadata",
+            "package",
+            "pkgid",
+            "run",
+            "rustc",
+            "rustdoc",
+            "search",
+            "test",
+            "tree",
+            "update",
+            "vendor",
         ],
     ],
     decision = "allow",
+    match = [
+        "cargo build --locked",
+        "cargo test --workspace",
+        "cargo fmt --all -- --check",
+        "cargo clippy --all-targets -- -D warnings",
+        "cargo metadata --format-version 1",
+        "cargo install --locked ripgrep",
+    ],
+    not_match = [
+        "cargo publish",
+        "cargo login token",
+        "cargo owner --add example",
+        "cargo yank --version 1.0.0",
+        "cargo clean",
+        "cargo uninstall example",
+        "cargo +nightly publish",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "rustfmt",
+    ],
+    decision = "allow",
+    match = [
+        "rustfmt --check src/main.rs",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "rustup",
+        [
+            "check",
+            "show",
+            "which",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "rustup show active-toolchain",
+        "rustup which rustc",
+    ],
+    not_match = [
+        "rustup default nightly",
+        "rustup self update",
+        "rustup run stable sh",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "rustup",
+        [
+            "component",
+            "target",
+        ],
+        [
+            "add",
+            "list",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "rustup target list --installed",
+        "rustup target add wasm32-unknown-unknown",
+        "rustup component add clippy",
+    ],
+    not_match = [
+        "rustup target remove wasm32-unknown-unknown",
+        "rustup component remove clippy",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "rustup",
+        "toolchain",
+        [
+            "install",
+            "list",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "rustup toolchain list",
+        "rustup toolchain install stable",
+    ],
+    not_match = [
+        "rustup toolchain uninstall stable",
+        "rustup toolchain link custom /tmp/toolchain",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        [
+            "cargo",
+            "rustc",
+            "rustfmt",
+            "rustup",
+        ],
+        "--version",
+    ],
+    decision = "allow",
+    match = [
+        "cargo --version",
+        "rustc --version",
+    ],
 )

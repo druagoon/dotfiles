@@ -1,12 +1,173 @@
+# Repository inspection. Prefix rules allow trailing arguments; Git pagers,
+# diff drivers, and configuration can execute programs. This is not a sandbox.
+# Keep commits, remote writes, history rewriting, and worktree edits explicit.
+
 prefix_rule(
     pattern = [
         "git",
         [
+            "annotate",
+            "blame",
+            "cat-file",
+            "check-attr",
+            "check-ignore",
+            "check-mailmap",
+            "cherry",
+            "count-objects",
+            "describe",
             "diff",
+            "diff-files",
+            "diff-index",
+            "diff-tree",
+            "for-each-ref",
+            "grep",
             "log",
+            "ls-files",
+            "ls-remote",
+            "ls-tree",
+            "merge-base",
+            "name-rev",
+            "range-diff",
+            "rev-list",
+            "rev-parse",
+            "shortlog",
             "show",
+            "show-branch",
             "status",
+            "switch",
+            "version",
         ],
     ],
     decision = "allow",
+    match = [
+        "git status --short",
+        "git diff --check",
+        "git log -5 --oneline",
+        "git ls-files --others --exclude-standard",
+        "git rev-parse --show-toplevel",
+    ],
+    not_match = [
+        "git commit -m change",
+        "git push origin main",
+        "git reset --hard HEAD",
+        "git clean -fd",
+        "git checkout -- file",
+        "git -c alias.inspect=!sh inspect",
+    ],
+)
+
+# End option parsing before branch/tag patterns to prevent mutation flags.
+
+prefix_rule(
+    pattern = [
+        "git",
+        [
+            "branch",
+            "tag",
+        ],
+        "--list",
+        "--",
+    ],
+    decision = "allow",
+    match = [
+        "git branch --list --",
+        "git tag --list -- v*",
+    ],
+    not_match = [
+        "git branch -D feature",
+        "git branch --list -D feature",
+        "git tag -d v1.0.0",
+    ],
+)
+
+# The get/list subcommands require Git 2.46 or newer.
+
+prefix_rule(
+    pattern = [
+        "git",
+        "config",
+        [
+            "get",
+            "list",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "git config get user.name",
+        "git config list --show-origin",
+    ],
+    not_match = [
+        "git config set user.name example",
+        "git config user.name example",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "git",
+        "remote",
+        [
+            "get-url",
+            "show",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "git remote get-url origin",
+        "git remote show -n origin",
+    ],
+    not_match = [
+        "git remote add upstream https://example.com/repo.git",
+        "git remote set-url origin https://example.com/repo.git",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "git",
+        "reflog",
+        "show",
+    ],
+    decision = "allow",
+    match = [
+        "git reflog show HEAD",
+    ],
+    not_match = [
+        "git reflog expire --expire=now --all",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "git",
+        "stash",
+        [
+            "list",
+            "show",
+        ],
+    ],
+    decision = "allow",
+    match = [
+        "git stash list",
+        "git stash show -p",
+    ],
+    not_match = [
+        "git stash drop",
+        "git stash pop",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "git",
+        "worktree",
+        "list",
+    ],
+    decision = "allow",
+    match = [
+        "git worktree list --porcelain",
+    ],
+    not_match = [
+        "git worktree remove ../feature",
+    ],
 )
