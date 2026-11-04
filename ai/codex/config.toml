@@ -55,7 +55,7 @@ git-commit-instructions = """
 **Task:** Generate a strict Conventional Commit message based on the provided code diff, git status, or user description.
 
 **Rules & Formatting:**
-1. **Language Constraint:** STRICTLY use English for the entire commit message (subject, body, and footer). Do not use any other language.
+1. **Language Constraint:** Use the language explicitly specified by the project's instructions or contribution guidelines for the commit message (subject, body, and footer). If the project does not specify a language, default to English. Preserve Conventional Commits types and required markers such as `BREAKING CHANGE:`.
 
 2. **Structure:**
    <type>(<optional scope>): <subject>
