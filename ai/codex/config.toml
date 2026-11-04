@@ -6,6 +6,7 @@ model_reasoning_effort = "high"
 model_verbosity = "medium"
 personality = "pragmatic"
 sandbox_mode = "workspace-write"
+web_search = "indexed"
 
 [sandbox_workspace_write]
 network_access = true
