@@ -1,11 +1,12 @@
 ## https://taplo.tamasfe.dev/configuration/file.html
 
-include = ["**/*.toml"]
-
 exclude = [
-  ".git/**",
-  ".idea/**",
-  ".venv/**",
+  "**/.git/**",
+  "**/.idea/**",
+  "**/.venv/**",
+  "**/.vscode/**",
+  "**/node_modules/**",
+  "**/target/**",
 ]
 
 [formatting]
@@ -14,8 +15,22 @@ array_auto_collapse = false
 indent_string = "  "
 
 [[rule]]
-include = [".taplo.toml", "taplo.toml"]
+include = ["**/.taplo.toml", "**/taplo.toml"]
 keys = ["exclude", "formatting", "include", "rule"]
+
+[rule.formatting]
+reorder_arrays = true
+reorder_keys = true
+
+[[rule]]
+include = ["**/Cargo.toml"]
+keys = [
+  "build-dependencies",
+  "dependencies",
+  "dev-dependencies",
+  "workspace.dependencies",
+  "target.*.dependencies",
+]
 
 [rule.formatting]
 reorder_arrays = true
@@ -30,3 +45,4 @@ keys = [
 
 [rule.formatting]
 reorder_arrays = true
+reorder_keys = true
