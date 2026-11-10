@@ -1,6 +1,6 @@
 global:
   links:
-    rumdl.toml: ~/.config/rumdl/rumdl.toml
+    .rumdl.toml: ~/.config/rumdl/rumdl.toml
 
 darwin:
   installs: brew install rumdl

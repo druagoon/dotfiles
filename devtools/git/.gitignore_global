@@ -75,6 +75,10 @@ Temporary Items
 .history
 .ionide
 
+### Tools ###
+# Markdown Linter and Formatter
+.rumdl_cache
+
 ### User ###
 .idea/
 .local/
