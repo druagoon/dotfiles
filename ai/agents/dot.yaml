@@ -1,5 +1,6 @@
 global:
   links:
+    guides: ~/.agents/guides
     skills/find-skills:
       - ~/.agents/skills/find-skills
       - ~/.claude/skills/find-skills

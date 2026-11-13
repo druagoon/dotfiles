@@ -27,8 +27,6 @@
 ## Evidence & Research
 
 - Resolve local facts from the repository, runtime, and tests before asking or searching externally.
-  For dependency or API work, inspect manifests and lockfiles; use pinned versions and compatible APIs.
-  Discuss newer versions only when material to the decision.
 - Browse for time-sensitive, uncertain, externally referenced, or high-stakes external facts, or when requested.
   Prefer official documentation, specifications, and release notes.
 - Never fabricate evidence or present assumptions as facts.
@@ -51,56 +49,25 @@
 
 ## Design & Implementation
 
-Before finalizing a non-trivial implementation plan or beginning a non-trivial implementation:
-
-1. Inspect affected architecture, runtime, manifests, contracts, tests, and deployment constraints.
-2. Identify governing quality attributes: correctness, maintainability, extensibility, security, operability,
-   performance, and migration impact.
-   Review ownership, state, coupling, duplication, hidden dependencies, hard-coded policy, oversized units,
-   and test seams.
-3. Compare viable approaches and define validation.
-   Choose the strongest design justified by requirements, evidence, operational constraints, and lifecycle cost,
-   rather than diff size.
-
-- Derive architecture and standards from requirements and intended use.
-  Production work needs appropriate security, configuration, observability, error handling, testability,
-  and operational ownership.
-  Avoid toy scaffolding, speculative complexity, and an assumed enterprise scale.
-- Keep responsibilities cohesive, dependencies controlled, and state and resource ownership explicit.
-  Choose modules, services, asynchronous workflows, or distributed coordination for concrete needs.
-- Correct structural debt the change would entrench within authorized boundaries;
-  resolve authorization before expanding them.
+- Derive architecture from requirements and intended use; avoid speculative complexity.
   Honor explicit user implementation choices over default architecture preferences.
-  Document trade-offs and unmet criteria; exceptions do not waive authorization, security, or data integrity.
-  Verified operational constraints may also justify a scoped compromise.
-- Treat compatibility as a quality attribute, not a veto.
-  For justified contract evolution, plan migration, versioning or deprecation, consumer transition,
-  and contract checks as needed.
-  Apply authorization rules to breaking changes; add shims or dual paths only for concrete rollout needs.
-- Evaluate libraries against the pinned runtime, maintenance, security, license, dependency, and operational costs;
-  prefer mature libraries when their value exceeds those costs.
-- Use typed boundaries and domain objects to clarify contracts, validation, and invariants;
-  cohesive objects for shared state and lifecycles; pure functions for stateless transformations.
-- Separate deterministic policy from I/O, time, randomness, processes, and frameworks.
-  Inject dependencies where this clarifies ownership or enables meaningful tests.
-- Preserve error context; distinguish validation, domain, dependency, and programming failures.
-  Fail closed at trust boundaries unless recovery is intentional and safe.
-- Keep modules and functions focused, with clear data flow and guard clauses.
-  Abstract real shared invariants or required extension points; name semantic states, identifiers,
-  and policies when useful, keeping intrinsic literals inline.
-- Make concurrency, cleanup, and failure behavior explicit.
-  Follow sound project conventions; improve conflicting conventions within scope.
+  Exceptions do not waive authorization, security, or data integrity.
 
 ## Verification & Delivery
 
-- Before declaring completion, verify behavior and design: cohesion, ownership, state lifecycles, dependency control,
-  and maintainable extension paths.
-  Tests alone are insufficient; assess accepted compromises against documented limits.
-- Add or update deterministic tests for changed behavior, contracts, boundaries, and meaningful failure paths,
-  without coupling tests to implementation details.
-  For changes without executable behavior, use appropriate document, configuration,
-  or build validation instead of artificial behavior tests.
-- Scale checks to risk: formatting, linting, typing, contracts, integration,
-  and target-runtime validation as applicable.
-  Report verification and material gaps.
-  Keep documentation task-focused, covering setup, assumptions, migration, usage, and verification when relevant.
+- Before declaring completion, validate changed behavior, contracts, and artifacts with checks appropriate to risk.
+  Report verification results, unperformed checks, and material gaps; do not imply unverified success.
+
+## On-Demand Guides
+
+- `~` denotes the user's home directory; expand it to an absolute path before reading the guides below.
+  Do not resolve these paths relative to the repository or working directory.
+- Read `~/.agents/guides/engineering.md` for non-trivial design, implementation, debugging, or review,
+  or work involving state, resource lifecycles, contracts, dependencies, concurrency, or trust boundaries.
+  Load it before finalizing the affected plan, starting implementation, or forming review conclusions.
+- Read `~/.agents/guides/verification.md` when changing behavior, contracts, configuration, builds, or documentation,
+  or defining tests, validation, or acceptance criteria.
+  Load it when defining the validation strategy, before implementation or the relevant checks begin.
+- Infer relevance from task meaning, not explicit keywords; reassess when investigation or scope reveals new concerns.
+  Read only relevant guides.
+  If a required guide is unavailable, report its path and the resulting limitation.
