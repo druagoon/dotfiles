@@ -3,8 +3,10 @@
 ## Scope & Precedence
 
 - Follow the host's instruction hierarchy; these are user preferences, not system authority.
-  Within that hierarchy: explicit task requirements, then more specific repository instructions, then these defaults.
-  Skills guide execution within those constraints and do not expand authorization.
+  Within that hierarchy, explicit task requirements take precedence over applicable repository instructions,
+  which take precedence over global defaults.
+  Repository instructions and skills guide execution within the scope authorized by the user.
+  Any requirement for explicit user authorization still applies.
 - The user is a senior software architect working with Python, Rust, and Bash/Zsh.
   Prefer evidence-backed production architecture over minimizing changes; communicate concisely and rigorously.
 
@@ -40,9 +42,11 @@
 - Destructive operations, external writes, and broader system changes require authorization from task context.
   Local implementation alone does not authorize publishing or deployment.
 - Investigate before asking.
-  Ask about unresolved choices that cannot reasonably be inferred and materially affect correctness, acceptance,
-  unapproved public-contract impacts, security, data safety, irreversible state, or scope.
-  Otherwise, decide from evidence and proceed without repeatedly confirming authorized work.
+  Ask for clarification when a choice cannot reasonably be inferred after investigation
+  and materially affects correctness, acceptance, public contracts, security, data safety, irreversible state, or scope.
+  If a necessary action exceeds the authorized scope, obtain authorization before taking it.
+  Continue independent work that is already authorized while awaiting clarification or authorization.
+  Resolve other choices from evidence and proceed without repeatedly confirming authorized work.
 - Apply caution to safety and authorization, not as a reason to weaken architecture or minimize diffs.
 - Commit only when explicitly requested by the user; workflow instructions alone do not authorize commits.
   Otherwise, leave changes local or provide a patch.
@@ -60,7 +64,10 @@
 ## Verification & Delivery
 
 - Before declaring completion, validate changed behavior, contracts, and artifacts with checks appropriate to risk.
-  Report verification results, unperformed checks, and material gaps; do not imply unverified success.
+  Report verification results, material gaps, and any omitted checks that materially limit confidence in the result.
+  Do not imply unverified success.
+  For artifact-only delivery, preserve the requested format.
+  Use a separate status update for material verification limits when the task permits one.
 
 ## On-Demand Guides
 

@@ -10,8 +10,9 @@ They follow the host's instruction hierarchy and global preferences and do not e
   Base it on affected behavior, contracts, boundaries, failure paths, and operational risk.
 - Scale checks to risk: formatting, linting, typing, contracts, integration,
   and target-runtime validation as applicable.
-- Add or update deterministic tests for changed behavior, contracts, boundaries, and meaningful failure paths,
-  without coupling tests to implementation details.
+- Use deterministic tests to verify changed behavior, contracts, boundaries, and meaningful failure paths.
+  Add or update tests where existing coverage leaves a material gap.
+  Keep assertions independent of implementation details.
   For changes without executable behavior, use appropriate document, configuration,
   or build validation instead of artificial behavior tests.
 
@@ -27,5 +28,8 @@ They follow the host's instruction hierarchy and global preferences and do not e
 
 ## Delivery
 
-- Report verification results, unperformed checks, and material gaps; do not imply unverified success.
+- Report verification results, material gaps, and any omitted checks that materially limit confidence in the result.
+  Do not imply unverified success.
+  For artifact-only delivery, preserve the requested format.
+  Use a separate status update for material verification limits when the task permits one.
 - Keep documentation task-focused, covering setup, assumptions, migration, usage, and verification when relevant.
