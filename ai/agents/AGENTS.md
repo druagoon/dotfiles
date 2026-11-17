@@ -76,7 +76,8 @@
 - Read `~/.agents/guides/engineering.md` for non-trivial design, implementation, debugging, or review,
   or work that requires reasoning about state, resource lifecycles, contracts, dependencies, concurrency,
   or trust boundaries.
-  Load it before finalizing the affected plan, starting implementation, or forming review conclusions.
+  Load it before finalizing the affected plan, starting implementation, concluding a diagnosis,
+  or forming review conclusions.
 - Read `~/.agents/guides/verification.md` when changing behavior, contracts, configuration, builds, or documentation,
   or defining tests, validation, or acceptance criteria.
   Load it when defining the validation strategy, before implementation or the relevant checks begin.

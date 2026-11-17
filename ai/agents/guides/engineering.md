@@ -14,8 +14,6 @@ Before finalizing a non-trivial implementation plan or beginning a non-trivial i
    and test seams.
 3. Compare viable approaches and define validation.
    Use representative maintenance scenarios to compare what must be understood, modified, and verified.
-   Choose the strongest design justified by requirements, evidence, operational constraints, and lifecycle cost,
-   rather than diff size.
 
 For debugging and review, inspect the relevant architecture, contracts, and evidence before forming conclusions.
 Evaluate proposed fixes and recommendations against the same quality attributes and operational constraints.
@@ -35,8 +33,9 @@ Evaluate proposed fixes and recommendations against the same quality attributes 
 - Choose file and directory granularity to reduce the context needed to understand and verify a change.
   File splitting alone does not establish isolation; assess dependencies, shared state, and contracts.
   Do not add indirection or dynamic discovery solely to avoid explicit wiring changes.
-- Correct structural debt the change would entrench within authorized boundaries;
-  resolve authorization before expanding them.
+- Address structural debt when leaving it in place would compromise the requested outcome
+  or an agreed design requirement.
+  Resolve authorization before expanding the scope.
   Honor explicit user implementation choices over default architecture preferences.
   Document trade-offs and unmet criteria; exceptions do not waive authorization, security, or data integrity.
   Verified operational constraints may also justify a scoped compromise.
@@ -47,10 +46,12 @@ Evaluate proposed fixes and recommendations against the same quality attributes 
 
 ## Dependencies & APIs
 
-- Inspect manifests and lockfiles; use pinned versions and compatible APIs.
-  Discuss newer versions only when material to the decision.
-- Evaluate libraries against the pinned runtime, maintenance, security, license, dependency, and operational costs;
-  prefer mature libraries when their value exceeds those costs.
+- Use the project's declared version constraints and supported runtimes.
+  Consult manifests and lockfiles where available to identify compatible APIs.
+  Discuss newer versions when they affect the decision.
+- Evaluate candidate libraries against those constraints and their maintenance, security, licensing, dependency,
+  and operational costs.
+  Prefer mature libraries when their benefits justify those costs.
 
 ## Implementation
 

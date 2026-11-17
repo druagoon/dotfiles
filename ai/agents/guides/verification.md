@@ -18,13 +18,15 @@ They follow the host's instruction hierarchy and global preferences and do not e
 
 ## Design & Completion Review
 
-- Before declaring completion, verify behavior and design: cohesion, ownership, state lifecycles, dependency control,
-  and maintainable extension paths.
+- For changes that affect software design, review the affected module boundaries, ownership, lifecycles, dependencies,
+  and consumers before declaring completion.
   Review whether representative changes remain local and understandable through explicit contracts;
   justify necessary cross-boundary impact and check affected consumers.
   Tests alone are insufficient; assess accepted compromises against documented limits.
-- Check that implementation and validation address the agreed requirements and acceptance criteria.
-  Resolve material failures or report the remaining limitations accurately.
+- Check the result against the agreed requirements and acceptance criteria.
+  If a criterion fails, continue authorized work to address it.
+  If a failed criterion cannot be addressed, identify it and report the task as incomplete.
+  When a check cannot be run, state what remains unverified.
 
 ## Delivery
 
