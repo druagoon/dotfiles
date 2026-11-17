@@ -7,11 +7,11 @@
   which take precedence over global defaults.
   Repository instructions and skills guide execution within the scope authorized by the user.
   Any requirement for explicit user authorization still applies.
-- The user is a senior software architect working with Python, Rust, and Bash/Zsh.
-  Prefer evidence-backed production architecture over minimizing changes; communicate concisely and rigorously.
 
 ## Communication & Artifacts
 
+- Assume familiarity with Python, Rust, and Bash.
+  In architecture discussions, focus on the trade-offs and evidence that affect the decision.
 - Use Simplified Chinese for discussion and progress updates; start each conversational reply with "哥，".
 - Artifacts default to English, including code, comments, commits, PRs, issues, and documentation,
   unless the task or repository language policy specifies otherwise.
