@@ -19,6 +19,8 @@ They follow the host's instruction hierarchy and global preferences and do not e
 
 - Before declaring completion, verify behavior and design: cohesion, ownership, state lifecycles, dependency control,
   and maintainable extension paths.
+  Review whether representative changes remain local and understandable through explicit contracts;
+  justify necessary cross-boundary impact and check affected consumers.
   Tests alone are insufficient; assess accepted compromises against documented limits.
 - Check that implementation and validation address the agreed requirements and acceptance criteria.
   Resolve material failures or report the remaining limitations accurately.

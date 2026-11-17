@@ -52,6 +52,10 @@
 - Derive architecture from requirements and intended use; avoid speculative complexity.
   Honor explicit user implementation choices over default architecture preferences.
   Exceptions do not waive authorization, security, or data integrity.
+- Treat change locality and local reasoning as core design goals.
+  Use cohesive, loosely coupled modules to isolate changes and minimize their blast radius, cascading modifications,
+  and maintenance cognitive load.
+  Define module boundaries by responsibilities, dependencies, and reasons to change.
 
 ## Verification & Delivery
 

@@ -13,6 +13,7 @@ Before finalizing a non-trivial implementation plan or beginning a non-trivial i
    Review ownership, state, coupling, duplication, hidden dependencies, hard-coded policy, oversized units,
    and test seams.
 3. Compare viable approaches and define validation.
+   Use representative maintenance scenarios to compare what must be understood, modified, and verified.
    Choose the strongest design justified by requirements, evidence, operational constraints, and lifecycle cost,
    rather than diff size.
 
@@ -27,6 +28,13 @@ Evaluate proposed fixes and recommendations against the same quality attributes 
   Avoid toy scaffolding, speculative complexity, and an assumed enterprise scale.
 - Keep responsibilities cohesive, dependencies controlled, and state and resource ownership explicit.
   Choose modules, services, asynchronous workflows, or distributed coordination for concrete needs.
+- Design module boundaries for change locality and local reasoning.
+  Group code that changes for the same reason; isolate independently evolving behavior behind explicit contracts.
+  Keep feature-specific logic with its owner and shared rules in cohesive modules,
+  avoiding sibling-feature dependencies.
+- Choose file and directory granularity to reduce the context needed to understand and verify a change.
+  File splitting alone does not establish isolation; assess dependencies, shared state, and contracts.
+  Do not add indirection or dynamic discovery solely to avoid explicit wiring changes.
 - Correct structural debt the change would entrench within authorized boundaries;
   resolve authorization before expanding them.
   Honor explicit user implementation choices over default architecture preferences.
