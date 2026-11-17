@@ -28,8 +28,4 @@ They follow the host's instruction hierarchy and global preferences and do not e
 
 ## Delivery
 
-- Report verification results, material gaps, and any omitted checks that materially limit confidence in the result.
-  Do not imply unverified success.
-  For artifact-only delivery, preserve the requested format.
-  Use a separate status update for material verification limits when the task permits one.
 - Keep documentation task-focused, covering setup, assumptions, migration, usage, and verification when relevant.
