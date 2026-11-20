@@ -4,10 +4,10 @@ respect-gitignore = true
 disable = ["MD033"]
 
 [MD013]
-line-length = 120
+line-length = 0
 length-mode = "visual"
 reflow = false
-reflow-mode = "semantic-line-breaks"
+reflow-mode = "sentence-per-line"
 code-blocks = false
 tables = false
 ignore-link-urls = true
