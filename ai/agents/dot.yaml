@@ -9,6 +9,6 @@ global:
       - ~/.claude/skills/git-commit
     AGENTS.md:
       - ~/.agents/AGENTS.md
-      - ~/.claude/AGENTS.md
+      - ~/.claude/CLAUDE.md
       - ~/.codex/AGENTS.md
-      - ~/.gemini/AGENTS.md
+      - ~/.gemini/GEMINI.md
