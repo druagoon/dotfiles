@@ -1,5 +1,4 @@
 [global]
-line-length = 120
 respect-gitignore = true
 disable = ["MD033"]
 exclude = [
@@ -7,14 +6,11 @@ exclude = [
 ]
 
 [MD013]
-line-length = 120
-length-mode = "visual"
+line-length = 0
 reflow = true
-reflow-mode = "semantic-line-breaks"
+reflow-mode = "sentence-per-line"
 code-blocks = false
-tables = false
-ignore-link-urls = true
-reflow-length-exemptions = true
+cjk-soft-break = "join"
 
 [MD029]
 style = "ordered"
@@ -37,3 +33,6 @@ style = "leading_and_trailing"
 [MD060]
 enabled = true
 style = "aligned"
+
+[MD089]
+enabled = true

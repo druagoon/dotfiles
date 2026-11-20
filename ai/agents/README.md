@@ -4,8 +4,7 @@ The English `AGENTS.md` and files in `guides/` are the authoritative instruction
 `AGENTS.md` contains global preferences and rules for loading the relevant guides on demand.
 
 Chinese translations are maintained under `i18n/zh-CN/` for human reading.
-They mirror the English files' relative paths and filenames without a language suffix: for example,
-`guides/engineering.md` corresponds to `i18n/zh-CN/guides/engineering.md`.
+They mirror the English files' relative paths and filenames without a language suffix: for example, `guides/engineering.md` corresponds to `i18n/zh-CN/guides/engineering.md`.
 Keep translations synchronized when changing the English files; the English originals take precedence.
 
 rotz deploys the English entry and guides according to `dot.yaml`.

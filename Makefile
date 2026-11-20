@@ -8,7 +8,12 @@ SHELL := bash
 
 .PHONY: fmt-yaml
 fmt-yaml: ## Format YAML files using yamlfmt
-	@yamlfmt .
+	yamlfmt .
+
+.PHONY: fmt-markdown
+fmt-markdown: ## Format Markdown files using prettier
+	rumdl check --fix
+	rumdl fmt
 
 ##@ General
 
