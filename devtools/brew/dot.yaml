@@ -1,3 +1,6 @@
 darwin:
   links:
     omz/plugins/dotf-brew: ~/.oh-my-zsh/custom/plugins/dotf-brew
+    brew.env:
+      - ~/.config/homebrew/brew.env
+      - ~/.homebrew/brew.env
