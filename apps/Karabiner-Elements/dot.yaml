@@ -1,0 +1,4 @@
+darwin:
+  links:
+    .config/karabiner/assets/complex_modifications/shift_input_source.json: ~/.config/karabiner/assets/complex_modifications/shift_input_source.json
+  installs: brew install --cask karabiner-elements

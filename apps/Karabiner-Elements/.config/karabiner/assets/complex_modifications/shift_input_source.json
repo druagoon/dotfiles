@@ -1,0 +1,31 @@
+{
+  "title": "Windows-style input source switching",
+  "rules": [
+    {
+      "description": "Tap left Shift to switch input source",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_shift"
+          },
+          "to": [
+            {
+              "key_code": "left_shift",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar",
+              "modifiers": ["left_control"]
+            }
+          ],
+          "parameters": {
+            "basic.to_if_alone_timeout_milliseconds": 300
+          }
+        }
+      ]
+    }
+  ]
+}
