@@ -1,0 +1,1 @@
+# dotf-shellproxy plugin

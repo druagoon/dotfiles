@@ -76,13 +76,13 @@ omz_pre_load_plugins() {
     local required_plugins=(
         dotf-core
         dotf-shell
-        dotf-shell-proxy
+        dotf-shellproxy
         dotf-go
         dotf-rust
         dotf-python-venv
     )
     for name in "${required_plugins[@]}"; do
-        if omz_pre_is_plugin "${name}" ]]; then
+        if omz_pre_is_plugin "${name}"; then
             plugins+=("${name}")
         fi
         omz_pre_load_plugin_consts "${name}"
@@ -95,7 +95,7 @@ omz_pre_load_plugins() {
             name="${plg##*/}"
             ignore="${plg}/.dotfignore"
             if [[ ! " ${required_plugins[*]} " == *" ${name} "* ]] && [[ ! -f "${ignore}" ]]; then
-                if omz_pre_is_plugin "${name}" ]]; then
+                if omz_pre_is_plugin "${name}"; then
                     plugins+=("${name}")
                 fi
                 omz_pre_load_plugin_consts "${name}"
