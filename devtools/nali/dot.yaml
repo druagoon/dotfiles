@@ -1,6 +1,6 @@
 global:
   links:
-    config.yaml: {{ dirs.base.config }}/nali/config.yaml
+    config.yaml: "{{ dirs.base.config }}/nali/config.yaml"
 
 darwin:
   installs: brew install nali
