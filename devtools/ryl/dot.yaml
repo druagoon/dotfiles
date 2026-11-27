@@ -1,0 +1,4 @@
+darwin:
+  links:
+    .ryl.toml: ~/.config/ryl/ryl.toml
+  installs: brew install ryl

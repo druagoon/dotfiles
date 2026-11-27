@@ -6,14 +6,22 @@ SHELL := bash
 
 ##@ Lint && Format
 
-.PHONY: fmt-yaml
-fmt-yaml: ## Format YAML files using yamlfmt
-	yamlfmt .
+.PHONY: fmt
+fmt: fmt-markdown fmt-toml fmt-yaml ## Format all files
 
 .PHONY: fmt-markdown
-fmt-markdown: ## Format Markdown files using prettier
-	rumdl check --fix
-	rumdl fmt
+fmt-markdown: ## Format Markdown files
+	autocorrect --fix **/*.md \
+	&& rumdl check --fix \
+	&& rumdl fmt
+
+.PHONY: fmt-toml
+fmt-toml: ## Format TOML files
+	taplo fmt
+
+.PHONY: fmt-yaml
+fmt-yaml: ## Format YAML files
+	ryl format .
 
 ##@ General
 

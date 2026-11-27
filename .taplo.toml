@@ -23,6 +23,12 @@ reorder_arrays = true
 reorder_keys = true
 
 [[rule]]
+include = ["**/.ryl.toml", "**/ryl.toml"]
+
+[rule.formatting]
+reorder_keys = true
+
+[[rule]]
 include = ["**/Cargo.toml"]
 keys = [
   "build-dependencies",

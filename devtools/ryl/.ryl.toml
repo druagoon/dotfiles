@@ -1,0 +1,17 @@
+indent-width = 2
+line-length = 120
+
+[files]
+markdown = ["*.md", "*.mdx"]
+yaml = ["*.yaml", "*.yml"]
+
+[format]
+line-ending = "lf"
+max-blank-lines = 1
+quote-style = "preserve"
+
+[lint.rules]
+indentation = "enable"
+key-duplicates = "enable"
+new-line-at-end-of-file = "enable"
+trailing-spaces = "enable"
