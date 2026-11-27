@@ -1,6 +1,21 @@
+match_type: doublestar
+include:
+  - "**/*.yaml"
+  - "**/*.yml"
+exclude:
+  - "**/.git/**"
+  - "**/.idea/**"
+  - "**/.venv/**"
+  - "**/vendor/**"
+  - "**/node_modules/**"
+  - "**/target/**"
+gitignore_excludes: true
 line_ending: lf
 formatter:
   type: basic
+  indent: 2
+  drop_merge_tag: true
   eof_newline: true
-  trim_trailing_whitespace: true
+  retain_line_breaks: true
   retain_line_breaks_single: true
+  trim_trailing_whitespace: true
