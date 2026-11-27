@@ -76,8 +76,11 @@ Temporary Items
 .ionide
 
 ### Tools ###
-# Markdown Linter and Formatter
-.rumdl_cache
+# rumdl cache
+.rumdl_cache/
+
+# ryl cache
+.ryl_cache/
 
 ### User ###
 .idea/
