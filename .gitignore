@@ -169,7 +169,7 @@ cython_debug/
 #.idea/
 
 # PyPI configuration file
-.pypirc
+# .pypirc
 
 ### Local ###
 .stow-local-ignore
