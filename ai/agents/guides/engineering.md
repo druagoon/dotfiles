@@ -44,12 +44,12 @@ Evaluate proposed fixes and recommendations against the same quality attributes 
 
 ## Implementation
 
-- Use typed boundaries and domain objects to clarify contracts, validation, and invariants; cohesive objects for shared state and lifecycles; pure functions for stateless transformations.
+- Parse and validate untrusted inputs into typed structures at external boundaries so internal code trusts invariants; use cohesive objects for shared state/lifecycles and pure functions for stateless transforms.
 - Separate deterministic policy from I/O, time, randomness, processes, and frameworks.
   Inject dependencies where this clarifies ownership or enables meaningful tests.
 - Preserve error context; distinguish validation, domain, dependency, and programming failures.
-  Fail closed at trust boundaries unless recovery is intentional and safe.
-- Keep modules and functions focused, with clear data flow and guard clauses.
+  Fail fast on programming errors and broken invariants; fail closed at trust boundaries unless recovery is intentional and safe.
+- Keep modules and functions focused, using early returns for clear flow rather than redundant defensive guards.
   Abstract real shared invariants or required extension points; name semantic states, identifiers, and policies when useful, keeping intrinsic literals inline.
 - Make concurrency, cleanup, and failure behavior explicit.
   Follow sound project conventions; improve conflicting conventions within scope.
